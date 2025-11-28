@@ -22,12 +22,17 @@ export default function Services() {
   ];
 
   return (
-    <section className="bg-white h-[677px]">
-      <div
-        className="w-full"
-        style={{ paddingLeft: "485px", paddingRight: "485px" }}
-      >
-        <h2 className="section-title mb-16">Services</h2>
+    <section className="bg-white h-[450px] md:h-[560px] lg:h-[677px]">
+      <div className="w-full px-4 md:px-20 lg:px-[485px]">
+        {/* 55px spacing from top */}
+        <div className="h-[55px]"></div>
+
+        <div className="h-[56px] flex items-center justify-center">
+          <h2 className="section-title">Services</h2>
+        </div>
+
+        {/* 25px spacing to content */}
+        <div className="h-[25px]"></div>
 
         <div className="flex items-start gap-0 relative">
           {/* Left Service - wisevisory */}
@@ -35,13 +40,13 @@ export default function Services() {
             {/* Image with decorative circles */}
             <Link
               href={services[0].link}
-              className="relative mb-[55px] group cursor-pointer transition-transform duration-300 hover:scale-105"
+              className="relative mb-[30px] md:mb-[42px] lg:mb-[55px] group cursor-pointer transition-transform duration-300 hover:scale-105"
             >
               {/* Outer circle border - in front */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[160px] h-[160px] rounded-full border-[8px] border-[#2D2D2D] group-hover:border-[#D79C60] transition-colors duration-300 z-10"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[100px] h-[100px] md:w-[130px] md:h-[130px] lg:w-[160px] lg:h-[160px] rounded-full border-[5px] md:border-[6px] lg:border-[8px] border-[#2D2D2D] group-hover:border-[#D79C60] transition-colors duration-300 z-10"></div>
 
               {/* Inner container for image - behind circle */}
-              <div className="w-[152px] h-[152px] rounded-full overflow-hidden relative z-0">
+              <div className="w-[95px] h-[95px] md:w-[123px] md:h-[123px] lg:w-[152px] lg:h-[152px] rounded-full overflow-hidden relative z-0">
                 <Image
                   src={services[0].logo}
                   alt="wisevisory"
@@ -51,7 +56,7 @@ export default function Services() {
                 />
                 {/* Learn More overlay */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                  <span className="text-[#E8E6E6] text-[14px] font-medium">
+                  <span className="text-[#E8E6E6] text-[10px] md:text-[12px] lg:text-[14px] font-medium">
                     Learn More
                   </span>
                 </div>
@@ -59,40 +64,40 @@ export default function Services() {
 
               {/* Small filled circle - top left */}
               <div
-                className="absolute w-[30px] h-[30px] rounded-full bg-[#D79C60] z-20"
+                className="absolute w-[20px] h-[20px] md:w-[25px] md:h-[25px] lg:w-[30px] lg:h-[30px] rounded-full bg-[#D79C60] z-20"
                 style={{
                   opacity: 0.75,
-                  top: "10px",
-                  left: "5px",
+                  top: "7px",
+                  left: "3px",
                 }}
               ></div>
 
               {/* Medium border-only circle - bottom right */}
               <div
-                className="absolute w-[55px] h-[55px] rounded-full border-[#D79C60] z-20"
+                className="absolute w-[35px] h-[35px] md:w-[45px] md:h-[45px] lg:w-[55px] lg:h-[55px] rounded-full border-[#D79C60] z-20"
                 style={{
                   opacity: 0.75,
-                  bottom: "5px",
+                  bottom: "3px",
                   right: "0px",
-                  borderWidth: "3px",
+                  borderWidth: "2px",
                 }}
               ></div>
             </Link>
 
             {/* Wisevisory Logo */}
-            <div className="mb-[5px]">
+            <div className="mb-[3px] md:mb-[4px] lg:mb-[5px]">
               <Image
                 src="/images/wisevisory_logo.png"
                 alt="wisevisory logo"
                 width={323}
                 height={78}
-                className="w-[323px] h-[78px]"
+                className="w-[200px] h-auto md:w-[260px] lg:w-[323px]"
               />
             </div>
 
             {/* Description text box */}
-            <div className="w-[310px] h-[134px] flex items-start justify-center">
-              <p className="text-[#333333] text-[16px] leading-[1.4] text-center font-medium">
+            <div className="w-full max-w-[200px] md:max-w-[255px] lg:max-w-[310px] h-auto md:h-[110px] lg:h-[134px] flex items-start justify-center">
+              <p className="text-[#333333] text-[11px] md:text-[13px] lg:text-[16px] leading-[1.4] text-center font-medium">
                 We <span className="font-bold">team-up</span> with business
                 owners and leaders to{" "}
                 <span className="font-bold">assess the overall health</span> of
@@ -107,20 +112,20 @@ export default function Services() {
           </div>
 
           {/* Vertical Separator */}
-          <div className="w-[1px] h-[100px] bg-[#333333] absolute left-1/2 top-0 mt-6 transform -translate-x-1/2"></div>
+          <div className="w-[1px] h-[60px] md:h-[80px] lg:h-[100px] bg-[#333333] absolute left-1/2 top-0 mt-4 md:mt-5 lg:mt-6 transform -translate-x-1/2"></div>
 
           {/* Right Service - wisecubation */}
           <div className="flex-1 text-center flex flex-col items-center">
             {/* Image with decorative circles */}
             <Link
               href={services[1].link}
-              className="relative mb-[55px] group cursor-pointer transition-transform duration-300 hover:scale-105"
+              className="relative mb-[30px] md:mb-[42px] lg:mb-[55px] group cursor-pointer transition-transform duration-300 hover:scale-105"
             >
               {/* Outer circle border - in front */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[160px] h-[160px] rounded-full border-[8px] border-[#364DAF] group-hover:border-[#D79C60] transition-colors duration-300 z-10"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[100px] h-[100px] md:w-[130px] md:h-[130px] lg:w-[160px] lg:h-[160px] rounded-full border-[5px] md:border-[6px] lg:border-[8px] border-[#364DAF] group-hover:border-[#D79C60] transition-colors duration-300 z-10"></div>
 
               {/* Inner container for image - behind circle */}
-              <div className="w-[152px] h-[152px] rounded-full overflow-hidden relative z-0">
+              <div className="w-[95px] h-[95px] md:w-[123px] md:h-[123px] lg:w-[152px] lg:h-[152px] rounded-full overflow-hidden relative z-0">
                 <Image
                   src={services[1].logo}
                   alt="wisecubation"
@@ -130,7 +135,7 @@ export default function Services() {
                 />
                 {/* Learn More overlay */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                  <span className="text-[#E8E6E6] text-[14px] font-medium">
+                  <span className="text-[#E8E6E6] text-[10px] md:text-[12px] lg:text-[14px] font-medium">
                     Learn More
                   </span>
                 </div>
@@ -138,40 +143,40 @@ export default function Services() {
 
               {/* Small filled circle - top left */}
               <div
-                className="absolute w-[30px] h-[30px] rounded-full bg-[#4A99F8] group-hover:bg-[#D79C60] transition-colors duration-300 z-20"
+                className="absolute w-[20px] h-[20px] md:w-[25px] md:h-[25px] lg:w-[30px] lg:h-[30px] rounded-full bg-[#4A99F8] group-hover:bg-[#D79C60] transition-colors duration-300 z-20"
                 style={{
                   opacity: 0.75,
-                  top: "10px",
-                  left: "5px",
+                  top: "7px",
+                  left: "3px",
                 }}
               ></div>
 
               {/* Medium border-only circle - bottom right */}
               <div
-                className="absolute w-[55px] h-[55px] rounded-full border-[#4A99F8] group-hover:border-[#D79C60] transition-colors duration-300 z-20"
+                className="absolute w-[35px] h-[35px] md:w-[45px] md:h-[45px] lg:w-[55px] lg:h-[55px] rounded-full border-[#4A99F8] group-hover:border-[#D79C60] transition-colors duration-300 z-20"
                 style={{
                   opacity: 0.75,
-                  bottom: "5px",
+                  bottom: "3px",
                   right: "0px",
-                  borderWidth: "3px",
+                  borderWidth: "2px",
                 }}
               ></div>
             </Link>
 
             {/* Wisecubation Logo */}
-            <div className="mb-[5px]">
+            <div className="mb-[3px] md:mb-[4px] lg:mb-[5px]">
               <Image
                 src="/images/wisecubation_logo.png"
                 alt="wisecubation logo"
                 width={323}
                 height={78}
-                className="w-[323px] h-[78px]"
+                className="w-[200px] h-auto md:w-[260px] lg:w-[323px]"
               />
             </div>
 
             {/* Description text box */}
-            <div className="w-[310px] h-[134px] flex items-start justify-center">
-              <p className="text-[#333333] text-[16px] leading-[1.4] text-center font-medium">
+            <div className="w-full max-w-[200px] md:max-w-[255px] lg:max-w-[310px] h-auto md:h-[110px] lg:h-[134px] flex items-start justify-center">
+              <p className="text-[#333333] text-[11px] md:text-[13px] lg:text-[16px] leading-[1.4] text-center font-medium">
                 We <span className="font-bold">educate</span> business owners
                 and leaders to{" "}
                 <span className="font-bold">enhance their capabilities</span> in

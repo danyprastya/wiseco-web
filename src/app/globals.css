@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 @layer components {
+  .section-title-wrapper {
+    @apply h-[56px] flex items-center justify-center pt-[30px] md:pt-[40px] lg:pt-[55px];
+  }
+  
   .section-title {
-    @apply text-[40px] text-[#D79C60] text-center pt-[55px] font-bold;
+    @apply text-[24px] md:text-[32px] lg:text-[40px] text-[#D79C60] text-center font-bold;
   }
 }
 

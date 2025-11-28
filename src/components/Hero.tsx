@@ -3,28 +3,33 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="relative flex items-center overflow-hidden h-[700px] mt-20">
-      {/* Background Image */}
+    <section className="relative flex items-center overflow-hidden h-[400px] md:h-[550px] lg:h-[700px] mt-12 md:mt-16 lg:mt-20">
+      {/* Background Image with Parallax */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url(/images/hero-bg.jpg)" }}
+        className="absolute inset-0"
+        style={{
+          backgroundImage: "url(/images/hero-bg.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}
       >
         {/* White Overlay */}
         <div className="absolute inset-0 bg-white opacity-65"></div>
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 w-full flex items-center justify-between px-[385px]">
+      <div className="relative z-10 w-full flex items-center justify-between px-4 md:px-20 lg:px-[385px]">
         {/* Left Side - Text Content */}
-        <div className="flex flex-col max-w-[600px]">
-          <h1 className="text-[#333333] mb-10 text-left text-[80px] leading-none font-semibold">
+        <div className="flex flex-col max-w-full md:max-w-[500px] lg:max-w-[600px]">
+          <h1 className="text-[#333333] mb-6 md:mb-8 lg:mb-10 text-left text-[40px] md:text-[60px] lg:text-[80px] leading-none font-semibold">
             <div>GROW</div>
             <div>YOUR</div>
             <div>BUSINESS</div>
             <div className="text-[#D79C60]">WISELY</div>
           </h1>
 
-          <p className="text-[#333333] mb-8 text-lg leading-[1.4]">
+          <p className="text-[#333333] mb-4 md:mb-6 lg:mb-8 text-sm md:text-base lg:text-lg leading-[1.4]">
             <span className="font-bold">
               As a business and investment advisor
             </span>
@@ -34,11 +39,11 @@ export default function Hero() {
             and build investable business
           </p>
 
-          <div className="flex gap-4">
+          <div className="flex gap-3 md:gap-4">
             <Link
               href="https://wa.me/+6281299981708"
               target="_blank"
-              className="bg-[#2D2D2D] text-[#D79C60] hover:bg-[#D79C60] hover:text-[#2D2D2D] transition-all flex items-center justify-center gap-2 font-medium px-8 py-3 rounded-full text-sm"
+              className="bg-[#2D2D2D] text-[#D79C60] hover:bg-[#D79C60] hover:text-[#2D2D2D] transition-all flex items-center justify-center gap-2 font-medium px-5 md:px-6 lg:px-8 py-2 md:py-2.5 lg:py-3 rounded-full text-xs md:text-sm"
             >
               Ask wise
             </Link>
@@ -46,7 +51,7 @@ export default function Hero() {
         </div>
 
         {/* Right Side - Network Image */}
-        <div className="hidden lg:block relative w-[500px] h-[400px]">
+        <div className="hidden lg:block relative w-[350px] xl:w-[500px] h-[280px] xl:h-[400px]">
           <Image
             src="/images/hero-network.png"
             alt="Network"

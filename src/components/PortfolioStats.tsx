@@ -129,26 +129,34 @@ export default function PortfolioStats() {
   }, [hasAnimated]);
 
   return (
-    <section ref={sectionRef} className="bg-white h-[507px]">
-      <div
-        className="w-full"
-        style={{ paddingLeft: "468px", paddingRight: "468px" }}
-      >
-        <h2 className="section-title mb-12">Portfolio</h2>
+    <section
+      ref={sectionRef}
+      className="bg-white h-[350px] md:h-[420px] lg:h-[507px]"
+    >
+      <div className="w-full px-4 md:px-20 lg:px-[468px]">
+        {/* 55px spacing from top */}
+        <div className="h-[55px]"></div>
 
-        <div className="flex justify-center gap-[20px] mb-[90px]">
+        <div className="h-[56px] flex items-center justify-center">
+          <h2 className="section-title">Portfolio</h2>
+        </div>
+
+        {/* 25px spacing to content */}
+        <div className="h-[25px]"></div>
+
+        <div className="flex justify-center gap-[10px] md:gap-[15px] lg:gap-[20px] mb-[40px] md:mb-[65px] lg:mb-[90px]">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="w-[266px] flex flex-col items-center justify-center text-center"
+              className="w-[140px] md:w-[200px] lg:w-[266px] flex flex-col items-center justify-center text-center"
             >
               <div
                 id={`counter-${index}`}
-                className="text-[80px] font-bold text-[#333333] leading-[1.4]"
+                className="text-[40px] md:text-[60px] lg:text-[80px] font-bold text-[#333333] leading-[1.4]"
               >
                 0
               </div>
-              <div className="text-[20px] text-[#333333] leading-[1.1]">
+              <div className="text-[12px] md:text-[16px] lg:text-[20px] text-[#333333] leading-[1.1]">
                 {stat.label}
               </div>
             </div>
@@ -156,20 +164,20 @@ export default function PortfolioStats() {
         </div>
 
         {/* Client Logo Marquee */}
-        <div className="w-[920px] h-[45px] mx-auto overflow-hidden relative">
-          <div className="flex gap-[50px] animate-marquee">
+        <div className="w-full max-w-[920px] h-[30px] md:h-[38px] lg:h-[45px] mx-auto overflow-hidden relative">
+          <div className="flex gap-[30px] md:gap-[40px] lg:gap-[50px] animate-marquee">
             {/* First set of logos */}
             {clientLogos.map((logo, index) => (
               <div
                 key={`logo-1-${index}`}
-                className="flex-shrink-0 h-[45px] flex items-center"
+                className="flex-shrink-0 h-[30px] md:h-[38px] lg:h-[45px] flex items-center"
               >
                 <Image
                   src={`/images/logo marquee klien/${logo}`}
                   alt={`Client ${index + 1}`}
                   width={200}
                   height={45}
-                  className="h-[45px] w-auto object-contain"
+                  className="h-[30px] md:h-[38px] lg:h-[45px] w-auto object-contain"
                 />
               </div>
             ))}
@@ -177,14 +185,14 @@ export default function PortfolioStats() {
             {clientLogos.map((logo, index) => (
               <div
                 key={`logo-2-${index}`}
-                className="flex-shrink-0 h-[45px] flex items-center"
+                className="flex-shrink-0 h-[30px] md:h-[38px] lg:h-[45px] flex items-center"
               >
                 <Image
                   src={`/images/logo marquee klien/${logo}`}
                   alt={`Client ${index + 1}`}
                   width={200}
                   height={45}
-                  className="h-[45px] w-auto object-contain"
+                  className="h-[30px] md:h-[38px] lg:h-[45px] w-auto object-contain"
                 />
               </div>
             ))}

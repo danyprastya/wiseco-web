@@ -83,7 +83,6 @@ export default function Header() {
                   style={{
                     paddingLeft: "20px",
                     paddingRight: "20px",
-                    
                   }}
                 >
                   Portfolio
@@ -94,7 +93,6 @@ export default function Header() {
                   style={{
                     paddingLeft: "20px",
                     paddingRight: "20px",
-                    
                   }}
                 >
                   Services
@@ -105,7 +103,6 @@ export default function Header() {
                   style={{
                     paddingLeft: "20px",
                     paddingRight: "20px",
-                    
                   }}
                 >
                   Projects
@@ -116,7 +113,6 @@ export default function Header() {
                   style={{
                     paddingLeft: "20px",
                     paddingRight: "20px",
-                    
                   }}
                 >
                   Events
@@ -127,7 +123,6 @@ export default function Header() {
                   style={{
                     paddingLeft: "20px",
                     paddingRight: "20px",
-                    
                   }}
                 >
                   Testimonies
@@ -138,7 +133,6 @@ export default function Header() {
                   style={{
                     paddingLeft: "20px",
                     paddingRight: "20px",
-                    
                   }}
                 >
                   Videos
@@ -149,7 +143,6 @@ export default function Header() {
                   style={{
                     paddingLeft: "20px",
                     paddingRight: "20px",
-                    
                   }}
                 >
                   Strategic Partners
@@ -197,7 +190,6 @@ export default function Header() {
                   style={{
                     paddingLeft: "20px",
                     paddingRight: "20px",
-                    
                   }}
                 >
                   Vision & Mission
@@ -208,7 +200,6 @@ export default function Header() {
                   style={{
                     paddingLeft: "20px",
                     paddingRight: "20px",
-                    
                   }}
                 >
                   Founders
@@ -219,7 +210,6 @@ export default function Header() {
                   style={{
                     paddingLeft: "20px",
                     paddingRight: "20px",
-                    
                   }}
                 >
                   Virtual C-Level
@@ -230,7 +220,6 @@ export default function Header() {
                   style={{
                     paddingLeft: "20px",
                     paddingRight: "20px",
-                    
                   }}
                 >
                   wisecosystem
@@ -263,23 +252,21 @@ export default function Header() {
                 }}
               >
                 <Link
-                  href="/services/wisevisory"
+                  href="/wisevisory"
                   className="block text-[#333333] hover:text-[#D79C60] text-[14px] font-bold text-center whitespace-nowrap"
                   style={{
                     paddingLeft: "20px",
                     paddingRight: "20px",
-                    
                   }}
                 >
                   wisevisory
                 </Link>
                 <Link
-                  href="/services/wisecubation"
+                  href="/wisecubation"
                   className="block text-[#333333] hover:text-[#D79C60] text-[14px] font-bold text-center whitespace-nowrap"
                   style={{
                     paddingLeft: "20px",
                     paddingRight: "20px",
-                    
                   }}
                 >
                   wisecubation
