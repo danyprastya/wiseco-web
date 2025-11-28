@@ -168,7 +168,7 @@ export default function Header() {
             onMouseLeave={() => setActiveDropdown(null)}
           >
             <Link
-              href="/about-us"
+              href="/aboutus"
               className="text-[#333333] hover:text-[#D79C60] transition-colors font-bold text-[14px] whitespace-nowrap"
             >
               About Us
@@ -185,7 +185,7 @@ export default function Header() {
                 }}
               >
                 <Link
-                  href="/about-us/vision-mission"
+                  href="/aboutus#vision-mission"
                   className="block text-[#333333] hover:text-[#D79C60] text-[14px] font-bold text-center whitespace-nowrap"
                   style={{
                     paddingLeft: "20px",
@@ -195,7 +195,7 @@ export default function Header() {
                   Vision & Mission
                 </Link>
                 <Link
-                  href="/about-us/founders"
+                  href="/aboutus#founders"
                   className="block text-[#333333] hover:text-[#D79C60] text-[14px] font-bold text-center whitespace-nowrap"
                   style={{
                     paddingLeft: "20px",
@@ -205,7 +205,7 @@ export default function Header() {
                   Founders
                 </Link>
                 <Link
-                  href="/about-us/virtual-c-level"
+                  href="/aboutus#virtual-c-level"
                   className="block text-[#333333] hover:text-[#D79C60] text-[14px] font-bold text-center whitespace-nowrap"
                   style={{
                     paddingLeft: "20px",
@@ -215,7 +215,7 @@ export default function Header() {
                   Virtual C-Level
                 </Link>
                 <Link
-                  href="/about-us/wisecosystem"
+                  href="/aboutus#wisecosystem"
                   className="block text-[#333333] hover:text-[#D79C60] text-[14px] font-bold text-center whitespace-nowrap"
                   style={{
                     paddingLeft: "20px",
@@ -351,7 +351,7 @@ export default function Header() {
               Home
             </Link>
             <Link
-              href="/about-us"
+              href="/aboutus"
               className="text-[#333333] hover:text-[#D79C60] transition-colors font-bold text-[14px]"
               onClick={() => setIsMenuOpen(false)}
             >

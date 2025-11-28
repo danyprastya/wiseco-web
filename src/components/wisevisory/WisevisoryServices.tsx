@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { wisevisoryServices, WisevisoryService } from "@/data/wisevisory";
 
 function ServiceCard({ service }: { service: WisevisoryService }) {
@@ -8,13 +9,43 @@ function ServiceCard({ service }: { service: WisevisoryService }) {
 
   return (
     <div
-      className="w-[204px] h-[266px] rounded-[20px] bg-white border border-gray-200 flex items-center justify-center p-4 cursor-pointer transition-transform duration-300 hover:scale-110 shadow-sm"
+      className="w-[204px] h-[266px] rounded-[20px] overflow-hidden relative cursor-pointer transition-transform duration-300 hover:scale-110"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <p className="text-[16px] font-semibold text-[#333333] text-center leading-[1.4]">
-        {isHovered ? service.description : service.title}
-      </p>
+      {/* Background Image */}
+      <Image
+        src="/images/bg-box-service.jpg"
+        alt=""
+        fill
+        className="object-cover"
+        sizes="204px"
+      />
+
+      {/* Black Overlay - always visible */}
+      <div className="absolute inset-0 bg-black/40" />
+
+      {/* Title - visible when not hovered */}
+      <div
+        className={`absolute inset-0 flex items-center justify-center p-4 transition-opacity duration-300 ${
+          isHovered ? "opacity-0" : "opacity-100"
+        }`}
+      >
+        <p className="text-[22px] text-white text-center leading-[1.4]">
+          <strong>{service.title}</strong>
+        </p>
+      </div>
+
+      {/* Hover - Description */}
+      <div
+        className={`absolute inset-0 flex items-center justify-center p-[20px] transition-opacity duration-300 ${
+          isHovered ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <p className="text-[13px] font-normal text-white text-center leading-[1.4]">
+          {service.description}
+        </p>
+      </div>
     </div>
   );
 }

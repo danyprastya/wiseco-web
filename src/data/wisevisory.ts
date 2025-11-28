@@ -7,43 +7,43 @@ export interface WisevisoryService {
 export const wisevisoryServices: WisevisoryService[] = [
   {
     id: 1,
-    title: "Business Strategy",
-    description: "Developing comprehensive business strategies to achieve your goals",
+    title: "Fundamental Business Review",
+    description: "Mapping the current state of the business and conducting an assesment of its operations, administrations, and finance",
   },
   {
     id: 2,
-    title: "Financial Advisory",
-    description: "Expert financial guidance for sustainable business growth",
+    title: "Fundamental Business Improvement",
+    description: "Initiating improvements based on validated priority sequences from the previous Fundamental Business Review process, including mapping the necessary improvement roadmap for the company",
   },
   {
     id: 3,
-    title: "Operations Management",
-    description: "Streamlining operations for maximum efficiency",
+    title: "Strategic Growth Mapping",
+    description: "Mapping the future plan of the business and conducting an assessment of its operations plan, also the administrations, and finances plan",
   },
   {
     id: 4,
-    title: "Market Analysis",
-    description: "In-depth market research and competitive analysis",
+    title: "Investment Plan Preparation",
+    description: "Crafting investment plans and preparing the best investment strategies",
   },
   {
     id: 5,
-    title: "Growth Planning",
-    description: "Strategic planning for business expansion and scaling",
+    title: "Investment Preparation Advisory",
+    description: "Assisting Business Owners and Management in facing investors and seeking preferred investor candidates",
   },
   {
     id: 6,
-    title: "Risk Assessment",
-    description: "Identifying and mitigating business risks effectively",
+    title: "Business Operation Advisory",
+    description: "Assisting the Business Owner and Management in implementation of current strategy or solving their priority operational issues",
   },
   {
     id: 7,
-    title: "Performance Review",
-    description: "Comprehensive evaluation of business performance metrics",
+    title: "Business Model Formulation",
+    description: "Mapping the business model to describes the rationale of how an organization creates, delivers, and captures value",
   },
   {
     id: 8,
-    title: "Investment Advisory",
-    description: "Guidance on investment opportunities and funding strategies",
+    title: "Fundamental Brand Development",
+    description: "Build and strengthen distinctive values, positioning, and brand image to create positive perceptions and consumer attraction.",
   },
 ];
 
