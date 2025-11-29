@@ -68,7 +68,15 @@ function VideoCard({ video }: { video: VideoData }) {
 
 export default function YoutubeVideos() {
   return (
-    <section className="h-[553px] bg-[#E8E8E8] flex items-center justify-center">
+    <section
+      className="h-[553px] flex items-center justify-center relative"
+      style={{
+        backgroundImage: "url('/images/bg-youtube.avif')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+    >
       <div className="grid grid-cols-2 gap-[20px]">
         {videos.map((video) => (
           <VideoCard key={video.id} video={video} />

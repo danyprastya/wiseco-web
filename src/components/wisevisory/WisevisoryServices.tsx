@@ -31,7 +31,7 @@ function ServiceCard({ service }: { service: WisevisoryService }) {
           isHovered ? "opacity-0" : "opacity-100"
         }`}
       >
-        <p className="text-[22px] text-white text-center leading-[1.4]">
+        <p className="text-[22px] text-white text-center leading-[1.2]">
           <strong>{service.title}</strong>
         </p>
       </div>

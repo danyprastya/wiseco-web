@@ -22,7 +22,10 @@ export default function Services() {
   ];
 
   return (
-    <section className="bg-white h-[450px] md:h-[560px] lg:h-[677px]">
+    <section
+      id="services"
+      className="bg-white h-[450px] md:h-[560px] lg:h-[677px]"
+    >
       <div className="w-full px-4 md:px-20 lg:px-[485px]">
         {/* 55px spacing from top */}
         <div className="h-[55px]"></div>

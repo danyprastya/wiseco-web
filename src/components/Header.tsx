@@ -3,12 +3,22 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const pathname = usePathname();
+
+  // Helper function to check if a path is active
+  const isActive = (path: string) => {
+    if (path === "/") {
+      return pathname === "/";
+    }
+    return pathname.startsWith(path);
+  };
 
   useEffect(() => {
     const controlNavbar = () => {
@@ -62,7 +72,9 @@ export default function Header() {
           >
             <Link
               href="/"
-              className="text-[#D79C60] hover:text-[#D79C60] transition-colors font-bold text-[14px] whitespace-nowrap"
+              className={`${
+                isActive("/") ? "text-[#D79C60]" : "text-[#333333]"
+              } hover:text-[#D79C60] transition-colors font-bold text-[14px] whitespace-nowrap`}
             >
               Home
             </Link>
@@ -169,7 +181,9 @@ export default function Header() {
           >
             <Link
               href="/aboutus"
-              className="text-[#333333] hover:text-[#D79C60] transition-colors font-bold text-[14px] whitespace-nowrap"
+              className={`${
+                isActive("/aboutus") ? "text-[#D79C60]" : "text-[#333333]"
+              } hover:text-[#D79C60] transition-colors font-bold text-[14px] whitespace-nowrap`}
             >
               About Us
             </Link>
@@ -235,8 +249,12 @@ export default function Header() {
             onMouseLeave={() => setActiveDropdown(null)}
           >
             <Link
-              href="/services"
-              className="text-[#333333] hover:text-[#D79C60] transition-colors font-bold text-[14px] whitespace-nowrap"
+              href="/#services"
+              className={`${
+                isActive("/wisevisory") || isActive("/wisecubation")
+                  ? "text-[#D79C60]"
+                  : "text-[#333333]"
+              } hover:text-[#D79C60] transition-colors font-bold text-[14px] whitespace-nowrap`}
             >
               Services
             </Link>
@@ -278,7 +296,9 @@ export default function Header() {
           {/* Book Online - No Dropdown */}
           <Link
             href="/book-online"
-            className="text-[#333333] hover:text-[#D79C60] transition-colors font-bold text-[14px] whitespace-nowrap"
+            className={`${
+              isActive("/book-online") ? "text-[#D79C60]" : "text-[#333333]"
+            } hover:text-[#D79C60] transition-colors font-bold text-[14px] whitespace-nowrap`}
           >
             Book Online
           </Link>
@@ -286,7 +306,9 @@ export default function Header() {
           {/* Contact - No Dropdown */}
           <Link
             href="/contact"
-            className="text-[#333333] hover:text-[#D79C60] transition-colors font-bold text-[14px] whitespace-nowrap"
+            className={`${
+              isActive("/contact") ? "text-[#D79C60]" : "text-[#333333]"
+            } hover:text-[#D79C60] transition-colors font-bold text-[14px] whitespace-nowrap`}
           >
             Contact
           </Link>
@@ -345,56 +367,74 @@ export default function Header() {
           <nav className="flex flex-col p-4 gap-4">
             <Link
               href="/"
-              className="text-[#333333] hover:text-[#D79C60] transition-colors font-bold text-[14px]"
+              className={`${
+                isActive("/") ? "text-[#D79C60]" : "text-[#333333]"
+              } hover:text-[#D79C60] transition-colors font-bold text-[14px]`}
               onClick={() => setIsMenuOpen(false)}
             >
               Home
             </Link>
             <Link
               href="/aboutus"
-              className="text-[#333333] hover:text-[#D79C60] transition-colors font-bold text-[14px]"
+              className={`${
+                isActive("/aboutus") ? "text-[#D79C60]" : "text-[#333333]"
+              } hover:text-[#D79C60] transition-colors font-bold text-[14px]`}
               onClick={() => setIsMenuOpen(false)}
             >
               About Us
             </Link>
             <Link
-              href="/services"
-              className="text-[#333333] hover:text-[#D79C60] transition-colors font-bold text-[14px]"
+              href="/#services"
+              className={`${
+                isActive("/wisevisory") || isActive("/wisecubation")
+                  ? "text-[#D79C60]"
+                  : "text-[#333333]"
+              } hover:text-[#D79C60] transition-colors font-bold text-[14px]`}
               onClick={() => setIsMenuOpen(false)}
             >
               Services
             </Link>
             <Link
               href="/portfolio"
-              className="text-[#333333] hover:text-[#D79C60] transition-colors font-bold text-[14px]"
+              className={`${
+                isActive("/portfolio") ? "text-[#D79C60]" : "text-[#333333]"
+              } hover:text-[#D79C60] transition-colors font-bold text-[14px]`}
               onClick={() => setIsMenuOpen(false)}
             >
               Portfolio
             </Link>
             <Link
               href="/projects"
-              className="text-[#333333] hover:text-[#D79C60] transition-colors font-bold text-[14px]"
+              className={`${
+                isActive("/projects") ? "text-[#D79C60]" : "text-[#333333]"
+              } hover:text-[#D79C60] transition-colors font-bold text-[14px]`}
               onClick={() => setIsMenuOpen(false)}
             >
               Projects
             </Link>
             <Link
               href="/events"
-              className="text-[#333333] hover:text-[#D79C60] transition-colors font-bold text-[14px]"
+              className={`${
+                isActive("/events") ? "text-[#D79C60]" : "text-[#333333]"
+              } hover:text-[#D79C60] transition-colors font-bold text-[14px]`}
               onClick={() => setIsMenuOpen(false)}
             >
               Events
             </Link>
             <Link
               href="/testimonies"
-              className="text-[#333333] hover:text-[#D79C60] transition-colors font-bold text-[14px]"
+              className={`${
+                isActive("/testimonies") ? "text-[#D79C60]" : "text-[#333333]"
+              } hover:text-[#D79C60] transition-colors font-bold text-[14px]`}
               onClick={() => setIsMenuOpen(false)}
             >
               Testimonies
             </Link>
             <Link
               href="/contact"
-              className="text-[#333333] hover:text-[#D79C60] transition-colors font-bold text-[14px]"
+              className={`${
+                isActive("/contact") ? "text-[#D79C60]" : "text-[#333333]"
+              } hover:text-[#D79C60] transition-colors font-bold text-[14px]`}
               onClick={() => setIsMenuOpen(false)}
             >
               Contact

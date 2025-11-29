@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function AboutUsWisecosystem() {
   return (
     <section
@@ -11,14 +13,19 @@ export default function AboutUsWisecosystem() {
         <h2 className="section-title">wisecosystem</h2>
       </div>
 
-      {/* 25px spacing */}
-      <div className="h-[25px]"></div>
+      {/* 20px spacing */}
+      <div className="h-[20px]"></div>
 
-      {/* Content placeholder */}
-      <div className="flex-1 flex items-center justify-center">
-        <p className="text-[20px] text-[#999999] font-medium">
-          [Content coming soon]
-        </p>
+      {/* Wisecosystem Image */}
+      <div className="w-[620px] relative">
+        <Image
+          src="/images/aboutus/wisecosystem.png"
+          alt="Wisecosystem"
+          width={620}
+          height={0}
+          style={{ width: "620px", height: "auto" }}
+          className="object-contain"
+        />
       </div>
     </section>
   );

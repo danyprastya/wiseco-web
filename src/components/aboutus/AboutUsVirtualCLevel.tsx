@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function AboutUsVirtualCLevel() {
   return (
     <section
@@ -11,14 +13,19 @@ export default function AboutUsVirtualCLevel() {
         <h2 className="section-title">Virtual C-Level</h2>
       </div>
 
-      {/* 25px spacing */}
-      <div className="h-[25px]"></div>
+      {/* 20px spacing */}
+      <div className="h-[20px]"></div>
 
-      {/* Content placeholder */}
-      <div className="flex-1 flex items-center justify-center">
-        <p className="text-[20px] text-[#999999] font-medium">
-          [Content coming soon]
-        </p>
+      {/* Virtual C-Level Image */}
+      <div className="w-[634px] relative">
+        <Image
+          src="/images/aboutus/virtualCLevel.png"
+          alt="Virtual C-Level"
+          width={634}
+          height={0}
+          style={{ width: "634px", height: "auto" }}
+          className="object-contain"
+        />
       </div>
     </section>
   );
