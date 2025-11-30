@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function PortfolioStats() {
   const [hasAnimated, setHasAnimated] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const stats = [
     {
@@ -130,33 +130,37 @@ export default function PortfolioStats() {
 
   return (
     <section
+      id="portfolio"
       ref={sectionRef}
-      className="bg-white h-[350px] md:h-[420px] lg:h-[507px]"
+      className="bg-white h-auto sm:h-[320px] md:h-[370px] lg:h-[430px] xl:h-[507px] py-[20px] sm:py-0"
     >
-      <div className="w-full px-4 md:px-20 lg:px-[468px]">
-        {/* 55px spacing from top */}
-        <div className="h-[55px]"></div>
+      <div className="w-full px-[20px] sm:px-4 md:px-20 lg:px-[300px] xl:px-[468px]">
+        {/* Spacing from top */}
+        <div className="hidden sm:block h-[35px] md:h-[42px] lg:h-[48px] xl:h-[55px]"></div>
 
-        <div className="h-[56px] flex items-center justify-center">
-          <h2 className="section-title">Portfolio</h2>
+        <div className="h-[40px] sm:h-[42px] md:h-[48px] lg:h-[52px] xl:h-[56px] flex items-center justify-center">
+          <h2 className="text-[25px] sm:text-[28px] md:text-[32px] lg:text-[36px] xl:text-[40px] font-semibold text-[#D79C60] section-title">
+            Portfolio
+          </h2>
         </div>
 
-        {/* 25px spacing to content */}
-        <div className="h-[25px]"></div>
+        {/* Spacing to content */}
+        <div className="h-[15px] sm:h-[18px] md:h-[20px] lg:h-[22px] xl:h-[25px]"></div>
 
-        <div className="flex justify-center gap-[10px] md:gap-[15px] lg:gap-[20px] mb-[40px] md:mb-[65px] lg:mb-[90px]">
+        {/* Stats - vertical on mobile, horizontal on larger screens */}
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-[10px] sm:gap-[10px] md:gap-[15px] lg:gap-[18px] xl:gap-[20px] mb-[20px] sm:mb-[35px] md:mb-[50px] lg:mb-[70px] xl:mb-[90px]">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="w-[140px] md:w-[200px] lg:w-[266px] flex flex-col items-center justify-center text-center"
+              className="w-full sm:w-[120px] md:w-[160px] lg:w-[210px] xl:w-[266px] flex flex-col items-center justify-center text-center"
             >
               <div
                 id={`counter-${index}`}
-                className="text-[40px] md:text-[60px] lg:text-[80px] font-bold text-[#333333] leading-[1.4]"
+                className="text-[26px] sm:text-[35px] md:text-[48px] lg:text-[64px] xl:text-[80px] font-bold text-[#333333] leading-[1.2] sm:leading-[1.4]"
               >
                 0
               </div>
-              <div className="text-[12px] md:text-[16px] lg:text-[20px] text-[#333333] leading-[1.1]">
+              <div className="text-[16px] sm:text-[11px] md:text-[14px] lg:text-[17px] xl:text-[20px] text-[#333333] leading-[1.1] mt-[10px] sm:mt-0">
                 {stat.label}
               </div>
             </div>
@@ -164,38 +168,42 @@ export default function PortfolioStats() {
         </div>
 
         {/* Client Logo Marquee */}
-        <div className="w-full max-w-[920px] h-[30px] md:h-[38px] lg:h-[45px] mx-auto overflow-hidden relative">
-          <div className="flex gap-[30px] md:gap-[40px] lg:gap-[50px] animate-marquee">
-            {/* First set of logos */}
-            {clientLogos.map((logo, index) => (
-              <div
-                key={`logo-1-${index}`}
-                className="flex-shrink-0 h-[30px] md:h-[38px] lg:h-[45px] flex items-center"
-              >
-                <Image
-                  src={`/images/logo marquee klien/${logo}`}
-                  alt={`Client ${index + 1}`}
-                  width={200}
-                  height={45}
-                  className="h-[30px] md:h-[38px] lg:h-[45px] w-auto object-contain"
-                />
-              </div>
-            ))}
-            {/* Duplicate set for seamless loop */}
-            {clientLogos.map((logo, index) => (
-              <div
-                key={`logo-2-${index}`}
-                className="flex-shrink-0 h-[30px] md:h-[38px] lg:h-[45px] flex items-center"
-              >
-                <Image
-                  src={`/images/logo marquee klien/${logo}`}
-                  alt={`Client ${index + 1}`}
-                  width={200}
-                  height={45}
-                  className="h-[30px] md:h-[38px] lg:h-[45px] w-auto object-contain"
-                />
-              </div>
-            ))}
+        <div className="w-full overflow-hidden relative">
+          <div className="flex gap-[30px] sm:gap-[35px] md:gap-[40px] lg:gap-[45px] xl:gap-[50px]">
+            {/* First track */}
+            <div className="flex gap-[30px] sm:gap-[35px] md:gap-[40px] lg:gap-[45px] xl:gap-[50px] shrink-0 marquee-track">
+              {clientLogos.map((logo, index) => (
+                <div
+                  key={`logo-1-${index}`}
+                  className="flex-shrink-0 h-[40px] sm:h-[28px] md:h-[33px] lg:h-[38px] xl:h-[45px] flex items-center"
+                >
+                  <Image
+                    src={`/images/logo marquee klien/${logo}`}
+                    alt={`Client ${index + 1}`}
+                    width={200}
+                    height={45}
+                    className="h-[40px] sm:h-[28px] md:h-[33px] lg:h-[38px] xl:h-[45px] w-auto object-contain"
+                  />
+                </div>
+              ))}
+            </div>
+            {/* Second track (duplicate) */}
+            <div className="flex gap-[30px] sm:gap-[35px] md:gap-[40px] lg:gap-[45px] xl:gap-[50px] shrink-0 marquee-track">
+              {clientLogos.map((logo, index) => (
+                <div
+                  key={`logo-2-${index}`}
+                  className="flex-shrink-0 h-[40px] sm:h-[28px] md:h-[33px] lg:h-[38px] xl:h-[45px] flex items-center"
+                >
+                  <Image
+                    src={`/images/logo marquee klien/${logo}`}
+                    alt={`Client ${index + 1}`}
+                    width={200}
+                    height={45}
+                    className="h-[40px] sm:h-[28px] md:h-[33px] lg:h-[38px] xl:h-[45px] w-auto object-contain"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

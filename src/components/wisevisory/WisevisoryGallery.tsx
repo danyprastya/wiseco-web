@@ -1,31 +1,122 @@
+"use client";
+
 import Image from "next/image";
+import { useRef, useState, useEffect } from "react";
 import { wisevisoryGalleryImages } from "@/data/wisevisory";
 
 export default function WisevisoryGallery() {
-  return (
-    <section className="h-[623px] bg-white flex flex-col items-center">
-      {/* 55px spacing from top */}
-      <div className="h-[55px]"></div>
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
-      <div className="h-[56px] flex items-center justify-center">
-        <h2 className="section-title">Gallery</h2>
+  // Duplicate images for infinite scroll effect
+  const duplicatedImages = [
+    ...wisevisoryGalleryImages,
+    ...wisevisoryGalleryImages,
+    ...wisevisoryGalleryImages,
+  ];
+
+  // Reset scroll position for infinite effect
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const singleSetWidth = (150 + 10) * wisevisoryGalleryImages.length; // image width + gap
+      if (container.scrollLeft >= singleSetWidth * 2) {
+        container.scrollLeft = singleSetWidth;
+      } else if (container.scrollLeft <= 0) {
+        container.scrollLeft = singleSetWidth;
+      }
+    };
+
+    container.addEventListener("scroll", handleScroll);
+    // Set initial position to middle set
+    container.scrollLeft = (150 + 10) * wisevisoryGalleryImages.length;
+
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setStartX(e.pageX - (scrollRef.current?.offsetLeft || 0));
+    setScrollLeft(scrollRef.current?.scrollLeft || 0);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - (scrollRef.current?.offsetLeft || 0);
+    const walk = (x - startX) * 2;
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft = scrollLeft - walk;
+    }
+  };
+
+  return (
+    <section className="h-[279px] sm:h-[420px] md:h-[480px] lg:h-[550px] xl:h-[623px] bg-white flex flex-col items-center py-[20px] sm:py-0">
+      {/* 55px spacing from top - desktop only */}
+      <div className="hidden sm:block h-[35px] md:h-[42px] lg:h-[48px] xl:h-[55px]"></div>
+
+      <div className="h-auto sm:h-[42px] md:h-[46px] lg:h-[50px] xl:h-[56px] flex items-center justify-center">
+        <h2 className="text-[25px] sm:text-[28px] md:text-[32px] lg:text-[36px] xl:text-[40px] text-[#D79C60] text-center font-bold">
+          Gallery
+        </h2>
       </div>
 
       {/* 25px spacing */}
-      <div className="h-[25px]"></div>
+      <div className="h-[15px] sm:h-[16px] md:h-[18px] lg:h-[22px] xl:h-[25px]"></div>
 
-      {/* Gallery Grid - 4x2 */}
-      <div className="grid grid-cols-4 gap-[5px]">
+      {/* Mobile Carousel */}
+      <div
+        ref={scrollRef}
+        className="sm:hidden w-full overflow-x-auto scrollbar-hide cursor-grab active:cursor-grabbing"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        onMouseMove={handleMouseMove}
+      >
+        <div
+          className="flex gap-[10px] px-[20px]"
+          style={{ width: "max-content" }}
+        >
+          {duplicatedImages.map((image, index) => (
+            <div
+              key={`${image.id}-${index}`}
+              className="relative w-[150px] h-[150px] rounded-[15px] overflow-hidden bg-gray-200 flex-shrink-0"
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes="150px"
+                className="object-cover"
+                quality={100}
+                draggable={false}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop Gallery Grid - 4x2 */}
+      <div className="hidden sm:grid grid-cols-4 gap-[3px] md:gap-[4px] lg:gap-[4px] xl:gap-[5px]">
         {wisevisoryGalleryImages.map((image) => (
           <div
             key={image.id}
-            className="relative w-[205px] h-[205px] rounded-[20px] overflow-hidden bg-gray-200"
+            className="relative w-[135px] h-[135px] md:w-[155px] md:h-[155px] lg:w-[178px] lg:h-[178px] xl:w-[205px] xl:h-[205px] rounded-[14px] md:rounded-[16px] lg:rounded-[18px] xl:rounded-[20px] overflow-hidden bg-gray-200"
           >
             <Image
               src={image.src}
               alt={image.alt}
               fill
-              sizes="205px"
+              sizes="(max-width: 768px) 135px, (max-width: 1024px) 155px, (max-width: 1280px) 178px, 205px"
               className="object-cover"
               quality={100}
             />

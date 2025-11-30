@@ -1,7 +1,7 @@
 export default function AboutUsHero() {
   return (
     <section
-      className="h-[350px] relative flex items-center justify-center"
+      className="h-[180px] sm:h-[220px] md:h-[260px] lg:h-[300px] xl:h-[350px] relative flex items-center justify-center"
       style={{
         backgroundImage: "url('/images/bg-aboutus.avif')",
         backgroundSize: "cover",

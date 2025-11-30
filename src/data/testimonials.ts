@@ -9,6 +9,8 @@ export interface TestimonialSlide {
   companyLogo: string;
   companyLogoWidth: number;
   companyLogoHeight: number;
+  mobileCompanyLogoWidth?: number;
+  mobileCompanyLogoHeight?: number;
   backgroundImage: string;
   overlayColor: string;
   activityImage: string;
@@ -26,6 +28,8 @@ export const testimonialsData: TestimonialSlide[] = [
     companyLogo: "/images/logo marquee klien/Logo Torch.png",
     companyLogoWidth: 139,
     companyLogoHeight: 100,
+    mobileCompanyLogoWidth: 100,
+    mobileCompanyLogoHeight: 72,
     backgroundImage: "/images/testimonies/torch/bg-torch.jpg",
     overlayColor: "#2D2D2D",
     activityImage: "/images/testimonies/torch/kegiatan.jpg",
@@ -42,9 +46,11 @@ export const testimonialsData: TestimonialSlide[] = [
     ownerNameColor: "#D79C60",
     position: "CEO",
     ownerImage: "/images/testimonies/thenblank/owner.jpeg",
-    companyLogo: "/images/testimonies/thenblank/Logo ThenBlank Putih.png",
+    companyLogo: "/images/testimonies/thenblank/Logo ThenBlank Putih 2.png",
     companyLogoWidth: 244,
     companyLogoHeight: 88,
+    mobileCompanyLogoWidth: 170,
+    mobileCompanyLogoHeight: 61,
     backgroundImage: "/images/testimonies/thenblank/bg-thenblank.avif",
     overlayColor: "#2D2D2D",
     activityImage: "/images/testimonies/thenblank/kegiatan.jpeg",
@@ -61,6 +67,8 @@ export const testimonialsData: TestimonialSlide[] = [
     companyLogo: "/images/logo marquee klien/Logo Dusdukduk.png",
     companyLogoWidth: 80,
     companyLogoHeight: 100,
+    mobileCompanyLogoWidth: 60,
+    mobileCompanyLogoHeight: 75,
     backgroundImage: "/images/testimonies/dusdukduk/bg-dusdukduk.webp",
     overlayColor: "#2D2D2D",
     activityImage: "/images/testimonies/dusdukduk/kegiatan.jpg",

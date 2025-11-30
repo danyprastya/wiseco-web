@@ -24,42 +24,45 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="bg-white h-[450px] md:h-[560px] lg:h-[677px]"
+      className="bg-white h-auto sm:h-[420px] md:h-[480px] lg:h-[560px] xl:h-[677px] py-[20px] sm:py-0"
     >
-      <div className="w-full px-4 md:px-20 lg:px-[485px]">
-        {/* 55px spacing from top */}
-        <div className="h-[55px]"></div>
+      <div className="w-full px-[20px] sm:px-8 md:px-16 lg:px-[200px] xl:px-[485px]">
+        {/* Spacing from top */}
+        <div className="hidden sm:block h-[35px] md:h-[42px] lg:h-[50px] xl:h-[55px]"></div>
 
-        <div className="h-[56px] flex items-center justify-center">
-          <h2 className="section-title">Services</h2>
+        <div className="h-[40px] sm:h-[42px] md:h-[48px] lg:h-[52px] xl:h-[56px] flex items-center justify-center">
+          <h2 className="text-[25px] sm:text-[28px] md:text-[32px] lg:text-[36px] xl:text-[40px] font-semibold text-[#D79C60] section-title">
+            Services
+          </h2>
         </div>
 
-        {/* 25px spacing to content */}
-        <div className="h-[25px]"></div>
+        {/* Spacing to content */}
+        <div className="h-[15px] sm:h-[16px] md:h-[20px] lg:h-[22px] xl:h-[25px]"></div>
 
-        <div className="flex items-start gap-0 relative">
+        {/* Mobile: vertical stack, Desktop: horizontal */}
+        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-0 relative">
           {/* Left Service - wisevisory */}
           <div className="flex-1 text-center flex flex-col items-center">
             {/* Image with decorative circles */}
             <Link
               href={services[0].link}
-              className="relative mb-[30px] md:mb-[42px] lg:mb-[55px] group cursor-pointer transition-transform duration-300 hover:scale-105"
+              className="relative mb-[20px] sm:mb-[25px] md:mb-[32px] lg:mb-[42px] xl:mb-[55px] group cursor-pointer transition-transform duration-300 hover:scale-105"
             >
               {/* Outer circle border - in front */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[100px] h-[100px] md:w-[130px] md:h-[130px] lg:w-[160px] lg:h-[160px] rounded-full border-[5px] md:border-[6px] lg:border-[8px] border-[#2D2D2D] group-hover:border-[#D79C60] transition-colors duration-300 z-10"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[169px] sm:w-[110px] md:w-[125px] lg:w-[145px] xl:w-[169px] h-[169px] sm:h-[110px] md:h-[125px] lg:h-[145px] xl:h-[169px] rounded-full border-[6px] sm:border-[5px] md:border-[5px] lg:border-[6px] xl:border-[8px] border-[#2D2D2D] group-hover:border-[#D79C60] transition-colors duration-300 z-10"></div>
 
               {/* Inner container for image - behind circle */}
-              <div className="w-[95px] h-[95px] md:w-[123px] md:h-[123px] lg:w-[152px] lg:h-[152px] rounded-full overflow-hidden relative z-0">
+              <div className="w-[160px] sm:w-[105px] md:w-[118px] lg:w-[138px] xl:w-[160px] h-[160px] sm:h-[105px] md:h-[118px] lg:h-[138px] xl:h-[160px] rounded-full overflow-hidden relative z-0">
                 <Image
                   src={services[0].logo}
                   alt="wisevisory"
-                  width={152}
-                  height={152}
+                  width={169}
+                  height={169}
                   className="w-full h-full object-cover group-hover:blur-[1px] transition-all duration-300"
                 />
                 {/* Learn More overlay */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                  <span className="text-[#E8E6E6] text-[10px] md:text-[12px] lg:text-[14px] font-medium">
+                  <span className="text-[#E8E6E6] text-[10px] md:text-[11px] lg:text-[12px] xl:text-[14px] font-medium">
                     Learn More
                   </span>
                 </div>
@@ -67,7 +70,7 @@ export default function Services() {
 
               {/* Small filled circle - top left */}
               <div
-                className="absolute w-[20px] h-[20px] md:w-[25px] md:h-[25px] lg:w-[30px] lg:h-[30px] rounded-full bg-[#D79C60] z-20"
+                className="absolute w-[30px] sm:w-[18px] md:w-[22px] lg:w-[26px] xl:w-[30px] h-[30px] sm:h-[18px] md:h-[22px] lg:h-[26px] xl:h-[30px] rounded-full bg-[#D79C60] z-20"
                 style={{
                   opacity: 0.75,
                   top: "7px",
@@ -77,7 +80,7 @@ export default function Services() {
 
               {/* Medium border-only circle - bottom right */}
               <div
-                className="absolute w-[35px] h-[35px] md:w-[45px] md:h-[45px] lg:w-[55px] lg:h-[55px] rounded-full border-[#D79C60] z-20"
+                className="absolute w-[55px] sm:w-[32px] md:w-[40px] lg:w-[48px] xl:w-[55px] h-[55px] sm:h-[32px] md:h-[40px] lg:h-[48px] xl:h-[55px] rounded-full border-[#D79C60] z-20"
                 style={{
                   opacity: 0.75,
                   bottom: "3px",
@@ -94,13 +97,13 @@ export default function Services() {
                 alt="wisevisory logo"
                 width={323}
                 height={78}
-                className="w-[200px] h-auto md:w-[260px] lg:w-[323px]"
+                className="w-[230px] sm:w-[160px] md:w-[200px] lg:w-[260px] xl:w-[323px] h-auto"
               />
             </div>
 
             {/* Description text box */}
-            <div className="w-full max-w-[200px] md:max-w-[255px] lg:max-w-[310px] h-auto md:h-[110px] lg:h-[134px] flex items-start justify-center">
-              <p className="text-[#333333] text-[11px] md:text-[13px] lg:text-[16px] leading-[1.4] text-center font-medium">
+            <div className="w-[280px] sm:w-full sm:max-w-[180px] md:max-w-[220px] lg:max-w-[270px] xl:max-w-[310px] h-auto lg:h-[110px] xl:h-[134px] flex items-start justify-center">
+              <p className="text-[#333333] text-[13px] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[16px] leading-[1.4] text-center font-medium">
                 We <span className="font-bold">team-up</span> with business
                 owners and leaders to{" "}
                 <span className="font-bold">assess the overall health</span> of
@@ -114,31 +117,34 @@ export default function Services() {
             </div>
           </div>
 
-          {/* Vertical Separator */}
-          <div className="w-[1px] h-[60px] md:h-[80px] lg:h-[100px] bg-[#333333] absolute left-1/2 top-0 mt-4 md:mt-5 lg:mt-6 transform -translate-x-1/2"></div>
+          {/* Horizontal Separator - Mobile only */}
+          <div className="block sm:hidden w-[230px] h-[1px] bg-[#333333] my-[25px]"></div>
+
+          {/* Vertical Separator - Desktop only */}
+          <div className="hidden sm:block w-[1px] h-[55px] md:h-[65px] lg:h-[80px] xl:h-[100px] bg-[#333333] absolute left-1/2 top-0 mt-4 md:mt-5 lg:mt-6 transform -translate-x-1/2"></div>
 
           {/* Right Service - wisecubation */}
           <div className="flex-1 text-center flex flex-col items-center">
             {/* Image with decorative circles */}
             <Link
               href={services[1].link}
-              className="relative mb-[30px] md:mb-[42px] lg:mb-[55px] group cursor-pointer transition-transform duration-300 hover:scale-105"
+              className="relative mb-[20px] sm:mb-[25px] md:mb-[32px] lg:mb-[42px] xl:mb-[55px] group cursor-pointer transition-transform duration-300 hover:scale-105"
             >
               {/* Outer circle border - in front */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[100px] h-[100px] md:w-[130px] md:h-[130px] lg:w-[160px] lg:h-[160px] rounded-full border-[5px] md:border-[6px] lg:border-[8px] border-[#364DAF] group-hover:border-[#D79C60] transition-colors duration-300 z-10"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[169px] sm:w-[110px] md:w-[125px] lg:w-[145px] xl:w-[169px] h-[169px] sm:h-[110px] md:h-[125px] lg:h-[145px] xl:h-[169px] rounded-full border-[6px] sm:border-[5px] md:border-[5px] lg:border-[6px] xl:border-[8px] border-[#364DAF] group-hover:border-[#D79C60] transition-colors duration-300 z-10"></div>
 
               {/* Inner container for image - behind circle */}
-              <div className="w-[95px] h-[95px] md:w-[123px] md:h-[123px] lg:w-[152px] lg:h-[152px] rounded-full overflow-hidden relative z-0">
+              <div className="w-[160px] sm:w-[105px] md:w-[118px] lg:w-[138px] xl:w-[160px] h-[160px] sm:h-[105px] md:h-[118px] lg:h-[138px] xl:h-[160px] rounded-full overflow-hidden relative z-0">
                 <Image
                   src={services[1].logo}
                   alt="wisecubation"
-                  width={152}
-                  height={152}
+                  width={169}
+                  height={169}
                   className="w-full h-full object-cover group-hover:blur-[1px] transition-all duration-300"
                 />
                 {/* Learn More overlay */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                  <span className="text-[#E8E6E6] text-[10px] md:text-[12px] lg:text-[14px] font-medium">
+                  <span className="text-[#E8E6E6] text-[10px] md:text-[11px] lg:text-[12px] xl:text-[14px] font-medium">
                     Learn More
                   </span>
                 </div>
@@ -146,7 +152,7 @@ export default function Services() {
 
               {/* Small filled circle - top left */}
               <div
-                className="absolute w-[20px] h-[20px] md:w-[25px] md:h-[25px] lg:w-[30px] lg:h-[30px] rounded-full bg-[#4A99F8] group-hover:bg-[#D79C60] transition-colors duration-300 z-20"
+                className="absolute w-[30px] sm:w-[18px] md:w-[22px] lg:w-[26px] xl:w-[30px] h-[30px] sm:h-[18px] md:h-[22px] lg:h-[26px] xl:h-[30px] rounded-full bg-[#4A99F8] group-hover:bg-[#D79C60] transition-colors duration-300 z-20"
                 style={{
                   opacity: 0.75,
                   top: "7px",
@@ -156,7 +162,7 @@ export default function Services() {
 
               {/* Medium border-only circle - bottom right */}
               <div
-                className="absolute w-[35px] h-[35px] md:w-[45px] md:h-[45px] lg:w-[55px] lg:h-[55px] rounded-full border-[#4A99F8] group-hover:border-[#D79C60] transition-colors duration-300 z-20"
+                className="absolute w-[55px] sm:w-[32px] md:w-[40px] lg:w-[48px] xl:w-[55px] h-[55px] sm:h-[32px] md:h-[40px] lg:h-[48px] xl:h-[55px] rounded-full border-[#4A99F8] group-hover:border-[#D79C60] transition-colors duration-300 z-20"
                 style={{
                   opacity: 0.75,
                   bottom: "3px",
@@ -173,13 +179,13 @@ export default function Services() {
                 alt="wisecubation logo"
                 width={323}
                 height={78}
-                className="w-[200px] h-auto md:w-[260px] lg:w-[323px]"
+                className="w-[230px] sm:w-[160px] md:w-[200px] lg:w-[260px] xl:w-[323px] h-auto"
               />
             </div>
 
             {/* Description text box */}
-            <div className="w-full max-w-[200px] md:max-w-[255px] lg:max-w-[310px] h-auto md:h-[110px] lg:h-[134px] flex items-start justify-center">
-              <p className="text-[#333333] text-[11px] md:text-[13px] lg:text-[16px] leading-[1.4] text-center font-medium">
+            <div className="w-[280px] sm:w-full sm:max-w-[180px] md:max-w-[220px] lg:max-w-[270px] xl:max-w-[310px] h-auto lg:h-[110px] xl:h-[134px] flex items-start justify-center">
+              <p className="text-[#333333] text-[13px] sm:text-[10px] md:text-[11px] lg:text-[13px] xl:text-[16px] leading-[1.4] text-center font-medium">
                 We <span className="font-bold">educate</span> business owners
                 and leaders to{" "}
                 <span className="font-bold">enhance their capabilities</span> in

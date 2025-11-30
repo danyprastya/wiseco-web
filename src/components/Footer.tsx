@@ -1,245 +1,614 @@
 import Link from "next/link";
+import Image from "next/image";
+import { FaInstagram, FaLinkedinIn, FaYoutube, FaTiktok } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Company Info */}
-          <div>
-            <div className="text-2xl font-bold mb-4">
-              wiseco<span className="text-secondary">.id</span>
-            </div>
-            <p className="text-gray-400 mb-6">
-              As a business and investment advisor we resolve the basics,
-              prepare for growth and build investable business
-            </p>
+    <footer className="bg-[#2D2D2D] text-white">
+      {/* Mobile Layout */}
+      <div
+        className="sm:hidden p-[20px]"
+        style={{ fontFamily: "Montserrat, sans-serif" }}
+      >
+        {/* Logo - centered */}
+        <div className="flex justify-center">
+          <div className="relative w-[100px] h-[27px]">
+            <Image
+              src="/images/wiseco-logo-putih.png"
+              alt="wiseco.id"
+              fill
+              className="object-contain"
+            />
+          </div>
+        </div>
 
-            {/* Social Media */}
-            <div className="flex gap-4">
+        {/* Pages title - 10px below, left aligned */}
+        <h3 className="text-[16px] font-bold mt-[10px] text-left">Pages</h3>
+
+        {/* Menu grid - two columns - 10px below */}
+        <div className="flex mt-[10px] gap-[20px]">
+          {/* Left column - Home and submenus */}
+          <div className="text-[10px] leading-[1.6]">
+            <p className="font-bold">
+              <Link href="/" className="hover:text-[#D79C60] transition-colors">
+                Home
+              </Link>
+            </p>
+            <p className="pl-2 font-medium">
               <Link
-                href="https://www.instagram.com/wiseco.id/"
+                href="/#portfolio"
+                className="hover:text-[#D79C60] transition-colors"
+              >
+                Portofolio
+              </Link>
+            </p>
+            <p className="pl-2 font-medium">
+              <Link
+                href="/#services"
+                className="hover:text-[#D79C60] transition-colors"
+              >
+                Services
+              </Link>
+            </p>
+            <p className="pl-2 font-medium">
+              <Link
+                href="/#projects"
+                className="hover:text-[#D79C60] transition-colors"
+              >
+                Projects
+              </Link>
+            </p>
+            <p className="pl-2 font-medium">
+              <Link
+                href="/#events"
+                className="hover:text-[#D79C60] transition-colors"
+              >
+                Events
+              </Link>
+            </p>
+            <p className="pl-2 font-medium">
+              <Link
+                href="/#testimonies"
+                className="hover:text-[#D79C60] transition-colors"
+              >
+                Testimonies
+              </Link>
+            </p>
+            <p className="pl-2 font-medium">
+              <Link
+                href="/#videos"
+                className="hover:text-[#D79C60] transition-colors"
+              >
+                Videos
+              </Link>
+            </p>
+            <p className="pl-2 font-medium">
+              <Link
+                href="/#strategic-partners"
+                className="hover:text-[#D79C60] transition-colors"
+              >
+                Strategic Partners
+              </Link>
+            </p>
+            <p className="pl-2 font-medium">
+              <Link
+                href="/contact"
+                className="hover:text-[#D79C60] transition-colors"
+              >
+                Contact
+              </Link>
+            </p>
+          </div>
+
+          {/* Right column - About Us, Services, Book Online, Contact */}
+          <div className="text-[10px] leading-[1.6]">
+            <p className="font-bold">
+              <Link
+                href="/aboutus"
+                className="hover:text-[#D79C60] transition-colors"
+              >
+                About Us
+              </Link>
+            </p>
+            <p className="pl-2 font-medium">
+              <Link
+                href="/aboutus#vision-mission"
+                className="hover:text-[#D79C60] transition-colors"
+              >
+                Vision & Mission
+              </Link>
+            </p>
+            <p className="pl-2 font-medium">
+              <Link
+                href="/aboutus#founders"
+                className="hover:text-[#D79C60] transition-colors"
+              >
+                Founders
+              </Link>
+            </p>
+            <p className="pl-2 font-medium">
+              <Link
+                href="/aboutus#virtual-c-level"
+                className="hover:text-[#D79C60] transition-colors"
+              >
+                Virtual C-Level
+              </Link>
+            </p>
+            <p className="pl-2 font-medium">
+              <Link
+                href="/aboutus#wisecosystem"
+                className="hover:text-[#D79C60] transition-colors"
+              >
+                wisecosystem
+              </Link>
+            </p>
+            <p className="font-bold mt-1">
+              <Link
+                href="/#services"
+                className="hover:text-[#D79C60] transition-colors"
+              >
+                Service
+              </Link>
+            </p>
+            <p className="pl-2 font-medium">
+              <Link
+                href="/wisevisory"
+                className="hover:text-[#D79C60] transition-colors"
+              >
+                wisevisory
+              </Link>
+            </p>
+            <p className="pl-2 font-medium">
+              <Link
+                href="/wisecubation"
+                className="hover:text-[#D79C60] transition-colors"
+              >
+                wisecubation
+              </Link>
+            </p>
+            <p className="font-bold mt-1">
+              <Link
+                href="/book-online"
+                className="hover:text-[#D79C60] transition-colors"
+              >
+                Book Online
+              </Link>
+            </p>
+            <p className="font-bold mt-1">
+              <Link
+                href="/contact"
+                className="hover:text-[#D79C60] transition-colors"
+              >
+                Contact
+              </Link>
+            </p>
+          </div>
+        </div>
+
+        {/* Tagline - 10px below, left aligned, 14px font */}
+        <p className="text-[14px] leading-[1.4] mt-[10px] text-left">
+          <span className="font-bold text-[#D79C60]">
+            As a business and investment advisor
+          </span>
+          <br />
+          <span className="text-white">
+            we resolve the basics, prepare for growth and build investable
+            business
+          </span>
+        </p>
+
+        {/* Get in Touch - 10px below, 16px font */}
+        <h3 className="text-[16px] font-bold mt-[10px] text-left">
+          Get in Touch
+        </h3>
+
+        {/* Address - 10px below, 12px font */}
+        <div className="mt-[10px] text-left">
+          <p className="text-[12px] font-bold text-[#D79C60]">
+            wiseco.id Headquarter
+          </p>
+          <p className="text-[12px] font-bold text-[#D79C60] mb-1">_________</p>
+          <p className="text-[12px] font-medium leading-[1.6]">
+            Jalan Bintaro Utara No. 14,
+            <br />
+            Bintaro, Pesanggrahan,
+            <br />
+            Jakarta Selatan
+          </p>
+        </div>
+
+        {/* Buttons - 10px below, 160x42px, vertical stack, gap 10px, centered */}
+        <div className="flex flex-col items-center gap-[10px] mt-[10px]">
+          <Link
+            href="https://wa.me/+6281299981708"
+            target="_blank"
+            className="flex items-center justify-center gap-2 w-[160px] h-[42px] bg-[#D79C60] text-[#333333] rounded-[500px] font-bold text-[14px]"
+          >
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+            Ask wise
+          </Link>
+          <Link
+            href="https://advisory.wiseco.id/"
+            target="_blank"
+            className="flex items-center justify-center w-[160px] h-[42px] bg-white text-[#2D2D2D] rounded-[500px] font-bold text-[14px]"
+          >
+            Advisory Now!
+          </Link>
+        </div>
+
+        {/* Email section - 20px below, centered */}
+        <div className="flex flex-col items-center mt-[20px]">
+          <svg
+            className="w-[26px] h-[26px] text-[#D79C60]"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+          </svg>
+          <Link
+            href="mailto:info@wiseco.id"
+            className="text-[16px] font-bold hover:text-[#D79C60] transition-colors mt-1"
+          >
+            info@wiseco.id
+          </Link>
+        </div>
+
+        {/* Social Media - 10px below, centered, 25x25px each */}
+        <div className="flex items-center justify-center gap-3 mt-[10px]">
+          <Link
+            href="https://www.instagram.com/wiseco.id/"
+            target="_blank"
+            className="w-[25px] h-[25px] rounded-full bg-white flex items-center justify-center hover:bg-[#D79C60] transition-colors"
+          >
+            <FaInstagram className="w-[14px] h-[14px] text-[#2D2D2D]" />
+          </Link>
+          <Link
+            href="https://www.linkedin.com/company/wisecoindonesia"
+            target="_blank"
+            className="w-[25px] h-[25px] rounded-full bg-white flex items-center justify-center hover:bg-[#D79C60] transition-colors"
+          >
+            <FaLinkedinIn className="w-[14px] h-[14px] text-[#2D2D2D]" />
+          </Link>
+          <Link
+            href="https://www.youtube.com/@wisecoid"
+            target="_blank"
+            className="w-[25px] h-[25px] rounded-full bg-white flex items-center justify-center hover:bg-[#D79C60] transition-colors"
+          >
+            <FaYoutube className="w-[14px] h-[14px] text-[#2D2D2D]" />
+          </Link>
+          <Link
+            href="https://www.tiktok.com/@wiseco.id"
+            target="_blank"
+            className="w-[25px] h-[25px] rounded-full bg-white flex items-center justify-center hover:bg-[#D79C60] transition-colors"
+          >
+            <FaTiktok className="w-[14px] h-[14px] text-[#2D2D2D]" />
+          </Link>
+        </div>
+
+        {/* Copyright - 20px below, left aligned, 11px font */}
+        <div className="mt-[20px] text-[11px] text-[#D79C60] font-medium text-left">
+          <p>Copyright © 2025</p>
+          <p className="mt-1">wiseco.id | GROW YOUR BUSINESS WISELY</p>
+          <p className="mt-1">All rights reserved</p>
+        </div>
+      </div>
+
+      {/* Desktop Layout */}
+      <div className="hidden sm:block max-w-7xl mx-auto px-6 md:px-8 py-8 md:py-10 lg:py-12 xl:py-16">
+        <div className="flex flex-row justify-center gap-[35px] md:gap-[50px] lg:gap-[80px] xl:gap-[150px]">
+          {/* Section 1 - Company Info (Left) */}
+          <div className="flex flex-col justify-between">
+            {/* Top Content */}
+            <div>
+              {/* Logo */}
+              <div className="relative w-[100px] h-[28px] md:w-[115px] md:h-[32px] lg:w-[130px] lg:h-[36px] xl:w-[150px] xl:h-[42px]">
+                <Image
+                  src="/images/wiseco-logo-putih.png"
+                  alt="wiseco.id"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+
+              {/* Tagline - 35px below logo */}
+              <div
+                className="mt-[20px] md:mt-[25px] lg:mt-[30px] xl:mt-[35px] w-[180px] md:w-[200px] lg:w-[235px] xl:w-[269px] h-auto"
+                style={{ fontFamily: "Montserrat, sans-serif" }}
+              >
+                <p className="text-[13px] md:text-[15px] lg:text-[18px] xl:text-[22px] leading-[1.4]">
+                  <span className="font-bold text-[#D79C60]">
+                    As a business and investment advisor
+                  </span>
+                  <br />
+                  <span className="text-white">
+                    we resolve the basics, prepare for growth and build
+                    investable business
+                  </span>
+                </p>
+              </div>
+            </div>
+
+            {/* Copyright */}
+            <div
+              className="mt-[120px] md:mt-[160px] lg:mt-[220px] xl:mt-[300px] text-[8px] md:text-[9px] lg:text-[9px] xl:text-[10px] text-[#D79C60] font-medium"
+              style={{ fontFamily: "Montserrat, sans-serif" }}
+            >
+              <p>Copyright © 2025</p>
+              <p className="mt-1">wiseco.id | GROW YOUR BUSINESS WISELY</p>
+              <p className="mt-1">All rights reserved</p>
+            </div>
+          </div>
+
+          {/* Section 2 - Pages (Middle) */}
+          <div style={{ fontFamily: "Montserrat, sans-serif" }}>
+            <h3 className="text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] font-bold mb-[20px] md:mb-[25px] lg:mb-[30px] xl:mb-[35px]">
+              Pages
+            </h3>
+            <div className="text-[9px] md:text-[10px] lg:text-[11px] xl:text-[13px] leading-[1.5]">
+              {/* Home */}
+              <p className="font-bold">
+                <Link
+                  href="/"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  Home
+                </Link>
+              </p>
+              <p className="pl-4 font-medium">
+                <Link
+                  href="/#portfolio"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  Portofolio
+                </Link>
+              </p>
+              <p className="pl-4 font-medium">
+                <Link
+                  href="/#services"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  Services
+                </Link>
+              </p>
+              <p className="pl-4 font-medium">
+                <Link
+                  href="/#projects"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  Projects
+                </Link>
+              </p>
+              <p className="pl-4 font-medium">
+                <Link
+                  href="/#events"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  Events
+                </Link>
+              </p>
+              <p className="pl-4 font-medium">
+                <Link
+                  href="/#testimonies"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  Testimonies
+                </Link>
+              </p>
+              <p className="pl-4 font-medium">
+                <Link
+                  href="/#videos"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  Videos
+                </Link>
+              </p>
+              <p className="pl-4 font-medium">
+                <Link
+                  href="/#strategic-partners"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  Strategic Partners
+                </Link>
+              </p>
+              <p className="pl-4 font-medium">
+                <Link
+                  href="/contact"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  Contact
+                </Link>
+              </p>
+
+              {/* About Us */}
+              <p className="font-bold mt-1">
+                <Link
+                  href="/aboutus"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  About Us
+                </Link>
+              </p>
+              <p className="pl-4 font-medium">
+                <Link
+                  href="/aboutus#vision-mission"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  Vision & Mission
+                </Link>
+              </p>
+              <p className="pl-4 font-medium">
+                <Link
+                  href="/aboutus#founders"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  Founders
+                </Link>
+              </p>
+              <p className="pl-4 font-medium">
+                <Link
+                  href="/aboutus#virtual-c-level"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  Virtual C-Level
+                </Link>
+              </p>
+              <p className="pl-4 font-medium">
+                <Link
+                  href="/aboutus#wisecosystem"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  wisecosystem
+                </Link>
+              </p>
+
+              {/* Service */}
+              <p className="font-bold mt-1">
+                <Link
+                  href="/#services"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  Service
+                </Link>
+              </p>
+              <p className="pl-4 font-medium">
+                <Link
+                  href="/wisevisory"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  wisevisory
+                </Link>
+              </p>
+              <p className="pl-4 font-medium">
+                <Link
+                  href="/wisecubation"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  wisecubation
+                </Link>
+              </p>
+
+              {/* Book Online */}
+              <p className="font-bold mt-1">
+                <Link
+                  href="/book-online"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  Book Online
+                </Link>
+              </p>
+
+              {/* Contact */}
+              <p className="font-bold mt-1">
+                <Link
+                  href="/contact"
+                  className="hover:text-[#D79C60] transition-colors"
+                >
+                  Contact
+                </Link>
+              </p>
+            </div>
+          </div>
+
+          {/* Section 3 - Get in Touch (Right) */}
+          <div style={{ fontFamily: "Montserrat, sans-serif" }}>
+            <h3 className="text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] font-bold mb-[20px] md:mb-[25px] lg:mb-[30px] xl:mb-[35px]">
+              Get in Touch
+            </h3>
+
+            {/* Address */}
+            <div className="mb-[30px] md:mb-[40px] lg:mb-[50px] xl:mb-[60px]">
+              <p className="text-[12px] md:text-[13px] lg:text-[14px] xl:text-[16px] font-bold text-[#D79C60]">
+                wiseco.id Headquarter
+              </p>
+              <p className="text-[12px] md:text-[13px] lg:text-[14px] xl:text-[16px] font-bold text-[#D79C60] mb-2">
+                _________
+              </p>
+              <p className="text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] font-medium leading-[1.6]">
+                Jalan Bintaro Utara No. 14,
+                <br />
+                Bintaro, Pesanggrahan,
+                <br />
+                Jakarta Selatan
+              </p>
+            </div>
+
+            {/* Buttons */}
+            <div className="flex flex-col">
+              <Link
+                href="https://wa.me/+6281299981708"
                 target="_blank"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="flex items-center justify-center gap-2 w-[130px] md:w-[145px] lg:w-[158px] xl:w-[170px] h-[36px] md:h-[38px] lg:h-[42px] xl:h-[45px] bg-[#D79C60] text-[#333333] rounded-[500px] hover:bg-white hover:text-[#2D2D2D] transition-all font-bold text-[10px] md:text-[10px] lg:text-[11px] xl:text-[12px]"
               >
                 <svg
-                  className="w-6 h-6"
+                  className="w-3 h-3 md:w-[14px] md:h-[14px] lg:w-[16px] lg:h-[16px] xl:w-5 xl:h-5"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z" />
-                  <path d="M12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                 </svg>
+                Ask wise
+              </Link>
+
+              <Link
+                href="https://advisory.wiseco.id/"
+                target="_blank"
+                className="flex items-center justify-center w-[130px] md:w-[145px] lg:w-[158px] xl:w-[170px] h-[36px] md:h-[38px] lg:h-[42px] xl:h-[45px] bg-white text-[#2D2D2D] rounded-[500px] hover:bg-[#D79C60] hover:text-[#333333] transition-all mt-[30px] md:mt-[38px] lg:mt-[48px] xl:mt-[60px] font-bold text-[10px] md:text-[10px] lg:text-[11px] xl:text-[12px]"
+              >
+                Advisory Now!
+              </Link>
+            </div>
+
+            {/* Email */}
+            <div className="flex items-center gap-2 mt-[60px] md:mt-[80px] lg:mt-[100px] xl:mt-[120px]">
+              <svg
+                className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] lg:w-[23px] lg:h-[23px] xl:w-[26px] xl:h-[26px] text-[#D79C60]"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+              </svg>
+              <Link
+                href="mailto:info@wiseco.id"
+                className="text-[12px] md:text-[13px] lg:text-[14px] xl:text-[16px] font-bold hover:text-[#D79C60] transition-colors"
+              >
+                info@wiseco.id
+              </Link>
+            </div>
+
+            {/* Social Media Icons */}
+            <div className="flex items-center gap-3 mt-[15px]">
+              <Link
+                href="https://www.instagram.com/wiseco.id/"
+                target="_blank"
+                className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] lg:w-[22px] lg:h-[22px] xl:w-[25px] xl:h-[25px] rounded-full bg-white flex items-center justify-center hover:bg-[#D79C60] transition-colors"
+              >
+                <FaInstagram className="w-[10px] h-[10px] md:w-[11px] md:h-[11px] lg:w-[12px] lg:h-[12px] xl:w-[14px] xl:h-[14px] text-[#2D2D2D]" />
               </Link>
               <Link
                 href="https://www.linkedin.com/company/wisecoindonesia"
                 target="_blank"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] lg:w-[22px] lg:h-[22px] xl:w-[25px] xl:h-[25px] rounded-full bg-white flex items-center justify-center hover:bg-[#D79C60] transition-colors"
               >
-                <svg
-                  className="w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                </svg>
+                <FaLinkedinIn className="w-[10px] h-[10px] md:w-[11px] md:h-[11px] lg:w-[12px] lg:h-[12px] xl:w-[14px] xl:h-[14px] text-[#2D2D2D]" />
               </Link>
               <Link
                 href="https://www.youtube.com/@wisecoid"
                 target="_blank"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] lg:w-[22px] lg:h-[22px] xl:w-[25px] xl:h-[25px] rounded-full bg-white flex items-center justify-center hover:bg-[#D79C60] transition-colors"
               >
-                <svg
-                  className="w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
-                </svg>
+                <FaYoutube className="w-[10px] h-[10px] md:w-[11px] md:h-[11px] lg:w-[12px] lg:h-[12px] xl:w-[14px] xl:h-[14px] text-[#2D2D2D]" />
               </Link>
               <Link
                 href="https://www.tiktok.com/@wiseco.id"
                 target="_blank"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] lg:w-[22px] lg:h-[22px] xl:w-[25px] xl:h-[25px] rounded-full bg-white flex items-center justify-center hover:bg-[#D79C60] transition-colors"
               >
-                <svg
-                  className="w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
-                </svg>
+                <FaTiktok className="w-[10px] h-[10px] md:w-[11px] md:h-[11px] lg:w-[12px] lg:h-[12px] xl:w-[14px] xl:h-[14px] text-[#2D2D2D]" />
               </Link>
             </div>
           </div>
-
-          {/* Pages */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Pages</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/portfolio"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Portfolio
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/projects"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Projects
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/events"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Events
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/testimonies"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Testimonies
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/videos"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Videos
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* About & Services */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">About Us</h3>
-            <ul className="space-y-2 mb-6">
-              <li>
-                <Link
-                  href="/about-us"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/vision-mission"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Vision & Mission
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/founders"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Founders
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/virtual-c-level"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Virtual C-Level
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/wisecosystem"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  wisecosystem
-                </Link>
-              </li>
-            </ul>
-            <h3 className="text-lg font-semibold mb-4">Service</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/services/wisevisory"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  wisevisory
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="https://advisory.wiseco.id/"
-                  target="_blank"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  !Advisory Now
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/wisecubation"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  wisecubation
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Get in Touch</h3>
-            <div className="space-y-4 text-gray-400">
-              <div>
-                <p className="font-semibold text-white mb-2">
-                  wiseco.id Headquarter
-                </p>
-                <Link
-                  href="https://maps.app.goo.gl/L6eVjfrCmURxbj4a8"
-                  target="_blank"
-                  className="hover:text-white transition-colors"
-                >
-                  Jalan Bintaro Utara No. 14,
-                  <br />
-                  Bintaro, Pesanggrahan,
-                  <br />
-                  Jakarta Selatan
-                </Link>
-              </div>
-              <div>
-                <Link
-                  href="mailto:info@wiseco.id"
-                  className="hover:text-white transition-colors"
-                >
-                  info@wiseco.id
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
-          <p>Copyright © 2025</p>
-          <p className="mt-2">wiseco.id | GROW YOUR BUSINESS WISELY</p>
-          <p className="mt-2">All rights reserved</p>
         </div>
       </div>
     </footer>

@@ -12,20 +12,20 @@ function SlideContent({ slide }: { slide: ProjectSlide }) {
       <>
         {/* Title Image */}
         {slide.titleImage && (
-          <div className="mb-[20px]">
+          <div className="mb-[15px] sm:mb-[16px] md:mb-[18px] lg:mb-[20px]">
             <Image
               src={slide.titleImage.src}
               alt={slide.titleImage.alt}
               width={slide.titleImage.width}
               height={slide.titleImage.height}
-              className="w-[350px] h-[100px]"
+              className="w-[240px] h-[69px] sm:w-[220px] sm:h-[63px] md:w-[260px] md:h-[75px] lg:w-[300px] lg:h-[86px] xl:w-[350px] xl:h-[100px]"
             />
           </div>
         )}
 
         {/* Partner Logos */}
         {slide.partnerLogos && slide.partnerLogos.length > 0 && (
-          <div className="flex items-center justify-center gap-6 mb-[20px]">
+          <div className="flex items-center justify-center gap-4 sm:gap-4 md:gap-5 lg:gap-6 mb-[15px] sm:mb-[16px] md:mb-[18px] lg:mb-[20px]">
             {slide.partnerLogos.map((logo, idx) => (
               <Image
                 key={idx}
@@ -33,30 +33,58 @@ function SlideContent({ slide }: { slide: ProjectSlide }) {
                 alt={logo.alt}
                 width={120}
                 height={27}
-                className="h-[27px] w-auto"
+                className="h-[18px] sm:h-[18px] md:h-[22px] lg:h-[25px] xl:h-[27px] w-auto"
               />
             ))}
           </div>
         )}
 
         {/* Description */}
-        <div className="w-[793px] h-[34px] mb-[20px] flex items-center justify-center">
-          <p className="text-[#333333] text-[12px] font-medium leading-[1.4] text-center">
+        <div className="w-[280px] sm:w-[450px] md:w-[550px] lg:w-[680px] xl:w-[793px] h-auto sm:h-[30px] md:h-[32px] lg:h-[34px] mb-[15px] sm:mb-[16px] md:mb-[18px] lg:mb-[20px] flex items-center justify-center">
+          <p className="text-[#333333] text-[10px] sm:text-[10px] md:text-[11px] lg:text-[11px] xl:text-[12px] font-medium leading-[1.4] text-center">
             {slide.description}
           </p>
         </div>
 
-        {/* Main Image */}
+        {/* Main Images - Mobile: 2 images stacked, Desktop: single large image */}
         {slide.mainImage && (
-          <div className="relative w-[937px] h-[226px] rounded-[20px] overflow-hidden">
-            <Image
-              src={slide.mainImage.src}
-              alt={slide.mainImage.alt}
-              fill
-              sizes="937px"
-              quality={100}
-            />
-          </div>
+          <>
+            {/* Mobile: Two images stacked */}
+            <div className="flex sm:hidden flex-col items-center gap-[10px]">
+              <div className="relative w-[280px] h-[120px] rounded-[10px] overflow-hidden">
+                <Image
+                  src={slide.mainImage.src}
+                  alt={slide.mainImage.alt}
+                  fill
+                  sizes="280px"
+                  quality={100}
+                  className="object-cover"
+                />
+              </div>
+              <div className="relative w-[280px] h-[120px] rounded-[10px] overflow-hidden">
+                <Image
+                  src="/images/projects/bislaf/JATENG.png"
+                  alt="JATENG"
+                  fill
+                  sizes="280px"
+                  quality={100}
+                  className="object-cover"
+                />
+              </div>
+            </div>
+
+            {/* Tablet/Desktop: Single large image */}
+            <div className="hidden sm:block relative w-[500px] h-[125px] md:w-[600px] md:h-[150px] lg:w-[750px] lg:h-[185px] xl:w-[937px] xl:h-[226px] rounded-[15px] md:rounded-[18px] lg:rounded-[20px] overflow-hidden">
+              <Image
+                src={slide.mainImage.src}
+                alt={slide.mainImage.alt}
+                fill
+                sizes="(max-width: 768px) 500px, (max-width: 1024px) 600px, (max-width: 1280px) 750px, 937px"
+                quality={100}
+                className="object-cover"
+              />
+            </div>
+          </>
         )}
       </>
     );
@@ -67,19 +95,14 @@ function SlideContent({ slide }: { slide: ProjectSlide }) {
     return (
       <>
         {/* Wisevisory Logo */}
-        <div className=" relative z-10">
+        <div className="relative z-10">
           {slide.titleImage ? (
-            // eslint-disable-next-line @next/next/no-img-element
             <Image
               src={slide.titleImage.src}
               alt={slide.titleImage.alt}
               width={slide.titleImage.width}
               height={slide.titleImage.height}
-              className="object-cover"
-              style={{
-                width: `${slide.titleImage.width}px`,
-                height: `${slide.titleImage.height}px`,
-              }}
+              className="object-cover w-[160px] h-[33px] sm:w-[150px] sm:h-[31px] md:w-[180px] md:h-[38px] lg:w-[210px] lg:h-[44px] xl:w-[240px] xl:h-[50px]"
             />
           ) : (
             <p className="text-black p-4">No titleImage</p>
@@ -94,49 +117,103 @@ function SlideContent({ slide }: { slide: ProjectSlide }) {
               alt={slide.clientLogo.alt}
               width={slide.clientLogo.width}
               height={slide.clientLogo.height}
-              style={{
-                width: `${slide.clientLogo.width}px`,
-                height: `${slide.clientLogo.height}px`,
-              }}
+              className="w-[84px] h-[67px] sm:w-[80px] sm:h-[64px] md:w-[95px] md:h-[76px] lg:w-[110px] lg:h-[88px] xl:w-[126px] xl:h-[100px]"
             />
           </div>
         )}
 
         {/* Description */}
-        <div
-          className="mb-[20px] flex items-center justify-center"
-          style={{
-            width: `${slide.descriptionSize?.width || 793}px`,
-            height: `${slide.descriptionSize?.height || 50}px`,
-          }}
-        >
-          <p className="text-[#333333] text-[12px] font-medium leading-[1.4] text-center">
+        <div className="w-[280px] sm:w-[450px] md:w-[550px] lg:w-[680px] xl:w-[793px] h-auto sm:h-[40px] md:h-[44px] lg:h-[48px] xl:h-[50px] mb-[15px] sm:mb-[16px] md:mb-[18px] lg:mb-[20px] flex items-center justify-center">
+          <p className="text-[#333333] text-[10px] sm:text-[10px] md:text-[11px] lg:text-[11px] xl:text-[12px] font-medium leading-[1.4] text-center">
             {slide.description}
           </p>
         </div>
 
-        {/* Gallery Images */}
+        {/* Gallery Images - Mobile: stacked, Tablet: scaled, Desktop: full size */}
         {slide.galleryImages && slide.galleryImages.length > 0 && (
-          <div className="flex items-center justify-center gap-[10px]">
-            {slide.galleryImages.map((image, idx) => (
-              <div
-                key={idx}
-                className="relative rounded-[20px] overflow-hidden"
-                style={{
-                  width: `${image.width}px`,
-                  height: `${image.height}px`,
-                }}
-              >
+          <>
+            {/* Mobile Layout */}
+            <div className="flex sm:hidden flex-col items-center gap-[10px]">
+              <div className="flex items-center justify-center gap-[10px]">
+                <div className="relative rounded-[10px] overflow-hidden w-[135px] h-[100px]">
+                  <Image
+                    src={slide.galleryImages[0].src}
+                    alt={slide.galleryImages[0].alt}
+                    fill
+                    sizes="135px"
+                    quality={100}
+                    className="object-cover"
+                  />
+                </div>
+                <div className="relative rounded-[10px] overflow-hidden w-[135px] h-[100px]">
+                  <Image
+                    src={slide.galleryImages[2].src}
+                    alt={slide.galleryImages[2].alt}
+                    fill
+                    sizes="135px"
+                    quality={100}
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+              <div className="relative rounded-[10px] overflow-hidden w-[280px] h-[100px]">
                 <Image
-                  src={image.src}
-                  alt={image.alt}
+                  src={slide.galleryImages[1].src}
+                  alt={slide.galleryImages[1].alt}
                   fill
-                  sizes={`${image.width}px`}
+                  sizes="280px"
                   quality={100}
+                  className="object-cover"
                 />
               </div>
-            ))}
-          </div>
+            </div>
+
+            {/* Tablet Layout (sm to lg) */}
+            <div className="hidden sm:flex lg:hidden items-center justify-center gap-[8px]">
+              {slide.galleryImages.map((image, idx) => (
+                <div
+                  key={idx}
+                  className="relative rounded-[15px] overflow-hidden"
+                  style={{
+                    width: `${Math.round(image.width * 0.7)}px`,
+                    height: `${Math.round(image.height * 0.7)}px`,
+                  }}
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes={`${Math.round(image.width * 0.7)}px`}
+                    quality={100}
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Layout (xl+) - Ann's */}
+            <div className="hidden xl:flex items-center justify-center gap-[10px]">
+              {slide.galleryImages.map((image, idx) => (
+                <div
+                  key={idx}
+                  className="relative rounded-[20px] overflow-hidden"
+                  style={{
+                    width: `${image.width}px`,
+                    height: `${image.height}px`,
+                  }}
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes={`${image.width}px`}
+                    quality={100}
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </>
     );
@@ -154,10 +231,7 @@ function SlideContent({ slide }: { slide: ProjectSlide }) {
               alt={slide.titleImage.alt}
               width={slide.titleImage.width}
               height={slide.titleImage.height}
-              style={{
-                width: `${slide.titleImage.width}px`,
-                height: `${slide.titleImage.height}px`,
-              }}
+              className="w-[160px] h-[33px] sm:w-[150px] sm:h-[31px] md:w-[180px] md:h-[38px] lg:w-[210px] lg:h-[44px] xl:w-[240px] xl:h-[50px]"
             />
           )}
           {slide.clientLogo && (
@@ -166,11 +240,7 @@ function SlideContent({ slide }: { slide: ProjectSlide }) {
               alt={slide.clientLogo.alt}
               width={slide.clientLogo.width}
               height={slide.clientLogo.height}
-              className="object-contain"
-              style={{
-                width: `${slide.clientLogo.width}px`,
-                height: `${slide.clientLogo.height}px`,
-              }}
+              className="object-contain w-[84px] h-[67px] sm:w-[80px] sm:h-[64px] md:w-[95px] md:h-[76px] lg:w-[110px] lg:h-[88px] xl:w-[126px] xl:h-[100px]"
             />
           )}
         </div>
@@ -179,40 +249,97 @@ function SlideContent({ slide }: { slide: ProjectSlide }) {
         <div className="h-[10px]"></div>
 
         {/* Description */}
-        <div
-          className="mb-[20px] flex items-center justify-center"
-          style={{
-            width: `${slide.descriptionSize?.width || 793}px`,
-            height: `${slide.descriptionSize?.height || 50}px`,
-          }}
-        >
-          <p className="text-[#333333] text-[12px] font-medium leading-[1.4] text-center">
+        <div className="w-[280px] sm:w-[450px] md:w-[550px] lg:w-[680px] xl:w-[793px] h-auto sm:h-[40px] md:h-[44px] lg:h-[48px] xl:h-[50px] mb-[15px] sm:mb-[16px] md:mb-[18px] lg:mb-[20px] flex items-center justify-center">
+          <p className="text-[#333333] text-[10px] sm:text-[10px] md:text-[11px] lg:text-[11px] xl:text-[12px] font-medium leading-[1.4] text-center">
             {slide.description}
           </p>
         </div>
 
-        {/* Gallery Images */}
+        {/* Gallery Images - Mobile: stacked, Tablet: scaled, Desktop: full size */}
         {slide.galleryImages && slide.galleryImages.length > 0 && (
-          <div className="flex items-center justify-center gap-[10px]">
-            {slide.galleryImages.map((image, idx) => (
-              <div
-                key={idx}
-                className="relative rounded-[20px] overflow-hidden"
-                style={{
-                  width: `${image.width}px`,
-                  height: `${image.height}px`,
-                }}
-              >
+          <>
+            {/* Mobile Layout */}
+            <div className="flex sm:hidden flex-col items-center gap-[10px]">
+              <div className="flex items-center justify-center gap-[10px]">
+                <div className="relative rounded-[10px] overflow-hidden w-[135px] h-[100px]">
+                  <Image
+                    src={slide.galleryImages[0].src}
+                    alt={slide.galleryImages[0].alt}
+                    fill
+                    sizes="135px"
+                    quality={100}
+                    className="object-cover"
+                  />
+                </div>
+                <div className="relative rounded-[10px] overflow-hidden w-[135px] h-[100px]">
+                  <Image
+                    src={slide.galleryImages[2].src}
+                    alt={slide.galleryImages[2].alt}
+                    fill
+                    sizes="135px"
+                    quality={100}
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+              <div className="relative rounded-[10px] overflow-hidden w-[280px] h-[100px]">
                 <Image
-                  src={image.src}
-                  alt={image.alt}
+                  src={slide.galleryImages[1].src}
+                  alt={slide.galleryImages[1].alt}
                   fill
-                  sizes={`${image.width}px`}
+                  sizes="280px"
                   quality={100}
+                  className="object-cover"
                 />
               </div>
-            ))}
-          </div>
+            </div>
+
+            {/* Tablet Layout (sm to xl) - Dusdukduk */}
+            <div className="hidden sm:flex xl:hidden items-center justify-center gap-[6px] md:gap-[8px]">
+              {slide.galleryImages.map((image, idx) => (
+                <div
+                  key={idx}
+                  className="relative rounded-[12px] md:rounded-[15px] overflow-hidden"
+                  style={{
+                    width: `${Math.round(image.width * 0.55)}px`,
+                    height: `${Math.round(image.height * 0.55)}px`,
+                  }}
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes={`${Math.round(image.width * 0.55)}px`}
+                    quality={100}
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Layout (xl+) - Dusdukduk */}
+            <div className="hidden xl:flex items-center justify-center gap-[10px]">
+              {slide.galleryImages.map((image, idx) => (
+                <div
+                  key={idx}
+                  className="relative rounded-[20px] overflow-hidden"
+                  style={{
+                    width: `${image.width}px`,
+                    height: `${image.height}px`,
+                  }}
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes={`${image.width}px`}
+                    quality={100}
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </>
     );
@@ -261,8 +388,13 @@ function SlideContent({ slide }: { slide: ProjectSlide }) {
 export default function Projects() {
   const [currentSlide, setCurrentSlide] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(true);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   const slides = projectsData;
+
+  // Minimum swipe distance (in px)
+  const minSwipeDistance = 50;
 
   const nextSlide = () => {
     setIsTransitioning(true);
@@ -274,14 +406,28 @@ export default function Projects() {
     setCurrentSlide((prev) => prev - 1);
   };
 
-  // Auto-play slider - DISABLED FOR DEBUGGING
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     nextSlide();
-  //   }, 10000);
+  // Touch handlers for swipe
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
 
-  //   return () => clearInterval(timer);
-  // }, []);
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    } else if (isRightSwipe) {
+      prevSlide();
+    }
+  };
 
   // Handle seamless loop transition
   useEffect(() => {
@@ -301,7 +447,10 @@ export default function Projects() {
   }, [currentSlide, slides.length, isTransitioning]);
 
   return (
-    <section className="relative h-[500px] md:h-[650px] lg:h-[780px] overflow-hidden flex items-center">
+    <section
+      id="projects"
+      className="relative h-auto sm:h-[480px] md:h-[540px] lg:h-[640px] xl:h-[780px] py-[20px] sm:py-0 overflow-hidden flex items-start"
+    >
       {/* Background Image */}
       <div className="absolute inset-0 bg-[#E8E6E6]"></div>
       <div
@@ -311,22 +460,24 @@ export default function Projects() {
 
       {/* Content */}
       <div className="relative z-10 w-full">
-        {/* 55px spacing from top */}
-        <div className="h-[55px]"></div>
+        {/* Spacing from top */}
+        <div className="hidden sm:block h-[35px] md:h-[42px] lg:h-[50px] xl:h-[55px]"></div>
 
-        <div className="h-[56px] flex items-center justify-center">
-          <h2 className="section-title">Projects</h2>
+        <div className="h-[40px] sm:h-[42px] md:h-[48px] lg:h-[52px] xl:h-[56px] flex items-center justify-center">
+          <h2 className="text-[25px] sm:text-[28px] md:text-[32px] lg:text-[36px] xl:text-[40px] font-semibold text-[#D79C60] section-title">
+            Projects
+          </h2>
         </div>
 
-        {/* 25px spacing to content */}
-        <div className="h-[25px]"></div>
+        {/* Spacing to content */}
+        <div className="h-[15px] sm:h-[16px] md:h-[20px] lg:h-[22px] xl:h-[25px]"></div>
 
         {/* Slider Container */}
-        <div className="relative w-full h-[350px] md:h-[450px] lg:h-[523px] flex items-center">
-          {/* Previous Button */}
+        <div className="relative w-full h-auto sm:h-[340px] md:h-[380px] lg:h-[450px] xl:h-[523px] flex items-center">
+          {/* Previous Button - Only visible on desktop (lg+) */}
           <button
             onClick={prevSlide}
-            className="absolute left-[60px] top-1/2 -translate-y-1/2 z-20 hover:opacity-70 transition-opacity"
+            className="hidden lg:block absolute left-[40px] lg:left-[40px] xl:left-[60px] top-1/2 -translate-y-1/2 z-20 hover:opacity-70 transition-opacity"
             aria-label="Previous slide"
           >
             <svg
@@ -347,7 +498,12 @@ export default function Projects() {
           </button>
 
           {/* Slides */}
-          <div className="w-full h-full overflow-hidden">
+          <div
+            className="w-full h-full overflow-hidden touch-pan-y"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
             <div
               className="flex h-full"
               style={{
@@ -358,7 +514,7 @@ export default function Projects() {
               }}
             >
               {/* Clone of last slide */}
-              <div className="w-full h-full flex-shrink-0 px-4 md:px-12 lg:px-20">
+              <div className="w-full h-full flex-shrink-0 px-[20px] sm:px-4 md:px-12 lg:px-20">
                 <div className="h-full flex flex-col items-center justify-start">
                   <SlideContent slide={slides[slides.length - 1]} />
                 </div>
@@ -368,7 +524,7 @@ export default function Projects() {
               {slides.map((slide) => (
                 <div
                   key={slide.id}
-                  className="w-full h-full flex-shrink-0 px-4 md:px-12 lg:px-20"
+                  className="w-full h-full flex-shrink-0 px-[20px] sm:px-4 md:px-12 lg:px-20"
                 >
                   <div className="h-full flex flex-col items-center justify-start">
                     <SlideContent slide={slide} />
@@ -377,7 +533,7 @@ export default function Projects() {
               ))}
 
               {/* Clone of first slide */}
-              <div className="w-full h-full flex-shrink-0 px-4 md:px-12 lg:px-20">
+              <div className="w-full h-full flex-shrink-0 px-[20px] sm:px-4 md:px-12 lg:px-20">
                 <div className="h-full flex flex-col items-center justify-start">
                   <SlideContent slide={slides[0]} />
                 </div>
@@ -385,10 +541,10 @@ export default function Projects() {
             </div>
           </div>
 
-          {/* Next Button */}
+          {/* Next Button - Only visible on desktop (lg+) */}
           <button
             onClick={nextSlide}
-            className="absolute right-[60px] top-1/2 -translate-y-1/2 z-20 hover:opacity-70 transition-opacity"
+            className="hidden lg:block absolute right-[40px] lg:right-[40px] xl:right-[60px] top-1/2 -translate-y-1/2 z-20 hover:opacity-70 transition-opacity"
             aria-label="Next slide"
           >
             <svg

@@ -65,49 +65,76 @@ export default function Partners() {
   const mediaRow3 = mediaReviews.slice(10);
 
   return (
-    <section className="h-[600px] bg-white">
-      <div className="h-full flex flex-col items-center">
+    <section
+      id="strategic-partners"
+      className="h-auto sm:h-[480px] md:h-[520px] lg:h-[560px] xl:h-[600px] py-[20px] sm:py-0 bg-white"
+    >
+      <div className="h-full flex flex-col items-center px-[20px] sm:px-0">
         {/* Strategic Partners */}
         <div className="flex flex-col items-center">
-          {/* 55px spacing from top */}
-          <div className="h-[55px]"></div>
+          {/* Spacing from top */}
+          <div className="hidden sm:block h-[35px] md:h-[42px] lg:h-[48px] xl:h-[55px]"></div>
 
-          <div className="h-[56px] flex items-center justify-center">
-            <h2 className="section-title">Strategic Partners</h2>
+          <div className="h-[40px] sm:h-[42px] md:h-[48px] lg:h-[52px] xl:h-[56px] flex items-center justify-center">
+            <h2 className="text-[25px] sm:text-[28px] md:text-[32px] lg:text-[36px] xl:text-[40px] font-semibold text-[#D79C60] section-title">
+              Strategic Partners
+            </h2>
           </div>
 
-          {/* 25px spacing to content */}
-          <div className="h-[25px]"></div>
+          {/* Spacing to content */}
+          <div className="h-[15px] sm:h-[18px] md:h-[20px] lg:h-[22px] xl:h-[25px]"></div>
 
-          {/* Row 1 - 4 logos */}
-          <div className="flex items-center justify-center gap-[10px]">
-            {strategicRow1.map((partner, index) => (
-              <div key={index} className="h-[51px] flex items-center">
+          {/* Mobile: flex-wrap, Desktop: rows */}
+          <div className="flex flex-wrap items-center justify-center gap-[10px] sm:hidden">
+            {strategicPartners.map((partner, index) => (
+              <div key={index} className="h-[25px] flex items-center">
                 <Image
                   src={partner.logo}
                   alt={partner.name}
                   width={100}
-                  height={51}
-                  className="h-[51px] w-auto object-contain"
+                  height={25}
+                  className="h-[25px] w-auto object-contain"
                   quality={100}
                 />
               </div>
             ))}
           </div>
 
-          {/* 10px gap between rows */}
-          <div className="h-[10px]"></div>
-
-          {/* Row 2 - remaining logos */}
-          <div className="flex items-center justify-center gap-[10px]">
-            {strategicRow2.map((partner, index) => (
-              <div key={index} className="h-[51px] flex items-center">
+          {/* Desktop: Row 1 - 4 logos */}
+          <div className="hidden sm:flex items-center justify-center gap-[10px]">
+            {strategicRow1.map((partner, index) => (
+              <div
+                key={index}
+                className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] flex items-center"
+              >
                 <Image
                   src={partner.logo}
                   alt={partner.name}
                   width={100}
                   height={51}
-                  className="h-[51px] w-auto object-contain"
+                  className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] w-auto object-contain"
+                  quality={100}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop: 10px gap between rows */}
+          <div className="hidden sm:block h-[10px]"></div>
+
+          {/* Desktop: Row 2 - remaining logos */}
+          <div className="hidden sm:flex items-center justify-center gap-[10px]">
+            {strategicRow2.map((partner, index) => (
+              <div
+                key={index}
+                className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] flex items-center"
+              >
+                <Image
+                  src={partner.logo}
+                  alt={partner.name}
+                  width={100}
+                  height={51}
+                  className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] w-auto object-contain"
                   quality={100}
                 />
               </div>
@@ -116,62 +143,87 @@ export default function Partners() {
         </div>
 
         {/* Media Reviews */}
-        <div className="flex flex-col items-center mt-[40px]">
-          <h2 className="text-[40px] font-semibold text-[#D79C60] text-center">
+        <div className="flex flex-col items-center mt-[25px] sm:mt-[30px] md:mt-[34px] lg:mt-[38px] xl:mt-[40px]">
+          <h2 className="text-[25px] sm:text-[28px] md:text-[32px] lg:text-[36px] xl:text-[40px] font-semibold text-[#D79C60] text-center">
             Media Reviews
           </h2>
 
-          {/* 30px spacing */}
-          <div className="h-[30px]"></div>
+          {/* Spacing */}
+          <div className="h-[15px] sm:h-[20px] md:h-[24px] lg:h-[28px] xl:h-[30px]"></div>
 
-          {/* Row 1 - 5 logos */}
-          <div className="flex items-center justify-center gap-[10px]">
+          {/* Mobile: flex-wrap */}
+          <div className="flex flex-wrap items-center justify-center gap-[10px] sm:hidden">
+            {mediaReviews.map((media, index) => (
+              <div key={index} className="h-[25px] flex items-center">
+                <Image
+                  src={media.logo}
+                  alt={media.name}
+                  width={100}
+                  height={25}
+                  className="h-[25px] w-auto object-contain"
+                  quality={100}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop: Row 1 - 5 logos */}
+          <div className="hidden sm:flex items-center justify-center gap-[10px]">
             {mediaRow1.map((media, index) => (
-              <div key={index} className="h-[51px] flex items-center">
+              <div
+                key={index}
+                className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] flex items-center"
+              >
                 <Image
                   src={media.logo}
                   alt={media.name}
                   width={100}
                   height={51}
-                  className="h-[51px] w-auto object-contain"
+                  className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] w-auto object-contain"
                   quality={100}
                 />
               </div>
             ))}
           </div>
 
-          {/* 10px gap between rows */}
-          <div className="h-[10px]"></div>
+          {/* Desktop: 10px gap between rows */}
+          <div className="hidden sm:block h-[10px]"></div>
 
-          {/* Row 2 - 5 logos */}
-          <div className="flex items-center justify-center gap-[10px]">
+          {/* Desktop: Row 2 - 5 logos */}
+          <div className="hidden sm:flex items-center justify-center gap-[10px]">
             {mediaRow2.map((media, index) => (
-              <div key={index} className="h-[51px] flex items-center">
+              <div
+                key={index}
+                className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] flex items-center"
+              >
                 <Image
                   src={media.logo}
                   alt={media.name}
                   width={100}
                   height={51}
-                  className="h-[51px] w-auto object-contain"
+                  className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] w-auto object-contain"
                   quality={100}
                 />
               </div>
             ))}
           </div>
 
-          {/* 10px gap between rows */}
-          <div className="h-[10px]"></div>
+          {/* Desktop: 10px gap between rows */}
+          <div className="hidden sm:block h-[10px]"></div>
 
-          {/* Row 3 - remaining logos */}
-          <div className="flex items-center justify-center gap-[10px]">
+          {/* Desktop: Row 3 - remaining logos */}
+          <div className="hidden sm:flex items-center justify-center gap-[10px]">
             {mediaRow3.map((media, index) => (
-              <div key={index} className="h-[51px] flex items-center">
+              <div
+                key={index}
+                className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] flex items-center"
+              >
                 <Image
                   src={media.logo}
                   alt={media.name}
                   width={100}
                   height={51}
-                  className="h-[51px] w-auto object-contain"
+                  className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] w-auto object-contain"
                   quality={100}
                 />
               </div>
