@@ -247,16 +247,15 @@ export default function Header() {
             onMouseEnter={() => setActiveDropdown("services")}
             onMouseLeave={() => setActiveDropdown(null)}
           >
-            <Link
-              href="/#services"
+            <span
               className={`${
                 isActive("/wisevisory") || isActive("/wisecubation")
                   ? "text-[#D79C60]"
                   : "text-[#333333]"
-              } hover:text-[#D79C60] transition-colors font-bold text-[14px] whitespace-nowrap`}
+              } hover:text-[#D79C60] transition-colors font-bold text-[14px] whitespace-nowrap cursor-pointer`}
             >
               Services
-            </Link>
+            </span>
             {activeDropdown === "services" && (
               <div
                 className="absolute left-1/2 -translate-x-1/2 bg-white z-50 flex flex-col"
@@ -292,7 +291,7 @@ export default function Header() {
             )}
           </div>
 
-          {/* Book Online - No Dropdown */}
+          {/* Book Online - No Dropdown
           <Link
             href="/book-online"
             className={`${
@@ -302,7 +301,7 @@ export default function Header() {
             Book Online
           </Link>
 
-          {/* Contact - No Dropdown */}
+          Contact - No Dropdown
           <Link
             href="/contact"
             className={`${
@@ -310,7 +309,7 @@ export default function Header() {
             } hover:text-[#D79C60] transition-colors font-bold text-[14px] whitespace-nowrap`}
           >
             Contact
-          </Link>
+          </Link> */}
         </nav>
 
         {/* Ask wise Button - Right (Desktop) */}
@@ -611,7 +610,7 @@ export default function Header() {
               )}
             </div>
 
-            {/* Book Online - No Dropdown */}
+            {/* Book Online - No Dropdown
             <Link
               href="/book-online"
               className="px-4 py-3 bg-[#333333] text-white font-bold text-[14px] border-b border-[#595959]"
@@ -620,14 +619,14 @@ export default function Header() {
               Book Online
             </Link>
 
-            {/* Contact - No Dropdown */}
+            Contact - No Dropdown
             <Link
               href="/contact"
               className="px-4 py-3 bg-[#333333] text-white font-bold text-[14px]"
               onClick={() => setIsMenuOpen(false)}
             >
               Contact
-            </Link>
+            </Link> */}
           </nav>
         </div>
       )}

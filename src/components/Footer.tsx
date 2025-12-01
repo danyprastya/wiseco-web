@@ -469,7 +469,7 @@ export default function Footer() {
                   href="/#services"
                   className="hover:text-[#D79C60] transition-colors"
                 >
-                  Service
+                  Services
                 </Link>
               </p>
               <p className="pl-4 font-medium">

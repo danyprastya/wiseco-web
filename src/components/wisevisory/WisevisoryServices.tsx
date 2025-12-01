@@ -80,9 +80,9 @@ export default function WisevisoryServices() {
   return (
     <section className="min-h-[869px] sm:min-h-[580px] md:min-h-[680px] lg:min-h-[780px] xl:min-h-[869px] sm:h-auto bg-[#E8E6E6] flex flex-col items-center py-[20px] sm:py-[35px] md:py-[42px] lg:py-[48px] xl:py-[55px]">
       <div className="h-auto sm:h-[42px] md:h-[46px] lg:h-[50px] xl:h-[56px] flex items-center justify-center">
-        <h2 className="text-[25px] sm:text-[28px] md:text-[32px] lg:text-[36px] xl:text-[40px] text-[#D79C60] text-center font-bold">
+        {/* <h2 className="text-[25px] sm:text-[28px] md:text-[32px] lg:text-[36px] xl:text-[40px] text-[#D79C60] text-center font-bold">
           Services
-        </h2>
+        </h2> */}
       </div>
 
       {/* 25px spacing */}

@@ -14,8 +14,8 @@ export default function Home() {
       <PortfolioStats />
       <Services />
       <Projects />
-      <Events />
       <Testimonials />
+      <Events />
       <YoutubeVideos />
       <Partners />
     </>
