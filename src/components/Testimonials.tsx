@@ -3,6 +3,61 @@
 import Image from "next/image";
 import { useState } from "react";
 import { testimonialsData, TestimonialSlide } from "@/data/testimonials";
+import { motion, AnimatePresence } from "framer-motion";
+
+// Timing configuration for Testimonials
+const PHOTO_LOGO_DELAY = 0; // Photo and logo fade in first
+const NAME_POSITION_DELAY = 0.2; // Name and position slide from top
+const TESTIMONIAL_DELAY = 0.5; // Testimonial text slides from top
+const ACTIVITY_DELAY = 0.8; // Activity image fades in last
+
+// Fade in animation
+const fadeIn = (delay: number) => ({
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.6,
+      delay,
+      ease: "easeOut" as const,
+    },
+  },
+});
+
+// Slide from top animation
+const slideFromTop = (delay: number) => ({
+  hidden: { opacity: 0, y: -30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      delay,
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
+    },
+  },
+});
+
+// Fade transition variants for slide navigation - subtle fade
+const fadeVariants = {
+  enter: {
+    opacity: 0.3,
+  },
+  center: {
+    opacity: 1,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut" as const,
+    },
+  },
+  exit: {
+    opacity: 0.3,
+    transition: {
+      duration: 0.25,
+      ease: "easeIn" as const,
+    },
+  },
+};
 
 // Function to render text with bold phrases
 function renderTestimonialText(text: string, boldPhrases: string[]) {
@@ -39,9 +94,20 @@ function renderTestimonialText(text: string, boldPhrases: string[]) {
 }
 
 // Slide Content Component
-function SlideContent({ slide }: { slide: TestimonialSlide }) {
+function SlideContent({
+  slide,
+  slideKey,
+}: {
+  slide: TestimonialSlide;
+  slideKey: number;
+}) {
   return (
-    <div className="relative h-auto sm:h-[520px] md:h-[600px] lg:h-[660px] xl:h-[721px] w-full overflow-hidden">
+    <motion.div
+      key={slideKey}
+      className="relative h-auto sm:h-[520px] md:h-[600px] lg:h-[660px] xl:h-[721px] w-full overflow-hidden"
+      initial="hidden"
+      animate="visible"
+    >
       {/* Background Image with overlay */}
       <div
         className="absolute inset-0"
@@ -67,8 +133,11 @@ function SlideContent({ slide }: { slide: TestimonialSlide }) {
         {/* 65px spacing from top - hidden on mobile */}
         <div className="hidden sm:block h-[65px]"></div>
 
-        {/* Mobile: Vertical layout (photo on top, logo below) */}
-        <div className="flex sm:hidden flex-col items-center gap-[15px]">
+        {/* Mobile: Vertical layout (photo on top, logo below) - fade in */}
+        <motion.div
+          className="flex sm:hidden flex-col items-center gap-[15px]"
+          variants={fadeIn(PHOTO_LOGO_DELAY)}
+        >
           {/* Owner Photo */}
           <div className="relative w-[100px] h-[100px] rounded-full overflow-hidden">
             <Image
@@ -104,10 +173,13 @@ function SlideContent({ slide }: { slide: TestimonialSlide }) {
               quality={100}
             />
           </div>
-        </div>
+        </motion.div>
 
-        {/* Desktop: Owner photo, line, and company logo row */}
-        <div className="hidden sm:flex items-center">
+        {/* Desktop: Owner photo, line, and company logo row - fade in */}
+        <motion.div
+          className="hidden sm:flex items-center"
+          variants={fadeIn(PHOTO_LOGO_DELAY)}
+        >
           {/* Owner Photo Container - fixed width to match logo container */}
           <div className="w-[180px] md:w-[210px] lg:w-[230px] xl:w-[250px] flex justify-end">
             <div className="relative w-[100px] h-[100px] md:w-[115px] md:h-[115px] lg:w-[125px] lg:h-[125px] xl:w-[135px] xl:h-[135px] rounded-full overflow-hidden">
@@ -152,42 +224,52 @@ function SlideContent({ slide }: { slide: TestimonialSlide }) {
               />
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* 15px spacing */}
         <div className="h-[10px] sm:h-[15px]"></div>
 
-        {/* Owner Name */}
-        <h3
+        {/* Owner Name - slide from top */}
+        <motion.h3
           className="text-[18px] sm:text-[22px] md:text-[25px] lg:text-[27px] xl:text-[30px] text-center"
           style={{
             color: slide.ownerNameColor,
             fontFamily: "Avenir, sans-serif",
           }}
+          variants={slideFromTop(NAME_POSITION_DELAY)}
         >
           <strong>{slide.ownerName}</strong>
-        </h3>
+        </motion.h3>
 
-        {/* Position */}
-        <p className="text-[12px] sm:text-[13px] md:text-[15px] lg:text-[16px] xl:text-[18px] font-normal text-white text-center">
+        {/* Position - slide from top with delay */}
+        <motion.p
+          className="text-[12px] sm:text-[13px] md:text-[15px] lg:text-[16px] xl:text-[18px] font-normal text-white text-center"
+          variants={slideFromTop(NAME_POSITION_DELAY + 0.1)}
+        >
           {slide.position}
-        </p>
+        </motion.p>
 
         {/* 25px spacing - reduced on mobile */}
         <div className="h-[15px] sm:h-[25px]"></div>
 
-        {/* Testimonial Text */}
-        <div className="w-[280px] sm:w-[600px] md:w-[720px] lg:w-[800px] xl:w-[860px] h-auto sm:h-[70px] md:h-[78px] lg:h-[84px] xl:h-[90px] flex items-center justify-center px-4">
+        {/* Testimonial Text - slide from top with delay */}
+        <motion.div
+          className="w-[280px] sm:w-[600px] md:w-[720px] lg:w-[800px] xl:w-[860px] h-auto sm:h-[70px] md:h-[78px] lg:h-[84px] xl:h-[90px] flex items-center justify-center px-4"
+          variants={slideFromTop(TESTIMONIAL_DELAY)}
+        >
           <p className="text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[15px] font-medium text-white text-center leading-[1.5]">
             {renderTestimonialText(slide.testimonialText, slide.boldPhrases)}
           </p>
-        </div>
+        </motion.div>
 
         {/* 30px spacing - reduced on mobile */}
         <div className="h-[15px] sm:h-[30px]"></div>
 
-        {/* Activity Photo */}
-        <div className="relative w-[240px] h-[105px] sm:w-[360px] sm:h-[160px] md:w-[420px] md:h-[185px] lg:w-[465px] lg:h-[205px] xl:w-[505px] xl:h-[222px] rounded-[10px] sm:rounded-[15px] md:rounded-[18px] lg:rounded-[20px] xl:rounded-[20px] overflow-hidden">
+        {/* Activity Photo - fade in last */}
+        <motion.div
+          className="relative w-[240px] h-[105px] sm:w-[360px] sm:h-[160px] md:w-[420px] md:h-[185px] lg:w-[465px] lg:h-[205px] xl:w-[505px] xl:h-[222px] rounded-[10px] sm:rounded-[15px] md:rounded-[18px] lg:rounded-[20px] xl:rounded-[20px] overflow-hidden"
+          variants={fadeIn(ACTIVITY_DELAY)}
+        >
           <Image
             src={slide.activityImage}
             alt="Activity"
@@ -196,47 +278,31 @@ function SlideContent({ slide }: { slide: TestimonialSlide }) {
             className="object-cover"
             quality={100}
           />
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 export default function Testimonials() {
   const totalSlides = testimonialsData.length;
-  // Start at index 1 because index 0 is the cloned last slide
-  const [currentIndex, setCurrentIndex] = useState(1);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   // Minimum swipe distance (in px)
   const minSwipeDistance = 50;
 
-  // Create extended slides array: [lastSlide, ...allSlides, firstSlide]
-  const extendedSlides = [
-    testimonialsData[totalSlides - 1], // Clone of last slide at the beginning
-    ...testimonialsData,
-    testimonialsData[0], // Clone of first slide at the end
-  ];
-
   const goToPrevious = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrentIndex((prev) => prev - 1);
+    setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
   };
 
   const goToNext = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrentIndex((prev) => prev + 1);
+    setCurrentIndex((prev) => (prev + 1) % totalSlides);
   };
 
   const goToSlide = (index: number) => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    // Add 1 because of the cloned slide at the beginning
-    setCurrentIndex(index + 1);
+    setCurrentIndex(index);
   };
 
   // Touch handlers for swipe
@@ -262,49 +328,33 @@ export default function Testimonials() {
     }
   };
 
-  // Handle infinite scroll logic after transition ends
-  const handleTransitionEnd = () => {
-    setIsTransitioning(false);
-
-    // If we're at the cloned first slide (end), jump to the real first slide
-    if (currentIndex === extendedSlides.length - 1) {
-      setCurrentIndex(1);
-    }
-    // If we're at the cloned last slide (beginning), jump to the real last slide
-    else if (currentIndex === 0) {
-      setCurrentIndex(totalSlides);
-    }
-  };
-
-  // Calculate the actual slide index for dot indicators (0-based)
-  const getActualSlideIndex = () => {
-    if (currentIndex === 0) return totalSlides - 1;
-    if (currentIndex === extendedSlides.length - 1) return 0;
-    return currentIndex - 1;
-  };
-
   return (
     <section
       id="testimonies"
       className="h-auto sm:h-[520px] md:h-[600px] lg:h-[660px] xl:h-[721px] overflow-hidden relative"
     >
-      {/* Slides Container */}
+      {/* Slides Container with fade transition */}
       <div
-        className="flex h-full touch-pan-y"
-        style={{
-          transform: `translateX(-${currentIndex * 100}%)`,
-          transition: isTransitioning ? "transform 500ms ease-in-out" : "none",
-        }}
-        onTransitionEnd={handleTransitionEnd}
+        className="w-full h-full touch-pan-y"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
-        {extendedSlides.map((slide, index) => (
-          <div key={`${slide.id}-${index}`} className="w-full flex-shrink-0">
-            <SlideContent slide={slide} />
-          </div>
-        ))}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            variants={fadeVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            className="w-full h-full"
+          >
+            <SlideContent
+              slide={testimonialsData[currentIndex]}
+              slideKey={currentIndex}
+            />
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* Left Navigation Button - Only visible on desktop (lg+) */}
@@ -360,7 +410,7 @@ export default function Testimonials() {
             key={index}
             onClick={() => goToSlide(index)}
             className={`w-[6px] h-[6px] sm:w-[8px] sm:h-[8px] rounded-full transition-colors ${
-              index === getActualSlideIndex()
+              index === currentIndex
                 ? "bg-white"
                 : "bg-white/50 hover:bg-white/70"
             }`}

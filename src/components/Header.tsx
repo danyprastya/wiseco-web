@@ -129,16 +129,6 @@ export default function Header() {
                   Projects
                 </Link>
                 <Link
-                  href="/#events"
-                  className="block text-[#333333] hover:text-[#D79C60] text-[14px] font-bold text-center whitespace-nowrap"
-                  style={{
-                    paddingLeft: "20px",
-                    paddingRight: "20px",
-                  }}
-                >
-                  Events
-                </Link>
-                <Link
                   href="/#testimonies"
                   className="block text-[#333333] hover:text-[#D79C60] text-[14px] font-bold text-center whitespace-nowrap"
                   style={{
@@ -147,6 +137,16 @@ export default function Header() {
                   }}
                 >
                   Testimonies
+                </Link>
+                <Link
+                  href="/#events"
+                  className="block text-[#333333] hover:text-[#D79C60] text-[14px] font-bold text-center whitespace-nowrap"
+                  style={{
+                    paddingLeft: "20px",
+                    paddingRight: "20px",
+                  }}
+                >
+                  Events
                 </Link>
                 <Link
                   href="/#videos"
@@ -472,18 +472,18 @@ export default function Header() {
                     Projects
                   </Link>
                   <Link
-                    href="/#events"
-                    className="px-6 py-2 text-white text-[13px] border-b border-[#6b6b6b]"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Events
-                  </Link>
-                  <Link
                     href="/#testimonies"
                     className="px-6 py-2 text-white text-[13px] border-b border-[#6b6b6b]"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Testimonies
+                  </Link>
+                  <Link
+                    href="/#events"
+                    className="px-6 py-2 text-white text-[13px] border-b border-[#6b6b6b]"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Events
                   </Link>
                   <Link
                     href="/#videos"

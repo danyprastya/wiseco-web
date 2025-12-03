@@ -51,7 +51,7 @@ export interface ProjectSlide {
   // Use custom layout (true) or default layout (false)
   useCustomLayout?: boolean;
   // Layout type for different custom layouts
-  layoutType?: "bislaf" | "anns" | "dusdukduk" | "default";
+  layoutType?: "bislaf" | "anns" | "dusdukduk" | "iluminen" | "default";
   // No spacing between title and client logo
   noLogoSpacing?: boolean;
 }
@@ -65,35 +65,9 @@ export interface ProjectSlide {
 // 5. Always provide description and mainImage
 
 export const projectsData: ProjectSlide[] = [
+  // 1. Ann's Bakehouse
   {
     id: 1,
-    useCustomLayout: true,
-    layoutType: "bislaf",
-    titleImage: {
-      src: "/images/projects/bislaf/BISLAF.png",
-      alt: "BISLAF",
-      width: 350,
-      height: 100,
-    },
-    partnerLogos: [
-      {
-        src: "/images/projects/bislaf/kemenkopukm-logo.png",
-        alt: "Kemenkop UKM",
-      },
-      {
-        src: "/images/projects/bislaf/wiseco-logo.png",
-        alt: "Wiseco",
-      },
-    ],
-    description:
-      "2024 - A collaboration between KemenkopUKM RI and wiseco.id to prepare Indonesian SMEs to become fundable businesses. This program was conducted in 6 regions of Indonesia and concluded with pitching to funders at the end of each regional event.",
-    mainImage: {
-      src: "/images/projects/bislaf/NTB.png",
-      alt: "NTB",
-    },
-  },
-  {
-    id: 2,
     useCustomLayout: true,
     layoutType: "anns",
     titleImage: {
@@ -135,8 +109,9 @@ export const projectsData: ProjectSlide[] = [
       },
     ],
   },
+  // 2. Dus Duk Duk
   {
-    id: 3,
+    id: 2,
     useCustomLayout: true,
     layoutType: "dusdukduk",
     noLogoSpacing: true,
@@ -149,8 +124,8 @@ export const projectsData: ProjectSlide[] = [
     clientLogo: {
       src: "/images/logo marquee klien/Logo Dusdukduk.png",
       alt: "Dus Duk Duk",
-      width: 126,
-      height: 100,
+      width: 106,
+      height: 80,
     },
     description:
       "Dus Duk Duk has partnered with wiseco.id to strengthen its business fundamentals and prepare for corporate growth as a creative company transforming cardboard from 100% recycled fibers. Together, we aim to support Dus Duk Duk's sustainable growth and lasting impact.",
@@ -179,10 +154,11 @@ export const projectsData: ProjectSlide[] = [
       },
     ],
   },
+  // 3. Iluminen
   {
-    id: 4,
+    id: 3,
     useCustomLayout: true,
-    layoutType: "dusdukduk",
+    layoutType: "iluminen",
     noLogoSpacing: true,
     titleImage: {
       src: "/images/wisevisory_logo.png",
@@ -222,5 +198,33 @@ export const projectsData: ProjectSlide[] = [
         height: 226,
       },
     ],
+  },
+  // 4. BISLAF
+  {
+    id: 4,
+    useCustomLayout: true,
+    layoutType: "bislaf",
+    titleImage: {
+      src: "/images/projects/bislaf/BISLAF.png",
+      alt: "BISLAF",
+      width: 350,
+      height: 100,
+    },
+    partnerLogos: [
+      {
+        src: "/images/projects/bislaf/kemenkopukm-logo.png",
+        alt: "Kemenkop UKM",
+      },
+      {
+        src: "/images/projects/bislaf/wiseco-logo.png",
+        alt: "Wiseco",
+      },
+    ],
+    description:
+      "2024 - A collaboration between KemenkopUKM RI and wiseco.id to prepare Indonesian SMEs to become fundable businesses. This program was conducted in 6 regions of Indonesia and concluded with pitching to funders at the end of each regional event.",
+    mainImage: {
+      src: "/images/projects/bislaf/NTB.png",
+      alt: "NTB",
+    },
   },
 ];

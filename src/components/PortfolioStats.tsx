@@ -134,7 +134,7 @@ export default function PortfolioStats() {
       ref={sectionRef}
       className="bg-white h-auto sm:h-[320px] md:h-[370px] lg:h-[430px] xl:h-[507px] py-[20px] sm:py-0"
     >
-      <div className="w-full px-[20px] sm:px-4 md:px-20 lg:px-[300px] xl:px-[468px]">
+      <div className="w-full px-[20px] sm:px-4 md:px-20 lg:px-[300px] xl:px-[100px]">
         {/* Spacing from top */}
         <div className="hidden sm:block h-[35px] md:h-[42px] lg:h-[48px] xl:h-[55px]"></div>
 
@@ -148,11 +148,11 @@ export default function PortfolioStats() {
         <div className="h-[15px] sm:h-[18px] md:h-[20px] lg:h-[22px] xl:h-[25px]"></div>
 
         {/* Stats - vertical on mobile, horizontal on larger screens */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-[10px] sm:gap-[10px] md:gap-[15px] lg:gap-[18px] xl:gap-[20px] mb-[20px] sm:mb-[35px] md:mb-[50px] lg:mb-[70px] xl:mb-[90px]">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-[10px] sm:gap-[10px] md:gap-[15px] lg:gap-[20px] xl:gap-[100px] mb-[20px] sm:mb-[35px] md:mb-[50px] lg:mb-[70px] xl:mb-[90px]">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="w-full sm:w-[120px] md:w-[160px] lg:w-[210px] xl:w-[266px] flex flex-col items-center justify-center text-center"
+              className="w-full sm:w-[120px] md:w-[160px] lg:w-[210px] xl:w-[200px] flex flex-col items-center justify-center text-center"
             >
               <div
                 id={`counter-${index}`}
@@ -160,7 +160,7 @@ export default function PortfolioStats() {
               >
                 0
               </div>
-              <div className="text-[16px] sm:text-[11px] md:text-[14px] lg:text-[17px] xl:text-[20px] text-[#333333] leading-[1.1] mt-[10px] sm:mt-0">
+              <div className="text-[16px] sm:text-[11px] md:text-[14px] lg:text-[17px] xl:text-[20px] text-[#333333] leading-[1.1] mt-[10px] sm:mt-0 lg:mt-[8px]">
                 {stat.label}
               </div>
             </div>
@@ -168,38 +168,38 @@ export default function PortfolioStats() {
         </div>
 
         {/* Client Logo Marquee */}
-        <div className="w-full overflow-hidden relative">
-          <div className="flex gap-[30px] sm:gap-[35px] md:gap-[40px] lg:gap-[45px] xl:gap-[50px]">
+        <div className="w-full xl:max-w-[850px] xl:mx-auto overflow-hidden relative">
+          <div className="flex gap-[40px] sm:gap-[45px] md:gap-[50px] lg:gap-[55px] xl:gap-[50px]">
             {/* First track */}
-            <div className="flex gap-[30px] sm:gap-[35px] md:gap-[40px] lg:gap-[45px] xl:gap-[50px] shrink-0 marquee-track">
+            <div className="flex gap-[40px] sm:gap-[45px] md:gap-[50px] lg:gap-[55px] xl:gap-[60px] shrink-0 marquee-track">
               {clientLogos.map((logo, index) => (
                 <div
                   key={`logo-1-${index}`}
-                  className="flex-shrink-0 h-[40px] sm:h-[28px] md:h-[33px] lg:h-[38px] xl:h-[45px] flex items-center"
+                  className="flex-shrink-0 h-[45px] sm:h-[32px] md:h-[38px] lg:h-[52px] xl:h-[52px] flex items-center"
                 >
                   <Image
                     src={`/images/logo marquee klien/${logo}`}
                     alt={`Client ${index + 1}`}
-                    width={200}
-                    height={45}
-                    className="h-[40px] sm:h-[28px] md:h-[33px] lg:h-[38px] xl:h-[45px] w-auto object-contain"
+                    width={220}
+                    height={52}
+                    className="h-[45px] sm:h-[32px] md:h-[38px] lg:h-[52px] xl:h-[52px] w-auto object-contain"
                   />
                 </div>
               ))}
             </div>
             {/* Second track (duplicate) */}
-            <div className="flex gap-[30px] sm:gap-[35px] md:gap-[40px] lg:gap-[45px] xl:gap-[50px] shrink-0 marquee-track">
+            <div className="flex gap-[40px] sm:gap-[45px] md:gap-[50px] lg:gap-[55px] xl:gap-[60px] shrink-0 marquee-track">
               {clientLogos.map((logo, index) => (
                 <div
                   key={`logo-2-${index}`}
-                  className="flex-shrink-0 h-[40px] sm:h-[28px] md:h-[33px] lg:h-[38px] xl:h-[45px] flex items-center"
+                  className="flex-shrink-0 h-[45px] sm:h-[32px] md:h-[38px] lg:h-[52px] xl:h-[52px] flex items-center"
                 >
                   <Image
                     src={`/images/logo marquee klien/${logo}`}
                     alt={`Client ${index + 1}`}
-                    width={200}
-                    height={45}
-                    className="h-[40px] sm:h-[28px] md:h-[33px] lg:h-[38px] xl:h-[45px] w-auto object-contain"
+                    width={220}
+                    height={52}
+                    className="h-[45px] sm:h-[32px] md:h-[38px] lg:h-[52px] xl:h-[52px] w-auto object-contain"
                   />
                 </div>
               ))}

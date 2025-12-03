@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { fadeIn, viewportSettings, withDelay } from "@/lib/animations";
 
 export default function AboutUsVirtualCLevel() {
   return (
@@ -9,25 +13,38 @@ export default function AboutUsVirtualCLevel() {
       {/* 55px spacing from top - desktop only */}
       <div className="hidden sm:block h-[35px] md:h-[42px] lg:h-[48px] xl:h-[55px]"></div>
 
-      <div className="h-auto sm:h-[42px] md:h-[46px] lg:h-[50px] xl:h-[56px] flex items-center justify-center">
+      <motion.div
+        className="h-auto sm:h-[42px] md:h-[46px] lg:h-[50px] xl:h-[56px] flex items-center justify-center"
+        variants={fadeIn}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportSettings}
+      >
         <h2 className="text-[25px] sm:text-[28px] md:text-[32px] lg:text-[36px] xl:text-[40px] text-[#D79C60] text-center font-bold">
           Virtual C-Level
         </h2>
-      </div>
+      </motion.div>
 
       {/* 20px spacing */}
       <div className="h-[15px] sm:h-[14px] md:h-[16px] lg:h-[18px] xl:h-[20px]"></div>
 
-      {/* Virtual C-Level Image */}
-      <div className="w-full sm:w-[420px] md:w-[490px] lg:w-[560px] xl:w-[634px] relative flex justify-center">
+      {/* Virtual C-Level Image - fade in with delay */}
+      <motion.div
+        className="w-full sm:w-[420px] md:w-[490px] lg:w-[560px] xl:w-[634px] relative flex justify-center"
+        variants={fadeIn}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportSettings}
+        transition={withDelay(0.2)}
+      >
         <Image
-          src="/images/aboutus/virtualCLevel.png"
+          src="/images/aboutus/Bagan Virtual C-Level.png"
           alt="Virtual C-Level"
           width={634}
           height={0}
           className="object-contain w-full sm:w-[420px] md:w-[490px] lg:w-[560px] xl:w-[634px] h-auto max-h-[180px] sm:max-h-none"
         />
-      </div>
+      </motion.div>
     </section>
   );
 }

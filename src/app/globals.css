@@ -18,14 +18,105 @@
       transform: translateX(0);
     }
     100% {
-      transform: translateX(calc(-100% - 50px));
+      transform: translateX(calc(-100% - 60px));
     }
   }
 
   .marquee-track {
     display: flex;
-    gap: 50px;
-    animation: scroll 40s linear infinite;
+    animation: scroll 60s linear infinite;
+    will-change: transform;
+  }
+
+  @media (max-width: 1023px) {
+    .marquee-track {
+      animation: scroll 50s linear infinite;
+    }
+  }
+
+  /* Animation Keyframes */
+  @keyframes slideFromBottom {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideFromTop {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideFromLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideFromRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  /* Animation Classes - Smoother and slower animations */
+  .animate-slide-from-bottom {
+    animation: slideFromBottom 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-slide-from-top {
+    animation: slideFromTop 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-slide-from-left {
+    animation: slideFromLeft 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-slide-from-right {
+    animation: slideFromRight 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Initial hidden state for animations */
+  .animate-hidden {
+    opacity: 0;
+  }
+
+  /* Testimonials slide transition override */
+  .testimonials-fade-transition {
+    transition: opacity 500ms ease-in-out !important;
   }
 }
 

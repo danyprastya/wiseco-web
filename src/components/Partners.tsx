@@ -101,7 +101,7 @@ export default function Partners() {
           </div>
 
           {/* Desktop: Row 1 - 4 logos */}
-          <div className="hidden sm:flex items-center justify-center gap-[10px]">
+          <div className="hidden sm:flex items-center justify-center gap-[20px]">
             {strategicRow1.map((partner, index) => (
               <div
                 key={index}
@@ -119,11 +119,11 @@ export default function Partners() {
             ))}
           </div>
 
-          {/* Desktop: 10px gap between rows */}
-          <div className="hidden sm:block h-[10px]"></div>
+          {/* Desktop: 20px gap between rows */}
+          <div className="hidden sm:block h-[20px]"></div>
 
           {/* Desktop: Row 2 - remaining logos */}
-          <div className="hidden sm:flex items-center justify-center gap-[10px]">
+          <div className="hidden sm:flex items-center justify-center gap-[20px]">
             {strategicRow2.map((partner, index) => (
               <div
                 key={index}
@@ -168,7 +168,7 @@ export default function Partners() {
           </div>
 
           {/* Desktop: Row 1 - 5 logos */}
-          <div className="hidden sm:flex items-center justify-center gap-[10px]">
+          <div className="hidden sm:flex items-center justify-center gap-[20px]">
             {mediaRow1.map((media, index) => (
               <div
                 key={index}
@@ -186,11 +186,11 @@ export default function Partners() {
             ))}
           </div>
 
-          {/* Desktop: 10px gap between rows */}
-          <div className="hidden sm:block h-[10px]"></div>
+          {/* Desktop: 20px gap between rows */}
+          <div className="hidden sm:block h-[20px]"></div>
 
           {/* Desktop: Row 2 - 5 logos */}
-          <div className="hidden sm:flex items-center justify-center gap-[10px]">
+          <div className="hidden sm:flex items-center justify-center gap-[20px]">
             {mediaRow2.map((media, index) => (
               <div
                 key={index}
@@ -208,11 +208,11 @@ export default function Partners() {
             ))}
           </div>
 
-          {/* Desktop: 10px gap between rows */}
-          <div className="hidden sm:block h-[10px]"></div>
+          {/* Desktop: 20px gap between rows */}
+          <div className="hidden sm:block h-[20px]"></div>
 
           {/* Desktop: Row 3 - remaining logos */}
-          <div className="hidden sm:flex items-center justify-center gap-[10px]">
+          <div className="hidden sm:flex items-center justify-center gap-[20px]">
             {mediaRow3.map((media, index) => (
               <div
                 key={index}
