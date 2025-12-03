@@ -35,7 +35,7 @@ export const founders: Founder[] = [
     title: "Senior Partner & Business Performance Advisor",
     specialization: "Business Performance Management",
     description:
-      "Andi Kreshna's over 20 years of expertise in performance management, business planning, finance, and accounting have equipped him with a strong foundation in business management.",
+      "With over 20 years of experience in performance management, business planning, finance, and accounting, Andi Kreshna brings a strong foundation in business management.",
     image: "/images/aboutus/founders/andi-kreshna.jpg",
     linkedin: "https://www.linkedin.com/in/n-andi-kreshna/",
   },
