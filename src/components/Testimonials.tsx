@@ -6,7 +6,7 @@ import { testimonialsData, TestimonialSlide } from "@/data/testimonials";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Timing configuration for Testimonials
-const SLIDE_TRANSITION_DURATION = 0.6; // Duration of slide animation
+const SLIDE_TRANSITION_DURATION = 0.5; // Duration of slide animation
 const CONTENT_START_DELAY = 0.3; // Delay before content starts appearing
 const PHOTO_LOGO_DELAY = CONTENT_START_DELAY; // Photo and logo fade in first
 const NAME_POSITION_DELAY = CONTENT_START_DELAY + 0.2; // Name and position slide from top
@@ -40,26 +40,29 @@ const slideFromTop = (delay: number) => ({
   },
 });
 
-// Slide animation variants for navigation - uses custom direction (like Projects)
+// Slide animation variants for navigation - slides "stick" together
 const slideVariants = {
   enter: (direction: number) => ({
     x: direction > 0 ? "100%" : "-100%",
-    opacity: 1,
   }),
   center: {
     x: 0,
-    opacity: 1,
     transition: {
-      duration: SLIDE_TRANSITION_DURATION,
-      ease: [0.25, 0.46, 0.45, 0.94] as const,
+      x: {
+        type: "tween" as const,
+        duration: SLIDE_TRANSITION_DURATION,
+        ease: "linear" as const,
+      },
     },
   },
   exit: (direction: number) => ({
     x: direction > 0 ? "-100%" : "100%",
-    opacity: 1,
     transition: {
-      duration: SLIDE_TRANSITION_DURATION,
-      ease: [0.25, 0.46, 0.45, 0.94] as const,
+      x: {
+        type: "tween" as const,
+        duration: SLIDE_TRANSITION_DURATION,
+        ease: "linear" as const,
+      },
     },
   }),
 };
@@ -348,7 +351,7 @@ export default function Testimonials() {
   return (
     <section
       id="testimonies"
-      className="h-auto sm:h-[520px] md:h-[600px] lg:h-[660px] xl:h-[721px] overflow-hidden relative"
+      className="h-auto sm:h-[520px] md:h-[600px] lg:h-[660px] xl:h-[721px] overflow-hidden relative bg-[#333333]"
     >
       {/* Slides Container with slide transition */}
       <div
@@ -357,7 +360,7 @@ export default function Testimonials() {
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
-        <AnimatePresence initial={false} custom={direction}>
+        <AnimatePresence initial={false} custom={direction} mode="popLayout">
           <motion.div
             key={currentIndex}
             custom={direction}
