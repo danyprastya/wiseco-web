@@ -134,7 +134,7 @@ export default function PortfolioStats() {
       ref={sectionRef}
       className="bg-white h-auto sm:h-[320px] md:h-[370px] lg:h-[430px] xl:h-[507px] py-[20px] sm:py-0"
     >
-      <div className="w-full px-[20px] sm:px-4 md:px-20 lg:px-[300px] xl:px-[100px]">
+      <div className="w-full px-[20px] sm:px-4 md:px-8 lg:px-12 xl:px-[100px]">
         {/* Spacing from top */}
         <div className="hidden sm:block h-[35px] md:h-[42px] lg:h-[48px] xl:h-[55px]"></div>
 
@@ -152,7 +152,7 @@ export default function PortfolioStats() {
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="w-full sm:w-[140px] md:w-[160px] lg:w-[180px] xl:w-[200px] flex flex-col items-center justify-center text-center"
+              className="flex flex-col items-center justify-center text-center"
             >
               <div
                 id={`counter-${index}`}

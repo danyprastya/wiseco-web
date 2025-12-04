@@ -15,26 +15,23 @@
 @layer utilities {
   @keyframes scroll {
     0% {
-      transform: translate3d(0, 0, 0);
+      transform: translateX(0);
     }
     100% {
-      transform: translate3d(calc(-100% - 60px), 0, 0);
+      transform: translateX(calc(-100% - 60px));
     }
   }
 
   .marquee-track {
     display: flex;
-    animation: scroll 60s linear infinite;
+    animation: scroll 50s linear infinite;
     will-change: transform;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    perspective: 1000px;
-    transform: translate3d(0, 0, 0);
+    -webkit-font-smoothing: antialiased;
   }
 
   @media (max-width: 1023px) {
     .marquee-track {
-      animation: scroll 50s linear infinite;
+      animation: scroll 45s linear infinite;
     }
   }
 

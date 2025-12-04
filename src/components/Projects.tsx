@@ -686,11 +686,11 @@ export default function Projects() {
     }
   };
 
-  // Auto-advance slides every 15 seconds - resets when slide changes
+  // Auto-advance slides every 10 seconds - resets when slide changes
   useEffect(() => {
     const timer = setInterval(() => {
       nextSlide();
-    }, 15000);
+    }, 10000);
     return () => clearInterval(timer);
   }, [currentSlide, nextSlide]);
 

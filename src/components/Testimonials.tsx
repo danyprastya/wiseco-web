@@ -340,11 +340,11 @@ export default function Testimonials() {
     }
   };
 
-  // Auto-advance slides every 15 seconds - resets when slide changes
+  // Auto-advance slides every 10 seconds - resets when slide changes
   useEffect(() => {
     const timer = setInterval(() => {
       goToNext();
-    }, 15000);
+    }, 10000);
     return () => clearInterval(timer);
   }, [currentIndex, goToNext]);
 
