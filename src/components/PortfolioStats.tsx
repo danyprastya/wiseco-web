@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Marquee from "react-fast-marquee";
 
 export default function PortfolioStats() {
   const [hasAnimated, setHasAnimated] = useState(false);
@@ -168,43 +169,23 @@ export default function PortfolioStats() {
         </div>
 
         {/* Client Logo Marquee */}
-        <div className="w-full xl:max-w-[850px] xl:mx-auto overflow-hidden relative">
-          <div className="flex gap-[40px] sm:gap-[45px] md:gap-[50px] lg:gap-[55px] xl:gap-[50px]">
-            {/* First track */}
-            <div className="flex gap-[40px] sm:gap-[45px] md:gap-[50px] lg:gap-[55px] xl:gap-[60px] shrink-0 marquee-track">
-              {clientLogos.map((logo, index) => (
-                <div
-                  key={`logo-1-${index}`}
-                  className="flex-shrink-0 h-[45px] sm:h-[32px] md:h-[38px] lg:h-[52px] xl:h-[52px] flex items-center"
-                >
-                  <Image
-                    src={`/images/logo marquee klien/${logo}`}
-                    alt={`Client ${index + 1}`}
-                    width={220}
-                    height={52}
-                    className="h-[45px] sm:h-[32px] md:h-[38px] lg:h-[52px] xl:h-[52px] w-auto object-contain"
-                  />
-                </div>
-              ))}
-            </div>
-            {/* Second track (duplicate) */}
-            <div className="flex gap-[40px] sm:gap-[45px] md:gap-[50px] lg:gap-[55px] xl:gap-[60px] shrink-0 marquee-track">
-              {clientLogos.map((logo, index) => (
-                <div
-                  key={`logo-2-${index}`}
-                  className="flex-shrink-0 h-[45px] sm:h-[32px] md:h-[38px] lg:h-[52px] xl:h-[52px] flex items-center"
-                >
-                  <Image
-                    src={`/images/logo marquee klien/${logo}`}
-                    alt={`Client ${index + 1}`}
-                    width={220}
-                    height={52}
-                    className="h-[45px] sm:h-[32px] md:h-[38px] lg:h-[52px] xl:h-[52px] w-auto object-contain"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="w-full xl:max-w-[850px] xl:mx-auto">
+          <Marquee speed={100} gradient={false} pauseOnHover={false}>
+            {clientLogos.map((logo, index) => (
+              <div
+                key={`logo-${index}`}
+                className="flex-shrink-0 h-[45px] sm:h-[32px] md:h-[38px] lg:h-[52px] xl:h-[52px] flex items-center mx-[20px] sm:mx-[22px] md:mx-[25px] lg:mx-[28px] xl:mx-[30px]"
+              >
+                <Image
+                  src={`/images/logo marquee klien/${logo}`}
+                  alt={`Client ${index + 1}`}
+                  width={220}
+                  height={52}
+                  className="h-[45px] sm:h-[32px] md:h-[38px] lg:h-[52px] xl:h-[52px] w-auto object-contain"
+                />
+              </div>
+            ))}
+          </Marquee>
         </div>
       </div>
     </section>

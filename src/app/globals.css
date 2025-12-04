@@ -13,27 +13,6 @@
 }
 
 @layer utilities {
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(calc(-100% - 60px));
-    }
-  }
-
-  .marquee-track {
-    display: flex;
-    animation: scroll 50s linear infinite;
-    will-change: transform;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  @media (max-width: 1023px) {
-    .marquee-track {
-      animation: scroll 45s linear infinite;
-    }
-  }
 
   /* Animation Keyframes */
   @keyframes slideFromBottom {
