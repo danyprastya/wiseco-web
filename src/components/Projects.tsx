@@ -663,6 +663,11 @@ export default function Projects() {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
+  const goToSlide = (index: number) => {
+    setDirection(index > currentSlide ? 1 : -1);
+    setCurrentSlide(index);
+  };
+
   // Touch handlers for swipe
   const onTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);
@@ -712,7 +717,7 @@ export default function Projects() {
         <div className="hidden sm:block h-[35px] md:h-[42px] lg:h-[50px] xl:h-[55px]"></div>
 
         <div className="h-[40px] sm:h-[42px] md:h-[48px] lg:h-[52px] xl:h-[56px] flex items-center justify-center">
-          <h2 className="text-[25px] sm:text-[28px] md:text-[32px] lg:text-[36px] xl:text-[40px] font-semibold text-[#D79C60] section-title">
+          <h2 className="text-[25px] sm:text-[28px] md:text-[32px] lg:text-[36px] xl:text-[40px] font-bold text-[#D79C60] section-title">
             Projects
           </h2>
         </div>
@@ -792,6 +797,22 @@ export default function Projects() {
               />
             </svg>
           </button>
+
+          {/* Dot Indicators */}
+          <div className="absolute bottom-[-30px] sm:bottom-[-25px] md:bottom-[-28px] lg:bottom-[-32px] xl:bottom-[-35px] left-1/2 -translate-x-1/2 z-20 flex gap-[8px]">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`w-[6px] h-[6px] sm:w-[8px] sm:h-[8px] rounded-full transition-colors ${
+                  index === currentSlide
+                    ? "bg-[#D79C60]"
+                    : "bg-[#D79C60]/40 hover:bg-[#D79C60]/60"
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

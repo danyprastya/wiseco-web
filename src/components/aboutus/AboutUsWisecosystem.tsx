@@ -27,7 +27,7 @@ export default function AboutUsWisecosystem() {
 
       {/* Wisecosystem Image - fade in with delay */}
       <motion.div
-        className="w-full sm:w-[400px] md:w-[480px] lg:w-[545px] xl:w-[620px] relative flex justify-center"
+        className="w-full sm:w-[260px] md:w-[310px] lg:w-[370px] xl:w-[430px] relative flex justify-center"
         variants={fadeIn}
         initial="hidden"
         whileInView="visible"
@@ -37,9 +37,9 @@ export default function AboutUsWisecosystem() {
         <Image
           src="/images/aboutus/Bagan wisecosystem.png"
           alt="Wisecosystem"
-          width={620}
+          width={430}
           height={0}
-          className="object-contain w-full sm:w-[400px] md:w-[480px] lg:w-[545px] xl:w-[620px] h-auto max-h-[180px] sm:max-h-none"
+          className="object-contain w-full sm:w-[260px] md:w-[310px] lg:w-[370px] xl:w-[430px] h-auto max-h-[140px] sm:max-h-none"
         />
       </motion.div>
     </section>

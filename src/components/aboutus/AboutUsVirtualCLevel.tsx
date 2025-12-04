@@ -30,7 +30,7 @@ export default function AboutUsVirtualCLevel() {
 
       {/* Virtual C-Level Image - fade in with delay */}
       <motion.div
-        className="w-full sm:w-[420px] md:w-[490px] lg:w-[560px] xl:w-[634px] relative flex justify-center"
+        className="w-full sm:w-[280px] md:w-[320px] lg:w-[380px] xl:w-[450px] relative flex justify-center"
         variants={fadeIn}
         initial="hidden"
         whileInView="visible"
@@ -40,9 +40,9 @@ export default function AboutUsVirtualCLevel() {
         <Image
           src="/images/aboutus/Bagan Virtual C-Level.png"
           alt="Virtual C-Level"
-          width={634}
+          width={450}
           height={0}
-          className="object-contain w-full sm:w-[420px] md:w-[490px] lg:w-[560px] xl:w-[634px] h-auto max-h-[180px] sm:max-h-none"
+          className="object-contain w-full sm:w-[280px] md:w-[320px] lg:w-[380px] xl:w-[450px] h-auto max-h-[140px] sm:max-h-none"
         />
       </motion.div>
     </section>
