@@ -140,13 +140,18 @@ export default function Services() {
               className="mb-[3px] md:mb-[4px] lg:mb-[5px]"
               variants={slideFromBottom(WISEVISORY_DELAY + 0.1)}
             >
-              <Image
-                src="/images/wisevisory_logo.png"
-                alt="wisevisory logo"
-                width={323}
-                height={78}
-                className="w-[230px] sm:w-[160px] md:w-[200px] lg:w-[260px] xl:w-[323px] h-auto"
-              />
+              <Link
+                href="/wisevisory"
+                className="hover:opacity-80 transition-opacity"
+              >
+                <Image
+                  src="/images/wisevisory_logo.png"
+                  alt="wisevisory logo"
+                  width={323}
+                  height={78}
+                  className="w-[230px] sm:w-[160px] md:w-[200px] lg:w-[260px] xl:w-[323px] h-auto"
+                />
+              </Link>
             </motion.div>
 
             {/* Description text box - slide from top after both images finish */}
@@ -233,13 +238,18 @@ export default function Services() {
               className="mb-[3px] md:mb-[4px] lg:mb-[5px]"
               variants={slideFromBottom(WISECUBATION_DELAY + 0.1)}
             >
-              <Image
-                src="/images/wisecubation_logo.png"
-                alt="wisecubation logo"
-                width={323}
-                height={78}
-                className="w-[230px] sm:w-[160px] md:w-[200px] lg:w-[260px] xl:w-[323px] h-auto"
-              />
+              <Link
+                href="/wisecubation"
+                className="hover:opacity-80 transition-opacity"
+              >
+                <Image
+                  src="/images/wisecubation_logo.png"
+                  alt="wisecubation logo"
+                  width={323}
+                  height={78}
+                  className="w-[230px] sm:w-[160px] md:w-[200px] lg:w-[260px] xl:w-[323px] h-auto"
+                />
+              </Link>
             </motion.div>
 
             {/* Description text box - slide from top after both images finish */}

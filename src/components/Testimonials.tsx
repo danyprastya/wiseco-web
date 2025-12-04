@@ -112,7 +112,7 @@ function SlideContent({
   return (
     <motion.div
       key={slideKey}
-      className="relative h-auto sm:h-[520px] md:h-[600px] lg:h-[660px] xl:h-[721px] w-full overflow-hidden"
+      className="relative h-[520px] sm:h-[520px] md:h-[600px] lg:h-[660px] xl:h-[721px] w-full overflow-hidden"
       initial="hidden"
       animate="visible"
     >
@@ -137,17 +137,17 @@ function SlideContent({
       ></div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center py-[30px] sm:py-0">
+      <div className="relative z-10 flex flex-col items-center py-[15px] sm:py-0">
         {/* 65px spacing from top - hidden on mobile */}
-        <div className="hidden sm:block h-[65px]"></div>
+        <div className="hidden sm:block sm:h-[40px] md:h-[45px] lg:h-[55px] xl:h-[65px]"></div>
 
         {/* Mobile: Vertical layout (photo on top, logo below) - fade in */}
         <motion.div
-          className="flex sm:hidden flex-col items-center gap-[15px]"
+          className="flex sm:hidden flex-col items-center gap-[6px]"
           variants={contentFadeIn(PHOTO_LOGO_DELAY)}
         >
           {/* Owner Photo */}
-          <div className="relative w-[100px] h-[100px] rounded-full overflow-hidden">
+          <div className="relative w-[90px] h-[90px] rounded-full overflow-hidden">
             <Image
               src={slide.ownerImage}
               alt={slide.ownerName}
@@ -235,7 +235,7 @@ function SlideContent({
         </motion.div>
 
         {/* 15px spacing */}
-        <div className="h-[10px] sm:h-[15px]"></div>
+        <div className="h-[4px] sm:h-[10px] md:h-[12px] lg:h-[14px] xl:h-[15px]"></div>
 
         {/* Owner Name - slide from top */}
         <motion.h3
@@ -258,20 +258,20 @@ function SlideContent({
         </motion.p>
 
         {/* 25px spacing - reduced on mobile */}
-        <div className="h-[15px] sm:h-[25px]"></div>
+        <div className="h-[6px] sm:h-[15px] md:h-[18px] lg:h-[22px] xl:h-[25px]"></div>
 
         {/* Testimonial Text - slide from top with delay */}
         <motion.div
-          className="w-[280px] sm:w-[600px] md:w-[720px] lg:w-[800px] xl:w-[860px] h-auto sm:h-[70px] md:h-[78px] lg:h-[84px] xl:h-[90px] flex items-center justify-center px-4"
+          className="w-[420px] sm:w-[600px] md:w-[720px] lg:w-[800px] xl:w-[860px] h-auto sm:h-[70px] md:h-[78px] lg:h-[84px] xl:h-[90px] flex items-center justify-center px-2 sm:px-4"
           variants={slideFromTop(TESTIMONIAL_DELAY)}
         >
-          <p className="text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[15px] font-medium text-white text-center leading-[1.5]">
+          <p className="text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[15px] font-medium text-white text-center leading-[1.4]">
             {renderTestimonialText(slide.testimonialText, slide.boldPhrases)}
           </p>
         </motion.div>
 
         {/* 30px spacing - reduced on mobile */}
-        <div className="h-[15px] sm:h-[30px]"></div>
+        <div className="h-[6px] sm:h-[18px] md:h-[22px] lg:h-[26px] xl:h-[30px]"></div>
 
         {/* Activity Photo - fade in last */}
         <motion.div
@@ -351,7 +351,7 @@ export default function Testimonials() {
   return (
     <section
       id="testimonies"
-      className="h-auto sm:h-[520px] md:h-[600px] lg:h-[660px] xl:h-[721px] overflow-hidden relative bg-[#333333]"
+      className="h-[520px] sm:h-[520px] md:h-[600px] lg:h-[660px] xl:h-[721px] overflow-hidden relative bg-[#333333]"
     >
       {/* Slides Container with slide transition */}
       <div

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import Marquee from "react-fast-marquee";
 
 export default function PortfolioStats() {
@@ -149,7 +148,7 @@ export default function PortfolioStats() {
         <div className="h-[15px] sm:h-[18px] md:h-[20px] lg:h-[22px] xl:h-[25px]"></div>
 
         {/* Stats - vertical on mobile, horizontal on larger screens */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-[10px] sm:gap-[40px] md:gap-[60px] lg:gap-[80px] xl:gap-[100px] mb-[20px] sm:mb-[35px] md:mb-[50px] lg:mb-[70px] xl:mb-[90px]">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-[8px] sm:gap-[30px] md:gap-[45px] lg:gap-[60px] xl:gap-[100px] mb-[20px] sm:mb-[35px] md:mb-[50px] lg:mb-[70px] xl:mb-[90px]">
           {stats.map((stat, index) => (
             <div
               key={index}
@@ -170,18 +169,18 @@ export default function PortfolioStats() {
 
         {/* Client Logo Marquee */}
         <div className="w-full xl:max-w-[850px] xl:mx-auto">
-          <Marquee speed={100} gradient={false} pauseOnHover={false}>
+          <Marquee speed={50} gradient={false} pauseOnHover={false}>
             {clientLogos.map((logo, index) => (
               <div
                 key={`logo-${index}`}
-                className="flex-shrink-0 h-[45px] sm:h-[32px] md:h-[38px] lg:h-[52px] xl:h-[52px] flex items-center mx-[20px] sm:mx-[22px] md:mx-[25px] lg:mx-[28px] xl:mx-[30px]"
+                className="flex-shrink-0 flex items-center mx-[12px] sm:mx-[12px] md:mx-[14px] lg:mx-[18px] xl:mx-[30px] h-[36px] sm:h-[38px] md:h-[42px] lg:h-[46px] xl:h-[52px]"
               >
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={`/images/logo marquee klien/${logo}`}
                   alt={`Client ${index + 1}`}
-                  width={220}
-                  height={52}
-                  className="h-[45px] sm:h-[32px] md:h-[38px] lg:h-[52px] xl:h-[52px] w-auto object-contain"
+                  loading="eager"
+                  className="object-contain h-full w-auto"
                 />
               </div>
             ))}

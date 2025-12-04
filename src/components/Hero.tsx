@@ -85,82 +85,20 @@ export default function Hero() {
       <div className="relative z-10 w-full h-full">
         {/* Mobile Layout */}
         <div className="sm:hidden relative w-full h-full px-[20px]">
-          {/* Left Side - Text Content (Fixed Position) */}
-          <div className="flex flex-col max-w-[179px] pt-8">
-            {/* GROW YOUR BUSINESS - slide from bottom */}
-            <motion.h1
-              className="text-[#333333] mb-4 text-left text-[28px] leading-none font-medium"
-              variants={titleAnimation}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportSettings}
-            >
-              <div>GROW</div>
-              <div>YOUR</div>
-              <div>BUSINESS</div>
-              <div className="text-[#D79C60]">WISELY</div>
-            </motion.h1>
-
-            {/* As a business... text - fade in after image */}
-            <motion.p
-              className="text-[#333333] mb-3 text-[12px] leading-[1.4]"
-              variants={textAnimation}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportSettings}
-            >
-              <span className="font-bold">
-                As a business and investment advisor
-              </span>
-              <br />
-              we resolve the basics, prepare for growth
-              <br />
-              and build investable business
-            </motion.p>
-
-            {/* Ask wise button - slide from left */}
-            <motion.div
-              className="flex gap-3"
-              variants={buttonAnimation}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportSettings}
-            >
-              <Link
-                href="https://wa.me/+6281299981708"
-                target="_blank"
-                className="bg-[#2D2D2D] text-[#D79C60] hover:bg-[#D79C60] hover:text-[#2D2D2D] transition-all flex items-center justify-center gap-2 font-medium px-4 py-2 rounded-full text-[10px]"
-              >
-                Ask wise
-              </Link>
-            </motion.div>
-          </div>
-
-          {/* Right Side - Graph Image (Absolute/Floating) - fade in */}
-          <motion.div
-            className="absolute right-0 top-0 w-[200px] h-[360px]"
-            variants={imageAnimation}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportSettings}
-          >
-            <Image
-              src="/images/graph-klien.png"
-              alt="Client Graph"
-              fill
-              className="object-contain object-top"
-            />
-          </motion.div>
-        </div>
-
-        {/* Desktop Layout (sm and above) */}
-        <div className="hidden sm:flex items-center justify-center h-full px-4 md:px-20">
-          <div className="flex items-start gap-[30px] md:gap-[50px] lg:gap-[60px] xl:gap-[70px]">
+          {/* Flex container with fixed gap between text and image */}
+          <div className="flex items-start gap-[0px]">
             {/* Left Side - Text Content */}
-            <div className="flex flex-col md:max-w-[400px] lg:max-w-[500px] xl:max-w-[600px]">
+            <div
+              className="flex flex-col max-w-[179px] flex-shrink-0"
+              style={{
+                // Adjust text position independently
+                marginTop: "45px", // Move text down from top
+                marginLeft: "35px", // Move text from left edge (more = more to center)
+              }}
+            >
               {/* GROW YOUR BUSINESS - slide from bottom */}
               <motion.h1
-                className="text-[#333333] mb-4 md:mb-6 lg:mb-8 xl:mb-10 text-left text-[32px] md:text-[48px] lg:text-[64px] xl:text-[80px] leading-none font-medium"
+                className="text-[#333333] mb-4 text-left text-[28px] leading-none font-medium"
                 variants={titleAnimation}
                 initial="hidden"
                 whileInView="visible"
@@ -174,7 +112,86 @@ export default function Hero() {
 
               {/* As a business... text - fade in after image */}
               <motion.p
-                className="text-[#333333] mb-3 md:mb-4 lg:mb-6 xl:mb-8 text-[11px] md:text-[13px] lg:text-[15px] xl:text-lg leading-[1.4]"
+                className="text-[#333333] mb-3 text-[12px] leading-[1.4]"
+                variants={textAnimation}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportSettings}
+              >
+                <span className="font-bold">
+                  As a business and investment advisor
+                </span>
+                <br />
+                we resolve the basics, prepare for growth
+                <br />
+                and build investable business
+              </motion.p>
+
+              {/* Ask wise button - slide from left */}
+              <motion.div
+                className="flex gap-3"
+                variants={buttonAnimation}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportSettings}
+              >
+                <Link
+                  href="https://wa.me/+6281299981708"
+                  target="_blank"
+                  className="bg-[#2D2D2D] text-[#D79C60] hover:bg-[#D79C60] hover:text-[#2D2D2D] transition-all flex items-center justify-center gap-2 font-medium px-4 py-2 rounded-full text-[10px]"
+                >
+                  Ask wise
+                </Link>
+              </motion.div>
+            </div>
+
+            {/* Right Side - Graph Image - fade in */}
+            {/* Only top position adjustable, gap to text is fixed */}
+            <motion.div
+              className="relative flex-1"
+              style={{
+                // Adjust this value to move image up/down independently
+                marginTop: "-10px", // negative = up, positive = down
+                height: "420px", // Image height
+                minWidth: "300px", // Minimum image width
+              }}
+              variants={imageAnimation}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportSettings}
+            >
+              <Image
+                src="/images/graph-klien.png"
+                alt="Client Graph"
+                fill
+                className="object-contain object-top"
+              />
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Desktop Layout (sm and above) */}
+        <div className="hidden sm:flex items-start justify-center h-full px-4 md:px-8 lg:px-12 xl:px-20">
+          <div className="flex items-start gap-0 sm:gap-0 md:gap-0 lg:gap-[5px] xl:gap-[40px] sm:mt-[30px] md:mt-[40px] lg:mt-[20px] xl:mt-0 xl:items-center xl:h-full">
+            {/* Left Side - Text Content */}
+            <div className="flex flex-col sm:max-w-[280px] md:max-w-[350px] lg:max-w-[450px] xl:max-w-[600px]">
+              {/* GROW YOUR BUSINESS - slide from bottom */}
+              <motion.h1
+                className="text-[#333333] mb-3 sm:mb-3 md:mb-5 lg:mb-7 xl:mb-10 text-left text-[28px] sm:text-[30px] md:text-[42px] lg:text-[56px] xl:text-[80px] leading-none font-medium"
+                variants={titleAnimation}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportSettings}
+              >
+                <div>GROW</div>
+                <div>YOUR</div>
+                <div>BUSINESS</div>
+                <div className="text-[#D79C60]">WISELY</div>
+              </motion.h1>
+
+              {/* As a business... text - fade in after image */}
+              <motion.p
+                className="text-[#333333] mb-2 sm:mb-2 md:mb-3 lg:mb-5 xl:mb-8 text-[10px] sm:text-[10px] md:text-[12px] lg:text-[14px] xl:text-lg leading-[1.4]"
                 variants={textAnimation}
                 initial="hidden"
                 whileInView="visible"
@@ -200,7 +217,7 @@ export default function Hero() {
                 <Link
                   href="https://wa.me/+6281299981708"
                   target="_blank"
-                  className="bg-[#2D2D2D] text-[#D79C60] hover:bg-[#D79C60] hover:text-[#2D2D2D] transition-all flex items-center justify-center gap-2 font-medium px-4 md:px-5 lg:px-6 xl:px-8 py-2 md:py-2 lg:py-2.5 xl:py-3 rounded-full text-[10px] md:text-xs lg:text-sm"
+                  className="bg-[#2D2D2D] text-[#D79C60] hover:bg-[#D79C60] hover:text-[#2D2D2D] transition-all flex items-center justify-center gap-2 font-medium px-3 sm:px-3 md:px-4 lg:px-5 xl:px-8 py-1.5 sm:py-1.5 md:py-2 lg:py-2 xl:py-3 rounded-full text-[9px] sm:text-[9px] md:text-[10px] lg:text-xs xl:text-sm"
                 >
                   Ask wise
                 </Link>
@@ -209,7 +226,7 @@ export default function Hero() {
 
             {/* Right Side - Graph Image - fade in */}
             <motion.div
-              className="relative w-[180px] h-[260px] md:w-[280px] md:h-[340px] lg:w-[400px] lg:h-[400px] xl:w-[650px] xl:h-[550px] -mt-8 md:-mt-12 lg:-mt-18 xl:-mt-24"
+              className="relative w-[200px] h-[290px] sm:w-[220px] sm:h-[320px] md:w-[300px] md:h-[380px] lg:w-[420px] lg:h-[480px] xl:w-[650px] xl:h-[550px] -mt-4 sm:-mt-6 md:-mt-12 lg:-mt-16z xl:-mt-24"
               variants={imageAnimation}
               initial="hidden"
               whileInView="visible"
