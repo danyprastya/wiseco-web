@@ -46,7 +46,7 @@ export default function Services() {
       logo: "/images/wisevisory.png",
       description:
         "We team-up with business owners and leaders to assess the overall health of the business, identify areas for improvement, and support the execution of the company's strategies and operation",
-      link: "/services/wisevisory",
+      link: "/wisevisory",
       icon: "1.png",
     },
     {
@@ -54,7 +54,7 @@ export default function Services() {
       logo: "/images/wisecubation.png",
       description:
         "We educate business owners and leaders to enhance their capabilities in preparing and re-discovering their business blueprint.",
-      link: "/services/wisecubation",
+      link: "/wisecubation",
       icon: "2.png",
     },
   ];

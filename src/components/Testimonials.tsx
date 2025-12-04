@@ -1,23 +1,25 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { testimonialsData, TestimonialSlide } from "@/data/testimonials";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Timing configuration for Testimonials
-const PHOTO_LOGO_DELAY = 0; // Photo and logo fade in first
-const NAME_POSITION_DELAY = 0.2; // Name and position slide from top
-const TESTIMONIAL_DELAY = 0.5; // Testimonial text slides from top
-const ACTIVITY_DELAY = 0.8; // Activity image fades in last
+const SLIDE_TRANSITION_DURATION = 0.6; // Duration of slide animation
+const CONTENT_START_DELAY = 0.3; // Delay before content starts appearing
+const PHOTO_LOGO_DELAY = CONTENT_START_DELAY; // Photo and logo fade in first
+const NAME_POSITION_DELAY = CONTENT_START_DELAY + 0.2; // Name and position slide from top
+const TESTIMONIAL_DELAY = CONTENT_START_DELAY + 0.4; // Testimonial text slides from top
+const ACTIVITY_DELAY = CONTENT_START_DELAY + 0.6; // Activity image fades in last
 
-// Fade in animation
-const fadeIn = (delay: number) => ({
+// Fade in animation for content
+const contentFadeIn = (delay: number) => ({
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      duration: 0.6,
+      duration: 0.5,
       delay,
       ease: "easeOut" as const,
     },
@@ -38,25 +40,28 @@ const slideFromTop = (delay: number) => ({
   },
 });
 
-// Fade transition variants for slide navigation - subtle fade
-const fadeVariants = {
-  enter: {
-    opacity: 0.3,
-  },
+// Slide animation variants for navigation - uses custom direction (like Projects)
+const slideVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? "100%" : "-100%",
+    opacity: 1,
+  }),
   center: {
+    x: 0,
     opacity: 1,
     transition: {
-      duration: 0.4,
-      ease: "easeOut" as const,
+      duration: SLIDE_TRANSITION_DURATION,
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
     },
   },
-  exit: {
-    opacity: 0.3,
+  exit: (direction: number) => ({
+    x: direction > 0 ? "-100%" : "100%",
+    opacity: 1,
     transition: {
-      duration: 0.25,
-      ease: "easeIn" as const,
+      duration: SLIDE_TRANSITION_DURATION,
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
     },
-  },
+  }),
 };
 
 // Function to render text with bold phrases
@@ -136,7 +141,7 @@ function SlideContent({
         {/* Mobile: Vertical layout (photo on top, logo below) - fade in */}
         <motion.div
           className="flex sm:hidden flex-col items-center gap-[15px]"
-          variants={fadeIn(PHOTO_LOGO_DELAY)}
+          variants={contentFadeIn(PHOTO_LOGO_DELAY)}
         >
           {/* Owner Photo */}
           <div className="relative w-[100px] h-[100px] rounded-full overflow-hidden">
@@ -178,7 +183,7 @@ function SlideContent({
         {/* Desktop: Owner photo, line, and company logo row - fade in */}
         <motion.div
           className="hidden sm:flex items-center"
-          variants={fadeIn(PHOTO_LOGO_DELAY)}
+          variants={contentFadeIn(PHOTO_LOGO_DELAY)}
         >
           {/* Owner Photo Container - fixed width to match logo container */}
           <div className="w-[180px] md:w-[210px] lg:w-[230px] xl:w-[250px] flex justify-end">
@@ -268,7 +273,7 @@ function SlideContent({
         {/* Activity Photo - fade in last */}
         <motion.div
           className="relative w-[240px] h-[105px] sm:w-[360px] sm:h-[160px] md:w-[420px] md:h-[185px] lg:w-[465px] lg:h-[205px] xl:w-[505px] xl:h-[222px] rounded-[10px] sm:rounded-[15px] md:rounded-[18px] lg:rounded-[20px] xl:rounded-[20px] overflow-hidden"
-          variants={fadeIn(ACTIVITY_DELAY)}
+          variants={contentFadeIn(ACTIVITY_DELAY)}
         >
           <Image
             src={slide.activityImage}
@@ -287,21 +292,25 @@ function SlideContent({
 export default function Testimonials() {
   const totalSlides = testimonialsData.length;
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0); // -1 for left, 1 for right
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   // Minimum swipe distance (in px)
   const minSwipeDistance = 50;
 
+  const goToNext = useCallback(() => {
+    setDirection(1);
+    setCurrentIndex((prev) => (prev + 1) % totalSlides);
+  }, [totalSlides]);
+
   const goToPrevious = () => {
+    setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
   };
 
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % totalSlides);
-  };
-
   const goToSlide = (index: number) => {
+    setDirection(index > currentIndex ? 1 : -1);
     setCurrentIndex(index);
   };
 
@@ -328,26 +337,35 @@ export default function Testimonials() {
     }
   };
 
+  // Auto-advance slides every 15 seconds - resets when slide changes
+  useEffect(() => {
+    const timer = setInterval(() => {
+      goToNext();
+    }, 15000);
+    return () => clearInterval(timer);
+  }, [currentIndex, goToNext]);
+
   return (
     <section
       id="testimonies"
       className="h-auto sm:h-[520px] md:h-[600px] lg:h-[660px] xl:h-[721px] overflow-hidden relative"
     >
-      {/* Slides Container with fade transition */}
+      {/* Slides Container with slide transition */}
       <div
-        className="w-full h-full touch-pan-y"
+        className="w-full h-full touch-pan-y overflow-hidden relative"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
-        <AnimatePresence mode="wait">
+        <AnimatePresence initial={false} custom={direction}>
           <motion.div
             key={currentIndex}
-            variants={fadeVariants}
+            custom={direction}
+            variants={slideVariants}
             initial="enter"
             animate="center"
             exit="exit"
-            className="w-full h-full"
+            className="w-full h-full absolute inset-0"
           >
             <SlideContent
               slide={testimonialsData[currentIndex]}

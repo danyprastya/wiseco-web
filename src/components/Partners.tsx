@@ -105,14 +105,14 @@ export default function Partners() {
             {strategicRow1.map((partner, index) => (
               <div
                 key={index}
-                className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] flex items-center"
+                className="h-[28px] md:h-[32px] lg:h-[36px] xl:h-[40px] flex items-center"
               >
                 <Image
                   src={partner.logo}
                   alt={partner.name}
-                  width={100}
-                  height={51}
-                  className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] w-auto object-contain"
+                  width={120}
+                  height={40}
+                  className="h-[28px] md:h-[32px] lg:h-[36px] xl:h-[40px] w-auto object-contain"
                   quality={100}
                 />
               </div>
@@ -127,14 +127,14 @@ export default function Partners() {
             {strategicRow2.map((partner, index) => (
               <div
                 key={index}
-                className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] flex items-center"
+                className="h-[28px] md:h-[32px] lg:h-[36px] xl:h-[40px] flex items-center"
               >
                 <Image
                   src={partner.logo}
                   alt={partner.name}
-                  width={100}
-                  height={51}
-                  className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] w-auto object-contain"
+                  width={120}
+                  height={40}
+                  className="h-[28px] md:h-[32px] lg:h-[36px] xl:h-[40px] w-auto object-contain"
                   quality={100}
                 />
               </div>
@@ -172,14 +172,14 @@ export default function Partners() {
             {mediaRow1.map((media, index) => (
               <div
                 key={index}
-                className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] flex items-center"
+                className="h-[28px] md:h-[32px] lg:h-[36px] xl:h-[40px] flex items-center"
               >
                 <Image
                   src={media.logo}
                   alt={media.name}
-                  width={100}
-                  height={51}
-                  className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] w-auto object-contain"
+                  width={120}
+                  height={40}
+                  className="h-[28px] md:h-[32px] lg:h-[36px] xl:h-[40px] w-auto object-contain"
                   quality={100}
                 />
               </div>
@@ -194,14 +194,14 @@ export default function Partners() {
             {mediaRow2.map((media, index) => (
               <div
                 key={index}
-                className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] flex items-center"
+                className="h-[28px] md:h-[32px] lg:h-[36px] xl:h-[40px] flex items-center"
               >
                 <Image
                   src={media.logo}
                   alt={media.name}
-                  width={100}
-                  height={51}
-                  className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] w-auto object-contain"
+                  width={120}
+                  height={40}
+                  className="h-[28px] md:h-[32px] lg:h-[36px] xl:h-[40px] w-auto object-contain"
                   quality={100}
                 />
               </div>
@@ -216,14 +216,14 @@ export default function Partners() {
             {mediaRow3.map((media, index) => (
               <div
                 key={index}
-                className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] flex items-center"
+                className="h-[28px] md:h-[32px] lg:h-[36px] xl:h-[40px] flex items-center"
               >
                 <Image
                   src={media.logo}
                   alt={media.name}
-                  width={100}
-                  height={51}
-                  className="h-[38px] md:h-[42px] lg:h-[46px] xl:h-[51px] w-auto object-contain"
+                  width={120}
+                  height={40}
+                  className="h-[28px] md:h-[32px] lg:h-[36px] xl:h-[40px] w-auto object-contain"
                   quality={100}
                 />
               </div>

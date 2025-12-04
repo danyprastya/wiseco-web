@@ -168,6 +168,16 @@ export default function Header() {
                 >
                   Strategic Partners
                 </Link>
+                <Link
+                  href="/#contact"
+                  className="block text-[#333333] hover:text-[#D79C60] text-[14px] font-bold text-center whitespace-nowrap"
+                  style={{
+                    paddingLeft: "20px",
+                    paddingRight: "20px",
+                  }}
+                >
+                  Contact
+                </Link>
               </div>
             )}
           </div>
@@ -494,10 +504,17 @@ export default function Header() {
                   </Link>
                   <Link
                     href="/#strategic-partners"
-                    className="px-6 py-2 text-white text-[13px]"
+                    className="px-6 py-2 text-white text-[13px] border-b border-[#6b6b6b]"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Strategic Partners
+                  </Link>
+                  <Link
+                    href="/#contact"
+                    className="px-6 py-2 text-white text-[13px]"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Contact
                   </Link>
                 </div>
               )}

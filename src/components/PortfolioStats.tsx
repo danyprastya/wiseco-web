@@ -148,11 +148,11 @@ export default function PortfolioStats() {
         <div className="h-[15px] sm:h-[18px] md:h-[20px] lg:h-[22px] xl:h-[25px]"></div>
 
         {/* Stats - vertical on mobile, horizontal on larger screens */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-[10px] sm:gap-[10px] md:gap-[15px] lg:gap-[20px] xl:gap-[100px] mb-[20px] sm:mb-[35px] md:mb-[50px] lg:mb-[70px] xl:mb-[90px]">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-[10px] sm:gap-[40px] md:gap-[60px] lg:gap-[80px] xl:gap-[100px] mb-[20px] sm:mb-[35px] md:mb-[50px] lg:mb-[70px] xl:mb-[90px]">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="w-full sm:w-[120px] md:w-[160px] lg:w-[210px] xl:w-[200px] flex flex-col items-center justify-center text-center"
+              className="w-full sm:w-[140px] md:w-[160px] lg:w-[180px] xl:w-[200px] flex flex-col items-center justify-center text-center"
             >
               <div
                 id={`counter-${index}`}
