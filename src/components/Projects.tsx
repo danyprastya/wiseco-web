@@ -103,7 +103,7 @@ function SlideContent({
 
         {/* Description - fade in */}
         <motion.div
-          className="w-[280px] sm:w-[450px] md:w-[550px] lg:w-[680px] xl:w-[793px] h-auto sm:h-[30px] md:h-[32px] lg:h-[34px] mb-[15px] sm:mb-[16px] md:mb-[18px] lg:mb-[20px] flex items-center justify-center"
+          className="min-w-[380px] w-full px-[10px] sm:px-0 sm:w-[450px] md:w-[550px] lg:w-[680px] xl:w-[793px] h-auto sm:h-[30px] md:h-[32px] lg:h-[34px] mb-[15px] sm:mb-[16px] md:mb-[18px] lg:mb-[20px] flex items-center justify-center"
           variants={contentFadeIn(DESC_DELAY)}
         >
           <p className="text-[#333333] text-[10px] sm:text-[10px] md:text-[11px] lg:text-[11px] xl:text-[12px] font-medium leading-[1.4] text-center">
@@ -203,7 +203,7 @@ function SlideContent({
 
         {/* Description - fade in */}
         <motion.div
-          className="w-[280px] sm:w-[450px] md:w-[550px] lg:w-[680px] xl:w-[793px] h-auto sm:h-[40px] md:h-[44px] lg:h-[48px] xl:h-[50px] mb-[15px] sm:mb-[16px] md:mb-[18px] lg:mb-[20px] flex items-center justify-center"
+          className="min-w-[380px] w-full px-[10px] sm:px-0 sm:w-[450px] md:w-[550px] lg:w-[680px] xl:w-[793px] h-auto sm:h-[40px] md:h-[44px] lg:h-[48px] xl:h-[50px] mb-[15px] sm:mb-[16px] md:mb-[18px] lg:mb-[20px] flex items-center justify-center"
           variants={contentFadeIn(DESC_DELAY)}
         >
           <p className="text-[#333333] text-[10px] sm:text-[10px] md:text-[11px] lg:text-[11px] xl:text-[12px] font-medium leading-[1.4] text-center">
@@ -349,7 +349,7 @@ function SlideContent({
 
         {/* Description - fade in */}
         <motion.div
-          className="w-[280px] sm:w-[450px] md:w-[550px] lg:w-[680px] xl:w-[793px] h-auto sm:h-[40px] md:h-[44px] lg:h-[48px] xl:h-[50px] mb-[15px] sm:mb-[16px] md:mb-[18px] lg:mb-[20px] flex items-center justify-center"
+          className="min-w-[380px] w-full px-[10px] sm:px-0 sm:w-[450px] md:w-[550px] lg:w-[680px] xl:w-[793px] h-auto sm:h-[40px] md:h-[44px] lg:h-[48px] xl:h-[50px] mb-[15px] sm:mb-[16px] md:mb-[18px] lg:mb-[20px] flex items-center justify-center"
           variants={contentFadeIn(DESC_DELAY)}
         >
           <p className="text-[#333333] text-[10px] sm:text-[10px] md:text-[11px] lg:text-[11px] xl:text-[12px] font-medium leading-[1.4] text-center">
@@ -495,7 +495,7 @@ function SlideContent({
 
         {/* Description - fade in */}
         <motion.div
-          className="w-[280px] sm:w-[450px] md:w-[550px] lg:w-[680px] xl:w-[793px] h-auto sm:h-[40px] md:h-[44px] lg:h-[48px] xl:h-[50px] mb-[15px] sm:mb-[16px] md:mb-[18px] lg:mb-[20px] flex items-center justify-center"
+          className="min-w-[380px] w-full px-[10px] sm:px-0 sm:w-[450px] md:w-[550px] lg:w-[680px] xl:w-[793px] h-auto sm:h-[40px] md:h-[44px] lg:h-[48px] xl:h-[50px] mb-[15px] sm:mb-[16px] md:mb-[18px] lg:mb-[20px] flex items-center justify-center"
           variants={contentFadeIn(DESC_DELAY)}
         >
           <p className="text-[#333333] text-[10px] sm:text-[10px] md:text-[11px] lg:text-[11px] xl:text-[12px] font-medium leading-[1.4] text-center">
@@ -702,7 +702,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative h-auto sm:h-[480px] md:h-[540px] lg:h-[640px] xl:h-[780px] py-[20px] sm:py-0 overflow-hidden flex items-start"
+      className="relative h-auto sm:h-[480px] md:h-[540px] lg:h-[640px] xl:h-[780px] py-[20px] pb-[50px] sm:pb-0 sm:py-0 sm:overflow-hidden flex items-start"
     >
       {/* Background Image */}
       <div className="absolute inset-0 bg-[#E8E6E6]"></div>
@@ -797,22 +797,22 @@ export default function Projects() {
               />
             </svg>
           </button>
+        </div>
 
-          {/* Dot Indicators */}
-          <div className="absolute bottom-[-30px] sm:bottom-[-25px] md:bottom-[-28px] lg:bottom-[-32px] xl:bottom-[-35px] left-1/2 -translate-x-1/2 z-20 flex gap-[8px]">
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`w-[6px] h-[6px] sm:w-[8px] sm:h-[8px] rounded-full transition-colors ${
-                  index === currentSlide
-                    ? "bg-[#D79C60]"
-                    : "bg-[#D79C60]/40 hover:bg-[#D79C60]/60"
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
+        {/* Dot Indicators - VISIBLE ON ALL VIEWPORTS */}
+        <div className="flex justify-center mt-[20px] gap-[8px]">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`w-[8px] h-[8px] rounded-full transition-colors ${
+                index === currentSlide
+                  ? "bg-[#D79C60]"
+                  : "bg-[#D79C60]/40 hover:bg-[#D79C60]/60"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>

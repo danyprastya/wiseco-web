@@ -132,7 +132,7 @@ export default function PortfolioStats() {
     <section
       id="portfolio"
       ref={sectionRef}
-      className="bg-white h-auto sm:h-[320px] md:h-[370px] lg:h-[430px] xl:h-[507px] py-[20px] sm:py-0"
+      className="bg-[#F5F5F5] h-auto sm:h-[320px] md:h-[370px] lg:h-[430px] xl:h-[507px] py-[20px] sm:py-0"
     >
       <div className="w-full px-[20px] sm:px-4 md:px-8 lg:px-12 xl:px-[100px]">
         {/* Spacing from top */}
@@ -168,12 +168,12 @@ export default function PortfolioStats() {
         </div>
 
         {/* Client Logo Marquee */}
-        <div className="w-full xl:max-w-[850px] xl:mx-auto">
+        <div className="w-[90%] sm:w-[85%] md:w-[80%] lg:w-[75%] xl:max-w-[750px] mx-auto">
           <Marquee speed={50} gradient={false} pauseOnHover={false}>
             {clientLogos.map((logo, index) => (
               <div
                 key={`logo-${index}`}
-                className="flex-shrink-0 flex items-center mx-[12px] sm:mx-[12px] md:mx-[14px] lg:mx-[18px] xl:mx-[30px] h-[36px] sm:h-[38px] md:h-[42px] lg:h-[46px] xl:h-[52px]"
+                className="flex-shrink-0 flex items-center mx-[10px] sm:mx-[10px] md:mx-[12px] lg:mx-[14px] xl:mx-[20px] h-[32px] sm:h-[34px] md:h-[38px] lg:h-[42px] xl:h-[48px]"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
