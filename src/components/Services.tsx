@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { viewportSettings } from "@/lib/animations";
 
 // Timing configuration for Services
 const WISEVISORY_DELAY = 0; // First: wisevisory logo + image slide from bottom

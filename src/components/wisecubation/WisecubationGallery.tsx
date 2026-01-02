@@ -1,29 +1,50 @@
 "use client";
 
-// import Image from "next/image"; // Uncomment when images are ready
+import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
-import { wisecubationGalleryImages } from "@/data/wisecubation";
+import { WisecubationGalleryItem } from "@/lib/db-types";
 
 export default function WisecubationGallery() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [galleryImages, setGalleryImages] = useState<WisecubationGalleryItem[]>(
+    []
+  );
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch gallery images from API
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        const response = await fetch("/api/data/wisecubation-gallery");
+        const data = await response.json();
+        if (data.data) setGalleryImages(data.data);
+      } catch (error) {
+        console.error("Failed to fetch wisecubation gallery:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchGallery();
+  }, []);
 
   // Duplicate images for infinite scroll effect
   const duplicatedImages = [
-    ...wisecubationGalleryImages,
-    ...wisecubationGalleryImages,
-    ...wisecubationGalleryImages,
+    ...galleryImages,
+    ...galleryImages,
+    ...galleryImages,
   ];
 
   // Reset scroll position for infinite effect
   useEffect(() => {
+    if (galleryImages.length === 0) return;
     const container = scrollRef.current;
     if (!container) return;
 
     const handleScroll = () => {
-      const singleSetWidth = (150 + 10) * wisecubationGalleryImages.length; // image width + gap
+      const singleSetWidth = (150 + 10) * galleryImages.length; // image width + gap
       if (container.scrollLeft >= singleSetWidth * 2) {
         container.scrollLeft = singleSetWidth;
       } else if (container.scrollLeft <= 0) {
@@ -33,10 +54,10 @@ export default function WisecubationGallery() {
 
     container.addEventListener("scroll", handleScroll);
     // Set initial position to middle set
-    container.scrollLeft = (150 + 10) * wisecubationGalleryImages.length;
+    container.scrollLeft = (150 + 10) * galleryImages.length;
 
     return () => container.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [galleryImages]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
@@ -86,54 +107,66 @@ export default function WisecubationGallery() {
           className="flex gap-[10px] px-[20px]"
           style={{ width: "max-content" }}
         >
-          {duplicatedImages.map((image, index) => (
-            <div
-              key={`${image.id}-${index}`}
-              className="relative w-[150px] h-[150px] rounded-[15px] overflow-hidden bg-[#364DAF]/20 flex-shrink-0 flex items-center justify-center"
-            >
-              {/* Placeholder - shows blue tinted box until image is added */}
-              <div className="absolute inset-0 bg-[#364DAF]/10 flex items-center justify-center">
-                <span className="text-[#364DAF]/40 text-[12px] font-medium">
-                  Coming Soon
-                </span>
-              </div>
-              {/* Uncomment below when images are ready */}
-              {/* <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                sizes="150px"
-                className="object-cover"
-                quality={100}
-                draggable={false}
-              /> */}
-            </div>
-          ))}
+          {isLoading || galleryImages.length === 0
+            ? Array.from({ length: 9 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="relative w-[150px] h-[150px] rounded-[15px] overflow-hidden bg-[#364DAF]/20 flex-shrink-0 flex items-center justify-center"
+                >
+                  <div className="absolute inset-0 bg-[#364DAF]/10 flex items-center justify-center">
+                    <span className="text-[#364DAF]/40 text-[12px] font-medium">
+                      {isLoading ? "Loading..." : "Coming Soon"}
+                    </span>
+                  </div>
+                </div>
+              ))
+            : duplicatedImages.map((image, index) => (
+                <div
+                  key={`${image.id}-${index}`}
+                  className="relative w-[150px] h-[150px] rounded-[15px] overflow-hidden bg-[#364DAF]/20 flex-shrink-0 flex items-center justify-center"
+                >
+                  <Image
+                    src={image.imageUrl}
+                    alt={image.alt}
+                    fill
+                    sizes="150px"
+                    className="object-cover"
+                    quality={100}
+                    draggable={false}
+                  />
+                </div>
+              ))}
         </div>
       </div>
 
       {/* Desktop Gallery Grid - 4x2 */}
       <div className="hidden sm:grid grid-cols-4 gap-[3px] md:gap-[4px] lg:gap-[4px] xl:gap-[5px]">
-        {wisecubationGalleryImages.map((image) => (
-          <div
-            key={image.id}
-            className="relative w-[135px] h-[135px] md:w-[155px] md:h-[155px] lg:w-[178px] lg:h-[178px] xl:w-[205px] xl:h-[205px] rounded-[14px] md:rounded-[16px] lg:rounded-[18px] xl:rounded-[20px] overflow-hidden bg-[#364DAF]/10 flex items-center justify-center"
-          >
-            {/* Placeholder - shows blue tinted box until image is added */}
-            <span className="text-[#364DAF]/40 text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] font-medium">
-              Coming Soon
-            </span>
-            {/* Uncomment below when images are ready */}
-            {/* <Image
-              src={image.src}
-              alt={image.alt}
-              fill
-              sizes="(max-width: 768px) 135px, (max-width: 1024px) 155px, (max-width: 1280px) 178px, 205px"
-              className="object-cover"
-              quality={100}
-            /> */}
-          </div>
-        ))}
+        {isLoading || galleryImages.length === 0
+          ? Array.from({ length: 8 }).map((_, i) => (
+              <div
+                key={i}
+                className="relative w-[135px] h-[135px] md:w-[155px] md:h-[155px] lg:w-[178px] lg:h-[178px] xl:w-[205px] xl:h-[205px] rounded-[14px] md:rounded-[16px] lg:rounded-[18px] xl:rounded-[20px] overflow-hidden bg-[#364DAF]/10 flex items-center justify-center"
+              >
+                <span className="text-[#364DAF]/40 text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] font-medium">
+                  {isLoading ? "Loading..." : "Coming Soon"}
+                </span>
+              </div>
+            ))
+          : galleryImages.map((image) => (
+              <div
+                key={image.id}
+                className="relative w-[135px] h-[135px] md:w-[155px] md:h-[155px] lg:w-[178px] lg:h-[178px] xl:w-[205px] xl:h-[205px] rounded-[14px] md:rounded-[16px] lg:rounded-[18px] xl:rounded-[20px] overflow-hidden bg-[#364DAF]/10"
+              >
+                <Image
+                  src={image.imageUrl}
+                  alt={image.alt}
+                  fill
+                  sizes="(max-width: 768px) 135px, (max-width: 1024px) 155px, (max-width: 1280px) 178px, 205px"
+                  className="object-cover"
+                  quality={100}
+                />
+              </div>
+            ))}
       </div>
     </section>
   );

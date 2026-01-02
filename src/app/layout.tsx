@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import ScrollToTop from "@/components/ScrollToTop";
+import ConditionalLayout from "@/components/ConditionalLayout";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -29,10 +27,7 @@ export default function RootLayout({
         style={{ fontFamily: "var(--font-montserrat)" }}
       >
         <div className="min-h-screen">
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          <ScrollToTop />
+          <ConditionalLayout>{children}</ConditionalLayout>
         </div>
       </body>
     </html>

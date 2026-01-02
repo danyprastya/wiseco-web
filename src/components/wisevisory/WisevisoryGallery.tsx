@@ -2,28 +2,49 @@
 
 import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
-import { wisevisoryGalleryImages } from "@/data/wisevisory";
+import { WisevisoryGalleryItem } from "@/lib/db-types";
 
 export default function WisevisoryGallery() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [galleryImages, setGalleryImages] = useState<WisevisoryGalleryItem[]>(
+    []
+  );
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch gallery images from API
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        const response = await fetch("/api/data/wisevisory-gallery");
+        const data = await response.json();
+        if (data.data) setGalleryImages(data.data);
+      } catch (error) {
+        console.error("Failed to fetch wisevisory gallery:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchGallery();
+  }, []);
 
   // Duplicate images for infinite scroll effect
   const duplicatedImages = [
-    ...wisevisoryGalleryImages,
-    ...wisevisoryGalleryImages,
-    ...wisevisoryGalleryImages,
+    ...galleryImages,
+    ...galleryImages,
+    ...galleryImages,
   ];
 
   // Reset scroll position for infinite effect
   useEffect(() => {
+    if (galleryImages.length === 0) return;
     const container = scrollRef.current;
     if (!container) return;
 
     const handleScroll = () => {
-      const singleSetWidth = (150 + 10) * wisevisoryGalleryImages.length; // image width + gap
+      const singleSetWidth = (150 + 10) * galleryImages.length; // image width + gap
       if (container.scrollLeft >= singleSetWidth * 2) {
         container.scrollLeft = singleSetWidth;
       } else if (container.scrollLeft <= 0) {
@@ -33,10 +54,10 @@ export default function WisevisoryGallery() {
 
     container.addEventListener("scroll", handleScroll);
     // Set initial position to middle set
-    container.scrollLeft = (150 + 10) * wisevisoryGalleryImages.length;
+    container.scrollLeft = (150 + 10) * galleryImages.length;
 
     return () => container.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [galleryImages]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
@@ -86,42 +107,56 @@ export default function WisevisoryGallery() {
           className="flex gap-[10px] px-[20px]"
           style={{ width: "max-content" }}
         >
-          {duplicatedImages.map((image, index) => (
-            <div
-              key={`${image.id}-${index}`}
-              className="relative w-[150px] h-[150px] rounded-[15px] overflow-hidden bg-gray-200 flex-shrink-0"
-            >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                sizes="150px"
-                className="object-cover"
-                quality={100}
-                draggable={false}
-              />
-            </div>
-          ))}
+          {isLoading
+            ? Array.from({ length: 9 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="w-[150px] h-[150px] rounded-[15px] bg-gray-300 animate-pulse flex-shrink-0"
+                />
+              ))
+            : duplicatedImages.map((image, index) => (
+                <div
+                  key={`${image.id}-${index}`}
+                  className="relative w-[150px] h-[150px] rounded-[15px] overflow-hidden bg-gray-200 flex-shrink-0"
+                >
+                  <Image
+                    src={image.imageUrl}
+                    alt={image.alt}
+                    fill
+                    sizes="150px"
+                    className="object-cover"
+                    quality={100}
+                    draggable={false}
+                  />
+                </div>
+              ))}
         </div>
       </div>
 
       {/* Desktop Gallery Grid - 4x2 */}
       <div className="hidden sm:grid grid-cols-4 gap-[3px] md:gap-[4px] lg:gap-[4px] xl:gap-[5px]">
-        {wisevisoryGalleryImages.map((image) => (
-          <div
-            key={image.id}
-            className="relative w-[135px] h-[135px] md:w-[155px] md:h-[155px] lg:w-[178px] lg:h-[178px] xl:w-[205px] xl:h-[205px] rounded-[14px] md:rounded-[16px] lg:rounded-[18px] xl:rounded-[20px] overflow-hidden bg-gray-200"
-          >
-            <Image
-              src={image.src}
-              alt={image.alt}
-              fill
-              sizes="(max-width: 768px) 135px, (max-width: 1024px) 155px, (max-width: 1280px) 178px, 205px"
-              className="object-cover"
-              quality={100}
-            />
-          </div>
-        ))}
+        {isLoading
+          ? Array.from({ length: 8 }).map((_, i) => (
+              <div
+                key={i}
+                className="w-[135px] h-[135px] md:w-[155px] md:h-[155px] lg:w-[178px] lg:h-[178px] xl:w-[205px] xl:h-[205px] rounded-[14px] md:rounded-[16px] lg:rounded-[18px] xl:rounded-[20px] bg-gray-300 animate-pulse"
+              />
+            ))
+          : galleryImages.map((image) => (
+              <div
+                key={image.id}
+                className="relative w-[135px] h-[135px] md:w-[155px] md:h-[155px] lg:w-[178px] lg:h-[178px] xl:w-[205px] xl:h-[205px] rounded-[14px] md:rounded-[16px] lg:rounded-[18px] xl:rounded-[20px] overflow-hidden bg-gray-200"
+              >
+                <Image
+                  src={image.imageUrl}
+                  alt={image.alt}
+                  fill
+                  sizes="(max-width: 768px) 135px, (max-width: 1024px) 155px, (max-width: 1280px) 178px, 205px"
+                  className="object-cover"
+                  quality={100}
+                />
+              </div>
+            ))}
       </div>
     </section>
   );

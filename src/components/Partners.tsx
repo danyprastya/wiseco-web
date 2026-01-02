@@ -1,60 +1,37 @@
+"use client";
+
 import Image from "next/image";
-
-interface PartnerLogo {
-  name: string;
-  logo: string;
-}
-
-// Strategic Partners data
-const strategicPartners: PartnerLogo[] = [
-  { name: "Al Kahf", logo: "/images/strategic partner/alkahf.png" },
-  { name: "CMA", logo: "/images/strategic partner/Logo CMA.png" },
-  {
-    name: "Enjoy Bekasi",
-    logo: "/images/strategic partner/Logo Enjoy Bekasi.png",
-  },
-  { name: "Jurnal", logo: "/images/strategic partner/Logo Jurnal.png" },
-  { name: "Modestalk", logo: "/images/strategic partner/Logo Modestalk.png" },
-  { name: "PCA", logo: "/images/strategic partner/Logo PCA.png" },
-  {
-    name: "Scarf Media",
-    logo: "/images/strategic partner/Logo Scarfmedia.png",
-  },
-  { name: "Urun RI", logo: "/images/strategic partner/Logo Urun RI.png" },
-  { name: "Kompeten", logo: "/images/strategic partner/Logo Kompeten.png" },
-];
-
-// Media Reviews data
-const mediaReviews: PartnerLogo[] = [
-  { name: "Gatra", logo: "/images/media review/Logo Gatra.png" },
-  { name: "IDX Channel", logo: "/images/media review/Logo IDX Channel.png" },
-  { name: "Liputan 6", logo: "/images/media review/Logo Liputan 6.png" },
-  {
-    name: "Investor Trust",
-    logo: "/images/media review/Logo Investor Trust.png",
-  },
-  { name: "Radar Banten", logo: "/images/media review/Logo Radar Banten.png" },
-  {
-    name: "Suara Merdeka",
-    logo: "/images/media review/Logo Suara Merdeka.png",
-  },
-  {
-    name: "UMKM Indonesia",
-    logo: "/images/media review/Logo UMKMIndonesia.png",
-  },
-  { name: "TVRI", logo: "/images/media review/Logo TVRI.png" },
-  { name: "Scarf Media", logo: "/images/media review/Logo Scarfmedia.png" },
-  { name: "Solopos", logo: "/images/media review/Logo Solopos.png" },
-  { name: "Indo Times", logo: "/images/media review/Logo Indo Times.png" },
-  { name: "Sokoguru", logo: "/images/media review/Logo Sokoguru.png" },
-  {
-    name: "Jurnal Indonesia",
-    logo: "/images/media review/Logo Jurnal Indonesia.png",
-  },
-  { name: "VOI", logo: "/images/media review/Logo VOI.png" },
-];
+import { useEffect, useState } from "react";
+import { StrategicPartner, MediaReview } from "@/lib/db-types";
 
 export default function Partners() {
+  const [strategicPartners, setStrategicPartners] = useState<
+    StrategicPartner[]
+  >([]);
+  const [mediaReviews, setMediaReviews] = useState<MediaReview[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [partnersRes, mediaRes] = await Promise.all([
+          fetch("/api/data/strategic-partners"),
+          fetch("/api/data/media-reviews"),
+        ]);
+        const partnersData = await partnersRes.json();
+        const mediaData = await mediaRes.json();
+
+        if (partnersData.data) setStrategicPartners(partnersData.data);
+        if (mediaData.data) setMediaReviews(mediaData.data);
+      } catch (error) {
+        console.error("Failed to fetch partners data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
   // Split strategic partners: first 4, then the rest
   const strategicRow1 = strategicPartners.slice(0, 4);
   const strategicRow2 = strategicPartners.slice(4);
@@ -63,6 +40,26 @@ export default function Partners() {
   const mediaRow1 = mediaReviews.slice(0, 5);
   const mediaRow2 = mediaReviews.slice(5, 10);
   const mediaRow3 = mediaReviews.slice(10);
+
+  if (isLoading) {
+    return (
+      <section
+        id="strategic-partners"
+        className="h-auto sm:h-[480px] md:h-[520px] lg:h-[560px] xl:h-[600px] py-[20px] sm:py-0 bg-white"
+      >
+        <div className="h-full flex flex-col items-center justify-center">
+          <div className="animate-pulse space-y-4">
+            <div className="h-8 w-48 bg-gray-200 rounded mx-auto"></div>
+            <div className="flex gap-4 justify-center">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="h-10 w-24 bg-gray-200 rounded"></div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -86,10 +83,10 @@ export default function Partners() {
 
           {/* Mobile: flex-wrap, Desktop: rows */}
           <div className="flex flex-wrap items-center justify-center gap-[10px] sm:hidden">
-            {strategicPartners.map((partner, index) => (
-              <div key={index} className="h-[25px] flex items-center">
+            {strategicPartners.map((partner) => (
+              <div key={partner.id} className="h-[25px] flex items-center">
                 <Image
-                  src={partner.logo}
+                  src={partner.logoUrl}
                   alt={partner.name}
                   width={100}
                   height={25}
@@ -102,13 +99,13 @@ export default function Partners() {
 
           {/* Desktop: Row 1 - 4 logos */}
           <div className="hidden sm:flex items-center justify-center gap-[20px]">
-            {strategicRow1.map((partner, index) => (
+            {strategicRow1.map((partner) => (
               <div
-                key={index}
+                key={partner.id}
                 className="h-[28px] md:h-[32px] lg:h-[36px] xl:h-[40px] flex items-center"
               >
                 <Image
-                  src={partner.logo}
+                  src={partner.logoUrl}
                   alt={partner.name}
                   width={120}
                   height={40}
@@ -124,13 +121,13 @@ export default function Partners() {
 
           {/* Desktop: Row 2 - remaining logos */}
           <div className="hidden sm:flex items-center justify-center gap-[20px]">
-            {strategicRow2.map((partner, index) => (
+            {strategicRow2.map((partner) => (
               <div
-                key={index}
+                key={partner.id}
                 className="h-[28px] md:h-[32px] lg:h-[36px] xl:h-[40px] flex items-center"
               >
                 <Image
-                  src={partner.logo}
+                  src={partner.logoUrl}
                   alt={partner.name}
                   width={120}
                   height={40}
@@ -153,10 +150,10 @@ export default function Partners() {
 
           {/* Mobile: flex-wrap */}
           <div className="flex flex-wrap items-center justify-center gap-[10px] sm:hidden">
-            {mediaReviews.map((media, index) => (
-              <div key={index} className="h-[25px] flex items-center">
+            {mediaReviews.map((media) => (
+              <div key={media.id} className="h-[25px] flex items-center">
                 <Image
-                  src={media.logo}
+                  src={media.logoUrl}
                   alt={media.name}
                   width={100}
                   height={25}
@@ -169,13 +166,13 @@ export default function Partners() {
 
           {/* Desktop: Row 1 - 5 logos */}
           <div className="hidden sm:flex items-center justify-center gap-[20px]">
-            {mediaRow1.map((media, index) => (
+            {mediaRow1.map((media) => (
               <div
-                key={index}
+                key={media.id}
                 className="h-[28px] md:h-[32px] lg:h-[36px] xl:h-[40px] flex items-center"
               >
                 <Image
-                  src={media.logo}
+                  src={media.logoUrl}
                   alt={media.name}
                   width={120}
                   height={40}
@@ -191,13 +188,13 @@ export default function Partners() {
 
           {/* Desktop: Row 2 - 5 logos */}
           <div className="hidden sm:flex items-center justify-center gap-[20px]">
-            {mediaRow2.map((media, index) => (
+            {mediaRow2.map((media) => (
               <div
-                key={index}
+                key={media.id}
                 className="h-[28px] md:h-[32px] lg:h-[36px] xl:h-[40px] flex items-center"
               >
                 <Image
-                  src={media.logo}
+                  src={media.logoUrl}
                   alt={media.name}
                   width={120}
                   height={40}
@@ -213,13 +210,13 @@ export default function Partners() {
 
           {/* Desktop: Row 3 - remaining logos */}
           <div className="hidden sm:flex items-center justify-center gap-[20px]">
-            {mediaRow3.map((media, index) => (
+            {mediaRow3.map((media) => (
               <div
-                key={index}
+                key={media.id}
                 className="h-[28px] md:h-[32px] lg:h-[36px] xl:h-[40px] flex items-center"
               >
                 <Image
-                  src={media.logo}
+                  src={media.logoUrl}
                   alt={media.name}
                   width={120}
                   height={40}

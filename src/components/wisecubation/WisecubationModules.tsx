@@ -1,22 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { wisecubationModules, WisecubationModule } from "@/data/wisecubation";
+import { WisecubationModuleItem } from "@/lib/db-types";
+
+// Default background image path
+const DEFAULT_BG_IMAGE = "/images/bg-box-service.jpg";
+
+interface ModuleCardProps {
+  module: WisecubationModuleItem;
+  isMobileActive: boolean;
+  onMobileClick: () => void;
+}
 
 function ModuleCard({
   module,
   isMobileActive,
   onMobileClick,
-}: {
-  module: WisecubationModule;
-  isMobileActive: boolean;
-  onMobileClick: () => void;
-}) {
+}: ModuleCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   // Show description if hovered (desktop) or clicked (mobile)
   const showDescription = isHovered || isMobileActive;
+
+  // Use custom background image if available, otherwise use default
+  const backgroundImage = module.backgroundImageUrl || DEFAULT_BG_IMAGE;
 
   return (
     <div
@@ -25,17 +33,27 @@ function ModuleCard({
       onMouseLeave={() => setIsHovered(false)}
       onClick={onMobileClick}
     >
-      {/* Background Image */}
-      <Image
-        src="/images/bg-box-service.jpg"
-        alt=""
-        fill
-        className="object-cover"
-        sizes="(max-width: 640px) 185px, (max-width: 768px) 145px, (max-width: 1024px) 165px, (max-width: 1280px) 184px, 204px"
-      />
+      {/* Background Image with blur on hover/active */}
+      <div
+        className={`absolute inset-0 transition-all duration-300 ${
+          showDescription ? "blur-[2px]" : ""
+        }`}
+      >
+        <Image
+          src={backgroundImage}
+          alt=""
+          fill
+          className="object-cover"
+          sizes="(max-width: 640px) 185px, (max-width: 768px) 145px, (max-width: 1024px) 165px, (max-width: 1280px) 184px, 204px"
+        />
+      </div>
 
-      {/* Blue Overlay - wisecubation brand color */}
-      <div className="absolute inset-0 bg-[#364DAF]/50" />
+      {/* Blue Overlay - wisecubation brand color, darker on hover/active */}
+      <div
+        className={`absolute inset-0 transition-all duration-300 ${
+          showDescription ? "bg-[#364DAF]/70" : "bg-[#364DAF]/50"
+        }`}
+      />
 
       {/* Title - visible when not showing description */}
       <div
@@ -67,10 +85,27 @@ function ModuleCard({
 }
 
 export default function WisecubationModules() {
-  const [mobileActiveCard, setMobileActiveCard] = useState<number | null>(null);
+  const [modules, setModules] = useState<WisecubationModuleItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [mobileActiveCard, setMobileActiveCard] = useState<string | null>(null);
   const [isButtonActive, setIsButtonActive] = useState(false);
 
-  const handleMobileClick = (id: number) => {
+  useEffect(() => {
+    const fetchModules = async () => {
+      try {
+        const response = await fetch("/api/data/wisecubation-modules");
+        const data = await response.json();
+        if (data.data) setModules(data.data);
+      } catch (error) {
+        console.error("Failed to fetch wisecubation modules:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchModules();
+  }, []);
+
+  const handleMobileClick = (id: string) => {
     // Only toggle on mobile (check window width)
     if (typeof window !== "undefined" && window.innerWidth < 640) {
       setMobileActiveCard(mobileActiveCard === id ? null : id);
@@ -91,14 +126,21 @@ export default function WisecubationModules() {
 
       {/* Modules Grid - vertical on mobile, 2 columns on desktop */}
       <div className="flex flex-col sm:flex-row gap-[10px] sm:gap-[30px] md:gap-[40px] lg:gap-[50px] xl:gap-[60px] px-[20px] sm:px-0">
-        {wisecubationModules.map((module) => (
-          <ModuleCard
-            key={module.id}
-            module={module}
-            isMobileActive={mobileActiveCard === module.id}
-            onMobileClick={() => handleMobileClick(module.id)}
-          />
-        ))}
+        {isLoading
+          ? Array.from({ length: 2 }).map((_, i) => (
+              <div
+                key={i}
+                className="w-[185px] h-[185px] sm:w-[145px] sm:h-[190px] md:w-[165px] md:h-[215px] lg:w-[184px] lg:h-[240px] xl:w-[204px] xl:h-[266px] rounded-[20px] bg-gray-300 animate-pulse"
+              />
+            ))
+          : modules.map((module) => (
+              <ModuleCard
+                key={module.id}
+                module={module}
+                isMobileActive={mobileActiveCard === module.id}
+                onMobileClick={() => handleMobileClick(module.id)}
+              />
+            ))}
       </div>
 
       {/* 20px spacing on mobile, 40px on desktop */}

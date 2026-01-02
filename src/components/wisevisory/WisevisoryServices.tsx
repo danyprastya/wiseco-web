@@ -1,22 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { wisevisoryServices, WisevisoryService } from "@/data/wisevisory";
+import { WisevisoryServiceItem } from "@/lib/db-types";
+
+// Default background image path
+const DEFAULT_BG_IMAGE = "/images/bg-box-service.jpg";
+
+interface ServiceCardProps {
+  service: WisevisoryServiceItem;
+  isMobileActive: boolean;
+  onMobileClick: () => void;
+}
 
 function ServiceCard({
   service,
   isMobileActive,
   onMobileClick,
-}: {
-  service: WisevisoryService;
-  isMobileActive: boolean;
-  onMobileClick: () => void;
-}) {
+}: ServiceCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   // Show description if hovered (desktop) or clicked (mobile)
   const showDescription = isHovered || isMobileActive;
+
+  // Use custom background image if available, otherwise use default
+  const backgroundImage = service.backgroundImageUrl || DEFAULT_BG_IMAGE;
 
   return (
     <div
@@ -25,17 +33,19 @@ function ServiceCard({
       onMouseLeave={() => setIsHovered(false)}
       onClick={onMobileClick}
     >
-      {/* Background Image */}
-      <Image
-        src="/images/bg-box-service.jpg"
-        alt=""
-        fill
-        className="object-cover"
-        sizes="(max-width: 640px) 185px, (max-width: 768px) 145px, (max-width: 1024px) 165px, (max-width: 1280px) 184px, 204px"
-      />
+      {/* Background Image with blur on hover/active */}
+      <div className={`absolute inset-0 transition-all duration-300 ${showDescription ? "blur-[2px]" : ""}`}>
+        <Image
+          src={backgroundImage}
+          alt=""
+          fill
+          className="object-cover"
+          sizes="(max-width: 640px) 185px, (max-width: 768px) 145px, (max-width: 1024px) 165px, (max-width: 1280px) 184px, 204px"
+        />
+      </div>
 
-      {/* Black Overlay - always visible */}
-      <div className="absolute inset-0 bg-black/40" />
+      {/* Black Overlay - always visible, darker on hover/active */}
+      <div className={`absolute inset-0 transition-all duration-300 ${showDescription ? "bg-black/60" : "bg-black/40"}`} />
 
       {/* Title - visible when not showing description */}
       <div
@@ -67,10 +77,27 @@ function ServiceCard({
 }
 
 export default function WisevisoryServices() {
-  const [mobileActiveCard, setMobileActiveCard] = useState<number | null>(null);
+  const [services, setServices] = useState<WisevisoryServiceItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [mobileActiveCard, setMobileActiveCard] = useState<string | null>(null);
   const [isButtonActive, setIsButtonActive] = useState(false);
 
-  const handleMobileClick = (id: number) => {
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await fetch("/api/data/wisevisory-services");
+        const data = await response.json();
+        if (data.data) setServices(data.data);
+      } catch (error) {
+        console.error("Failed to fetch wisevisory services:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchServices();
+  }, []);
+
+  const handleMobileClick = (id: string) => {
     // Only toggle on mobile (check window width)
     if (typeof window !== "undefined" && window.innerWidth < 640) {
       setMobileActiveCard(mobileActiveCard === id ? null : id);
@@ -90,14 +117,21 @@ export default function WisevisoryServices() {
 
       {/* Services Grid - vertical on mobile, 4x2 on desktop */}
       <div className="flex flex-col sm:grid sm:grid-cols-4 gap-[10px] sm:gap-[18px] md:gap-[25px] lg:gap-[32px] xl:gap-[40px] px-[20px] sm:px-0">
-        {wisevisoryServices.map((service) => (
-          <ServiceCard
-            key={service.id}
-            service={service}
-            isMobileActive={mobileActiveCard === service.id}
-            onMobileClick={() => handleMobileClick(service.id)}
-          />
-        ))}
+        {isLoading
+          ? Array.from({ length: 8 }).map((_, i) => (
+              <div
+                key={i}
+                className="w-[185px] h-[185px] sm:w-[145px] sm:h-[190px] md:w-[165px] md:h-[215px] lg:w-[184px] lg:h-[240px] xl:w-[204px] xl:h-[266px] rounded-[20px] bg-gray-300 animate-pulse"
+              />
+            ))
+          : services.map((service) => (
+              <ServiceCard
+                key={service.id}
+                service={service}
+                isMobileActive={mobileActiveCard === service.id}
+                onMobileClick={() => handleMobileClick(service.id)}
+              />
+            ))}
       </div>
 
       {/* 20px spacing on mobile, 40px on desktop */}

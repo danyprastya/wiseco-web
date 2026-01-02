@@ -66,7 +66,7 @@ const buttonAnimation = {
 
 export default function Hero() {
   return (
-    <section className="relative flex items-center overflow-visible h-[400px] sm:h-[380px] md:h-[480px] lg:h-[580px] xl:h-[700px] mt-12 md:mt-14 lg:mt-16 xl:mt-20">
+    <section className="relative flex items-center overflow-visible h-[400px] sm:h-[340px] md:h-[420px] lg:h-[520px] xl:h-[700px] mt-12 md:mt-14 lg:mt-16 xl:mt-20">
       {/* Background Image with Parallax */}
       <div
         className="absolute inset-0"
@@ -226,7 +226,7 @@ export default function Hero() {
 
             {/* Right Side - Graph Image - fade in */}
             <motion.div
-              className="relative w-[200px] h-[290px] sm:w-[220px] sm:h-[320px] md:w-[300px] md:h-[380px] lg:w-[420px] lg:h-[480px] xl:w-[650px] xl:h-[550px] -mt-4 sm:-mt-6 md:-mt-12 lg:-mt-16z xl:-mt-24"
+              className="relative w-[22vw] h-[28vw] sm:w-[260px] sm:h-[360px] md:w-[300px] md:h-[380px] lg:w-[420px] lg:h-[480px] xl:w-[650px] xl:h-[550px] min-w-[90px] min-h-[115px] mt-2 sm:-mt-8 md:-mt-12 lg:-mt-10 xl:-mt-40"
               variants={imageAnimation}
               initial="hidden"
               whileInView="visible"

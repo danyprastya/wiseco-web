@@ -2,16 +2,16 @@
 
 import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
-import { testimonialsData, TestimonialSlide } from "@/data/testimonials";
+import { Testimonial } from "@/lib/db-types";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Timing configuration for Testimonials
-const SLIDE_TRANSITION_DURATION = 0.5; // Duration of slide animation
-const CONTENT_START_DELAY = 0.3; // Delay before content starts appearing
-const PHOTO_LOGO_DELAY = CONTENT_START_DELAY; // Photo and logo fade in first
-const NAME_POSITION_DELAY = CONTENT_START_DELAY + 0.2; // Name and position slide from top
-const TESTIMONIAL_DELAY = CONTENT_START_DELAY + 0.4; // Testimonial text slides from top
-const ACTIVITY_DELAY = CONTENT_START_DELAY + 0.6; // Activity image fades in last
+const SLIDE_TRANSITION_DURATION = 0.5;
+const CONTENT_START_DELAY = 0.3;
+const PHOTO_LOGO_DELAY = CONTENT_START_DELAY;
+const NAME_POSITION_DELAY = CONTENT_START_DELAY + 0.2;
+const TESTIMONIAL_DELAY = CONTENT_START_DELAY + 0.4;
+const ACTIVITY_DELAY = CONTENT_START_DELAY + 0.6;
 
 // Fade in animation for content
 const contentFadeIn = (delay: number) => ({
@@ -26,9 +26,9 @@ const contentFadeIn = (delay: number) => ({
   },
 });
 
-// Slide from top animation
-const slideFromTop = (delay: number) => ({
-  hidden: { opacity: 0, y: -30 },
+// Slide from bottom animation for text
+const slideFromBottom = (delay: number) => ({
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
@@ -40,7 +40,7 @@ const slideFromTop = (delay: number) => ({
   },
 });
 
-// Slide animation variants for navigation - slides "stick" together
+// Slide animation variants for navigation
 const slideVariants = {
   enter: (direction: number) => ({
     x: direction > 0 ? "100%" : "-100%",
@@ -69,9 +69,11 @@ const slideVariants = {
 
 // Function to render text with bold phrases
 function renderTestimonialText(text: string, boldPhrases: string[]) {
-  const parts: { text: string; bold: boolean }[] = [];
+  if (!boldPhrases || boldPhrases.length === 0) {
+    return <span>{text}</span>;
+  }
 
-  // Create a regex pattern to match any of the bold phrases
+  const parts: { text: string; bold: boolean }[] = [];
   const pattern = new RegExp(
     `(${boldPhrases
       .map((p) => p.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
@@ -106,13 +108,16 @@ function SlideContent({
   slide,
   slideKey,
 }: {
-  slide: TestimonialSlide;
+  slide: Testimonial;
   slideKey: number;
 }) {
+  // Get owner image position or defaults
+  const ownerImgPos = slide.ownerImagePosition || { x: 50, y: 50, scale: 1 };
+
   return (
     <motion.div
       key={slideKey}
-      className="relative h-[520px] sm:h-[520px] md:h-[600px] lg:h-[660px] xl:h-[721px] w-full overflow-hidden"
+      className="relative h-[580px] sm:h-[580px] md:h-[680px] lg:h-[750px] xl:h-[820px] w-full overflow-hidden"
       initial="hidden"
       animate="visible"
     >
@@ -120,194 +125,194 @@ function SlideContent({
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: `url(${slide.backgroundImage})`,
+          backgroundImage: `url(${slide.backgroundImageUrl})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          opacity: 1,
         }}
       ></div>
 
-      {/* Overlay */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundColor: slide.overlayColor,
-          opacity: 0.8,
-        }}
-      ></div>
+      {/* Overlay - fixed color */}
+      <div className="absolute inset-0 bg-[#333333]/80"></div>
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center py-[15px] sm:py-0">
         {/* 65px spacing from top - hidden on mobile */}
         <div className="hidden sm:block sm:h-[40px] md:h-[45px] lg:h-[55px] xl:h-[65px]"></div>
 
-        {/* Mobile: Vertical layout (photo on top, logo below) - fade in */}
+        {/* Mobile: Vertical layout */}
         <motion.div
-          className="flex sm:hidden flex-col items-center gap-[6px]"
+          className="flex sm:hidden flex-col items-center gap-[8px]"
           variants={contentFadeIn(PHOTO_LOGO_DELAY)}
         >
-          {/* Owner Photo */}
-          <div className="relative w-[90px] h-[90px] rounded-full overflow-hidden">
+          <div
+            className="relative w-[100px] h-[100px] rounded-full overflow-hidden"
+            style={{
+              transform: `scale(${ownerImgPos.scale})`,
+            }}
+          >
             <Image
-              src={slide.ownerImage}
+              src={slide.ownerImageUrl}
               alt={slide.ownerName}
               fill
               sizes="100px"
               className="object-cover"
               style={{
-                objectPosition: slide.ownerImagePosition || "center",
-                transform: `scale(${slide.ownerImageScale || 1})`,
+                objectPosition: `${ownerImgPos.x}% ${ownerImgPos.y}%`,
               }}
               quality={100}
             />
           </div>
-
-          {/* Company Logo - Mobile */}
-          <div
-            className="relative"
-            style={{
-              width:
-                slide.mobileCompanyLogoWidth ||
-                Math.round(slide.companyLogoWidth * 0.6),
-              height:
-                slide.mobileCompanyLogoHeight ||
-                Math.round(slide.companyLogoHeight * 0.6),
-            }}
-          >
+          <div className="relative w-[80px] h-[40px]">
             <Image
-              src={slide.companyLogo}
+              src={slide.companyLogoUrl}
               alt="Company Logo"
               fill
+              className="object-contain"
               quality={100}
             />
           </div>
         </motion.div>
 
-        {/* Desktop: Owner photo, line, and company logo row - fade in */}
+        {/* Desktop: Owner photo, line, and company logo row - Equal spacing */}
         <motion.div
-          className="hidden sm:flex items-center"
+          className="hidden sm:flex items-center justify-center"
           variants={contentFadeIn(PHOTO_LOGO_DELAY)}
         >
-          {/* Owner Photo Container - fixed width to match logo container */}
-          <div className="w-[180px] md:w-[210px] lg:w-[230px] xl:w-[250px] flex justify-end">
-            <div className="relative w-[100px] h-[100px] md:w-[115px] md:h-[115px] lg:w-[125px] lg:h-[125px] xl:w-[135px] xl:h-[135px] rounded-full overflow-hidden">
-              <Image
-                src={slide.ownerImage}
-                alt={slide.ownerName}
-                fill
-                sizes="135px"
-                className="object-cover"
-                style={{
-                  objectPosition: slide.ownerImagePosition || "center",
-                  transform: `scale(${slide.ownerImageScale || 1})`,
-                }}
-                quality={100}
-              />
-            </div>
+          {/* Owner photo - gap to divider = mx value */}
+          <div className="relative w-[100px] h-[100px] md:w-[115px] md:h-[115px] lg:w-[130px] lg:h-[130px] xl:w-[145px] xl:h-[145px] rounded-full overflow-hidden">
+            <Image
+              src={slide.ownerImageUrl}
+              alt={slide.ownerName}
+              fill
+              sizes="145px"
+              className="object-cover"
+              style={{
+                objectPosition: `${ownerImgPos.x}% ${ownerImgPos.y}%`,
+                transform: `scale(${ownerImgPos.scale})`,
+              }}
+              quality={100}
+            />
           </div>
 
-          {/* 30px gap */}
-          <div className="w-[20px] md:w-[24px] lg:w-[27px] xl:w-[30px]"></div>
+          {/* Divider Line - equal gap on both sides */}
+          <div className="mx-[20px] md:mx-[25px] lg:mx-[30px] xl:mx-[35px] w-[2px] h-[100px] md:h-[115px] lg:h-[130px] xl:h-[145px] bg-white rounded-full"></div>
 
-          {/* Vertical line */}
-          <div className="w-[1px] h-[75px] md:h-[85px] lg:h-[92px] xl:h-[100px] bg-white"></div>
-
-          {/* 30px gap */}
-          <div className="w-[20px] md:w-[24px] lg:w-[27px] xl:w-[30px]"></div>
-
-          {/* Company Logo Container - fixed width to match owner container */}
-          <div className="w-[180px] md:w-[210px] lg:w-[230px] xl:w-[250px] flex justify-start items-center">
-            <div
-              className="relative"
-              style={{
-                width: slide.companyLogoWidth,
-                height: slide.companyLogoHeight,
-              }}
-            >
-              <Image
-                src={slide.companyLogo}
-                alt="Company Logo"
-                fill
-                quality={100}
-              />
-            </div>
+          {/* Company Logo - gap to divider = mx value (same as photo) */}
+          <div className="relative w-[130px] h-[65px] md:w-[150px] md:h-[75px] lg:w-[170px] lg:h-[85px] xl:w-[190px] xl:h-[95px] flex items-center">
+            <Image
+              src={slide.companyLogoUrl}
+              alt="Company Logo"
+              fill
+              className="object-contain"
+              quality={100}
+            />
           </div>
         </motion.div>
 
-        {/* 15px spacing */}
-        <div className="h-[4px] sm:h-[10px] md:h-[12px] lg:h-[14px] xl:h-[15px]"></div>
-
-        {/* Owner Name - slide from top */}
-        <motion.h3
-          className="text-[18px] sm:text-[22px] md:text-[25px] lg:text-[27px] xl:text-[30px] text-center"
-          style={{
-            color: slide.ownerNameColor,
-            fontFamily: "Avenir, sans-serif",
-          }}
-          variants={slideFromTop(NAME_POSITION_DELAY)}
+        {/* Owner Name - slide from bottom */}
+        <motion.div
+          className="mt-[12px] sm:mt-[18px] md:mt-[22px] lg:mt-[26px] xl:mt-[30px]"
+          variants={slideFromBottom(NAME_POSITION_DELAY)}
         >
-          <strong>{slide.ownerName}</strong>
-        </motion.h3>
+          <p className="text-[#D79C60] text-[18px] sm:text-[22px] md:text-[26px] lg:text-[30px] xl:text-[34px] font-bold text-center">
+            {slide.ownerName}
+          </p>
+        </motion.div>
 
-        {/* Position - slide from top with delay */}
+        {/* Position - slide from bottom */}
         <motion.p
-          className="text-[12px] sm:text-[13px] md:text-[15px] lg:text-[16px] xl:text-[18px] font-normal text-white text-center"
-          variants={slideFromTop(NAME_POSITION_DELAY + 0.1)}
+          className="text-[13px] sm:text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] font-normal text-white text-center"
+          variants={slideFromBottom(NAME_POSITION_DELAY + 0.1)}
         >
           {slide.position}
         </motion.p>
 
-        {/* 25px spacing - reduced on mobile */}
-        <div className="h-[6px] sm:h-[15px] md:h-[18px] lg:h-[22px] xl:h-[25px]"></div>
-
-        {/* Testimonial Text - slide from top with delay */}
+        {/* Testimonial Text - slide from bottom, increased font weight, tighter line height */}
         <motion.div
-          className="w-[420px] sm:w-[600px] md:w-[720px] lg:w-[800px] xl:w-[860px] h-auto sm:h-[70px] md:h-[78px] lg:h-[84px] xl:h-[90px] flex items-center justify-center px-2 sm:px-4"
-          variants={slideFromTop(TESTIMONIAL_DELAY)}
+          className="mt-[12px] sm:mt-[16px] md:mt-[18px] lg:mt-[22px] xl:mt-[26px] w-[320px] sm:w-[520px] md:w-[620px] lg:w-[720px] xl:w-[850px] px-[10px] sm:px-0"
+          variants={slideFromBottom(TESTIMONIAL_DELAY)}
         >
-          <p className="text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[15px] font-medium text-white text-center leading-[1.4]">
+          <p className="text-white text-[12px] sm:text-[12px] md:text-[13px] lg:text-[14px] xl:text-[16px] font-medium text-center leading-[1.5] sm:leading-[1.6]">
+            &ldquo;
             {renderTestimonialText(slide.testimonialText, slide.boldPhrases)}
+            &rdquo;
           </p>
         </motion.div>
 
-        {/* 30px spacing - reduced on mobile */}
-        <div className="h-[6px] sm:h-[18px] md:h-[22px] lg:h-[26px] xl:h-[30px]"></div>
-
-        {/* Activity Photo - fade in last */}
+        {/* Activity Image - fade in */}
         <motion.div
-          className="relative w-[240px] h-[105px] sm:w-[360px] sm:h-[160px] md:w-[420px] md:h-[185px] lg:w-[465px] lg:h-[205px] xl:w-[505px] xl:h-[222px] rounded-[10px] sm:rounded-[15px] md:rounded-[18px] lg:rounded-[20px] xl:rounded-[20px] overflow-hidden"
+          className="mt-[18px] sm:mt-[22px] md:mt-[26px] lg:mt-[32px] xl:mt-[38px]"
           variants={contentFadeIn(ACTIVITY_DELAY)}
         >
-          <Image
-            src={slide.activityImage}
-            alt="Activity"
-            fill
-            sizes="(max-width: 640px) 240px, 505px"
-            className="object-cover"
-            quality={100}
-          />
+          <div className="relative w-[240px] h-[60px] sm:w-[320px] sm:h-[108px] md:w-[380px] md:h-[144px] lg:w-[400px] lg:h-[168px] xl:w-[460px] xl:h-[204px] rounded-[10px] sm:rounded-[15px] md:rounded-[18px] lg:rounded-[20px] overflow-hidden">
+            <Image
+              src={slide.activityImageUrl}
+              alt="Activity"
+              fill
+              sizes="(max-width: 640px) 220px, (max-width: 768px) 320px, (max-width: 1024px) 380px, (max-width: 1280px) 440px, 520px"
+              className="object-cover"
+              quality={100}
+            />
+          </div>
         </motion.div>
       </div>
     </motion.div>
   );
 }
 
+// Loading skeleton
+function LoadingSkeleton() {
+  return (
+    <div className="relative h-[580px] sm:h-[580px] md:h-[680px] lg:h-[750px] xl:h-[820px] w-full bg-[#333333] flex flex-col items-center py-[15px] sm:py-0">
+      <div className="hidden sm:block sm:h-[40px] md:h-[45px] lg:h-[55px] xl:h-[65px]"></div>
+      <div className="flex items-center gap-4">
+        <div className="w-[100px] h-[100px] rounded-full bg-gray-600 animate-pulse"></div>
+        <div className="w-[2px] h-[100px] bg-gray-600"></div>
+        <div className="w-[130px] h-[65px] bg-gray-600 animate-pulse rounded"></div>
+      </div>
+      <div className="mt-[20px] w-[200px] h-[34px] bg-gray-600 animate-pulse rounded"></div>
+      <div className="mt-[10px] w-[150px] h-[20px] bg-gray-600 animate-pulse rounded"></div>
+      <div className="mt-[20px] w-[700px] h-[100px] bg-gray-600 animate-pulse rounded"></div>
+      <div className="mt-[30px] w-[380px] h-[228px] bg-gray-600 animate-pulse rounded-[20px]"></div>
+    </div>
+  );
+}
+
 export default function Testimonials() {
-  const totalSlides = testimonialsData.length;
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0); // -1 for left, 1 for right
+  const [direction, setDirection] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-  // Minimum swipe distance (in px)
+  // Fetch testimonials from API
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const response = await fetch("/api/data/testimonials");
+        const data = await response.json();
+        if (data.data) setTestimonials(data.data);
+      } catch (error) {
+        console.error("Failed to fetch testimonials:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchTestimonials();
+  }, []);
+
+  const totalSlides = testimonials.length;
   const minSwipeDistance = 50;
 
   const goToNext = useCallback(() => {
+    if (totalSlides === 0) return;
     setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % totalSlides);
   }, [totalSlides]);
 
   const goToPrevious = () => {
+    if (totalSlides === 0) return;
     setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
   };
@@ -317,7 +322,7 @@ export default function Testimonials() {
     setCurrentIndex(index);
   };
 
-  // Touch handlers for swipe
+  // Touch handlers
   const onTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0].clientX);
@@ -340,45 +345,54 @@ export default function Testimonials() {
     }
   };
 
-  // Auto-advance slides every 10 seconds - resets when slide changes
+  // Auto-advance slides every 10 seconds
   useEffect(() => {
+    if (totalSlides === 0) return;
     const timer = setInterval(() => {
       goToNext();
     }, 10000);
     return () => clearInterval(timer);
-  }, [currentIndex, goToNext]);
+  }, [currentIndex, goToNext, totalSlides]);
 
   return (
     <section
       id="testimonies"
-      className="h-[520px] sm:h-[520px] md:h-[600px] lg:h-[660px] xl:h-[721px] overflow-hidden relative bg-[#333333]"
+      className="h-[580px] sm:h-[580px] md:h-[680px] lg:h-[750px] xl:h-[820px] overflow-hidden relative bg-[#333333]"
     >
-      {/* Slides Container with slide transition */}
+      {/* Slides Container */}
       <div
         className="w-full h-full touch-pan-y overflow-hidden relative"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
-        <AnimatePresence initial={false} custom={direction} mode="popLayout">
-          <motion.div
-            key={currentIndex}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="w-full h-full absolute inset-0"
-          >
-            <SlideContent
-              slide={testimonialsData[currentIndex]}
-              slideKey={currentIndex}
-            />
-          </motion.div>
-        </AnimatePresence>
+        {isLoading ? (
+          <LoadingSkeleton />
+        ) : testimonials.length > 0 ? (
+          <AnimatePresence initial={false} custom={direction} mode="popLayout">
+            <motion.div
+              key={currentIndex}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              className="w-full h-full absolute inset-0"
+            >
+              <SlideContent
+                slide={testimonials[currentIndex]}
+                slideKey={currentIndex}
+              />
+            </motion.div>
+          </AnimatePresence>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+            <p className="text-gray-500">No testimonials available</p>
+          </div>
+        )}
       </div>
 
-      {/* Left Navigation Button - Only visible on desktop (lg+) */}
+      {/* Left Navigation Button */}
       <button
         onClick={goToPrevious}
         className="hidden lg:block absolute left-[40px] lg:left-[40px] xl:left-[60px] top-1/2 -translate-y-1/2 z-20 hover:opacity-70 transition-opacity"
@@ -401,7 +415,7 @@ export default function Testimonials() {
         </svg>
       </button>
 
-      {/* Right Navigation Button - Only visible on desktop (lg+) */}
+      {/* Right Navigation Button */}
       <button
         onClick={goToNext}
         className="hidden lg:block absolute right-[40px] lg:right-[40px] xl:right-[60px] top-1/2 -translate-y-1/2 z-20 hover:opacity-70 transition-opacity"
@@ -425,20 +439,22 @@ export default function Testimonials() {
       </button>
 
       {/* Dot Indicators */}
-      <div className="absolute bottom-[20px] sm:bottom-[25px] md:bottom-[30px] lg:bottom-[35px] xl:bottom-[40px] left-1/2 -translate-x-1/2 z-20 flex gap-[8px]">
-        {testimonialsData.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-[6px] h-[6px] sm:w-[8px] sm:h-[8px] rounded-full transition-colors ${
-              index === currentIndex
-                ? "bg-white"
-                : "bg-white/50 hover:bg-white/70"
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </div>
+      {testimonials.length > 0 && (
+        <div className="absolute bottom-[20px] sm:bottom-[25px] md:bottom-[30px] lg:bottom-[35px] xl:bottom-[40px] left-1/2 -translate-x-1/2 z-20 flex gap-[8px]">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`w-[6px] h-[6px] sm:w-[8px] sm:h-[8px] rounded-full transition-colors ${
+                index === currentIndex
+                  ? "bg-white"
+                  : "bg-white/50 hover:bg-white/70"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

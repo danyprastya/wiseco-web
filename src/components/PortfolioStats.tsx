@@ -1,10 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import Marquee from "react-fast-marquee";
+import { PortfolioLogo } from "@/lib/db-types";
 
 export default function PortfolioStats() {
   const [hasAnimated, setHasAnimated] = useState(false);
+  const [clientLogos, setClientLogos] = useState<PortfolioLogo[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [loadedCount, setLoadedCount] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
   const stats = [
@@ -28,40 +33,42 @@ export default function PortfolioStats() {
     },
   ];
 
-  const clientLogos = [
-    "Logo Aimono.png",
-    "Logo Alkahf.png",
-    "Logo Ann_s.png",
-    "Logo Asta.png",
-    "Logo Buanatama.png",
-    "Logo Cara Florist.png",
-    "Logo Cottoncut.png",
-    "Logo Dassein.png",
-    "Logo Dusdukduk.png",
-    "Logo Fatih.png",
-    "Logo Guresu.png",
-    "Logo Hamada.png",
-    "Logo Happy Play.png",
-    "Logo Heart Troops.png",
-    "Logo HGL.png",
-    "Logo Hira.png",
-    "Logo Iluminen.png",
-    "Logo Karyatama.png",
-    "Logo KemenkopUKM.png",
-    "Logo Konner.png",
-    "Logo Lawe.png",
-    "Logo Masalinen.png",
-    "Logo ONS.png",
-    "Logo Oseanland.png",
-    "Logo Papakibo.png",
-    "Logo PLN Pusmanpro.png",
-    "Logo Ria Miranda.png",
-    "Logo STEM.png",
-    "Logo Thenblank.png",
-    "Logo Torch.png",
-    "Logo Union Filter.png",
-    "Logo Walking Drums.png",
-  ];
+  // Fetch portfolio logos from API
+  useEffect(() => {
+    const fetchLogos = async () => {
+      try {
+        const response = await fetch("/api/data/portfolio-logos");
+        const data = await response.json();
+        if (data.data) {
+          setClientLogos(data.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch portfolio logos:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchLogos();
+  }, []);
+
+  // Preload all images before showing marquee
+  const handleImageLoad = useCallback(() => {
+    setLoadedCount((prev) => prev + 1);
+  }, []);
+
+  useEffect(() => {
+    if (
+      !isLoading &&
+      clientLogos.length > 0 &&
+      loadedCount >= clientLogos.length
+    ) {
+      // Small delay to ensure smooth animation start
+      const timer = setTimeout(() => {
+        setImagesLoaded(true);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading, clientLogos.length, loadedCount]);
 
   const countElement = (
     elementId: string,
@@ -169,22 +176,44 @@ export default function PortfolioStats() {
 
         {/* Client Logo Marquee */}
         <div className="w-[90%] sm:w-[85%] md:w-[80%] lg:w-[75%] xl:max-w-[750px] mx-auto">
-          <Marquee speed={50} gradient={false} pauseOnHover={false}>
-            {clientLogos.map((logo, index) => (
-              <div
-                key={`logo-${index}`}
-                className="flex-shrink-0 flex items-center mx-[10px] sm:mx-[10px] md:mx-[12px] lg:mx-[14px] xl:mx-[20px] h-[32px] sm:h-[34px] md:h-[38px] lg:h-[42px] xl:h-[48px]"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
+          {isLoading || !imagesLoaded ? (
+            <div className="h-[48px] flex items-center justify-center">
+              <div className="animate-pulse bg-gray-200 h-8 w-full rounded"></div>
+            </div>
+          ) : clientLogos.length > 0 ? (
+            <Marquee speed={50} gradient={false} pauseOnHover={false}>
+              {clientLogos.map((logo, index) => (
+                <div
+                  key={`logo-${logo.id}-${index}`}
+                  className="flex-shrink-0 flex items-center mx-[10px] sm:mx-[10px] md:mx-[12px] lg:mx-[14px] xl:mx-[20px] h-[32px] sm:h-[34px] md:h-[38px] lg:h-[42px] xl:h-[48px]"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={logo.imageUrl}
+                    alt={logo.name}
+                    loading="eager"
+                    className="object-contain h-full w-auto"
+                  />
+                </div>
+              ))}
+            </Marquee>
+          ) : null}
+
+          {/* Hidden preloader for images */}
+          {!isLoading && !imagesLoaded && clientLogos.length > 0 && (
+            <div className="hidden">
+              {clientLogos.map((logo) => (
+                // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src={`/images/logo marquee klien/${logo}`}
-                  alt={`Client ${index + 1}`}
-                  loading="eager"
-                  className="object-contain h-full w-auto"
+                  key={`preload-${logo.id}`}
+                  src={logo.imageUrl}
+                  alt=""
+                  onLoad={handleImageLoad}
+                  onError={handleImageLoad}
                 />
-              </div>
-            ))}
-          </Marquee>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

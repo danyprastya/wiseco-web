@@ -1,0 +1,387 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { Label } from "@/components/ui/label";
+import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "sonner";
+import { Plus, Pencil, Trash2, Search, Loader2 } from "lucide-react";
+import { ImageUpload } from "@/components/admin/ImageUpload";
+import { ViewImageDialog } from "@/components/admin/ViewImageDialog";
+import { MediaReview, R2_FOLDERS } from "@/lib/db-types";
+
+export default function MediaReviewsPage() {
+  const [items, setItems] = useState<MediaReview[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<MediaReview | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    logoUrl: "",
+    index: 0,
+    isActive: true,
+  });
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch("/api/data/media-reviews?activeOnly=false");
+      const data = await response.json();
+      setItems(data.data || []);
+    } catch {
+      toast.error("Failed to fetch data");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const filteredItems = items.filter((item) =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const openDialog = (item?: MediaReview) => {
+    if (item) {
+      setSelectedItem(item);
+      setFormData({
+        name: item.name,
+        logoUrl: item.logoUrl,
+        index: item.index,
+        isActive: item.isActive,
+      });
+    } else {
+      setSelectedItem(null);
+      setFormData({
+        name: "",
+        logoUrl: "",
+        index: items.length,
+        isActive: true,
+      });
+    }
+    setIsDialogOpen(true);
+  };
+
+  const handleSave = async () => {
+    if (!formData.name || !formData.logoUrl) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+    setIsSaving(true);
+    try {
+      const response = await fetch("/api/data/media-reviews", {
+        method: selectedItem ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(
+          selectedItem ? { id: selectedItem.id, ...formData } : formData
+        ),
+      });
+      if (!response.ok)
+        throw new Error((await response.json()).error || "Failed to save");
+      toast.success(selectedItem ? "Media updated!" : "Media created!");
+      setIsDialogOpen(false);
+      fetchData();
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Failed to save");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!selectedItem) return;
+    setIsSaving(true);
+    try {
+      const response = await fetch(
+        `/api/data/media-reviews?id=${
+          selectedItem.id
+        }&logoUrl=${encodeURIComponent(selectedItem.logoUrl)}`,
+        { method: "DELETE" }
+      );
+      if (!response.ok)
+        throw new Error((await response.json()).error || "Failed to delete");
+      toast.success("Media deleted!");
+      setIsDeleteDialogOpen(false);
+      setSelectedItem(null);
+      fetchData();
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Failed to delete");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900">Media Reviews</h1>
+        <p className="text-gray-500 mt-1">
+          Manage media review logos displayed on the website.
+        </p>
+      </div>
+
+      <div className="flex items-center gap-4">
+        <div className="relative flex-1 max-w-sm">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Input
+            placeholder="Search media..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-10"
+          />
+        </div>
+        <Button
+          onClick={() => openDialog()}
+          className="bg-[#D79C60] hover:bg-[#c78d54]"
+        >
+          <Plus className="h-4 w-4 mr-2" />
+          Add Media
+        </Button>
+      </div>
+
+      <div className="bg-white rounded-lg border shadow-sm">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[80px]">Index</TableHead>
+              <TableHead className="w-[100px]">Logo</TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead className="w-[100px]">Status</TableHead>
+              <TableHead className="w-[120px]">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {isLoading ? (
+              Array.from({ length: 5 }).map((_, i) => (
+                <TableRow key={i}>
+                  <TableCell>
+                    <Skeleton className="h-4 w-8" />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className="h-12 w-12 rounded" />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className="h-4 w-32" />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className="h-4 w-16" />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className="h-8 w-20" />
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : filteredItems.length === 0 ? (
+              <TableRow>
+                <TableCell
+                  colSpan={5}
+                  className="text-center py-8 text-gray-500"
+                >
+                  {searchTerm
+                    ? "No media found"
+                    : "No media yet. Add your first media!"}
+                </TableCell>
+              </TableRow>
+            ) : (
+              filteredItems.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell className="font-medium">{item.index}</TableCell>
+                  <TableCell>
+                    <ViewImageDialog
+                      imageUrl={item.logoUrl}
+                      title={item.name}
+                    />
+                  </TableCell>
+                  <TableCell>{item.name}</TableCell>
+                  <TableCell>
+                    <span
+                      className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                        item.isActive
+                          ? "bg-green-100 text-green-800"
+                          : "bg-gray-100 text-gray-800"
+                      }`}
+                    >
+                      {item.isActive ? "Active" : "Inactive"}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => openDialog(item)}
+                      >
+                        <Pencil className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                        onClick={() => {
+                          setSelectedItem(item);
+                          setIsDeleteDialogOpen(true);
+                        }}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>
+              {selectedItem ? "Edit Media" : "Add New Media"}
+            </DialogTitle>
+            <DialogDescription>
+              {selectedItem
+                ? "Update the media details below."
+                : "Fill in the details to add new media."}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Name *</Label>
+              <Input
+                id="name"
+                placeholder="Media name"
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Logo *</Label>
+              <ImageUpload
+                value={formData.logoUrl}
+                onChange={(url) => setFormData({ ...formData, logoUrl: url })}
+                folder={R2_FOLDERS.MEDIA_REVIEWS}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="index">Display Order</Label>
+              <Input
+                id="index"
+                type="number"
+                min="0"
+                value={formData.index}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    index: parseInt(e.target.value) || 0,
+                  })
+                }
+              />
+            </div>
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="isActive"
+                checked={formData.isActive}
+                onCheckedChange={(checked) =>
+                  setFormData({ ...formData, isActive: !!checked })
+                }
+              />
+              <Label htmlFor="isActive">Active (visible on website)</Label>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setIsDialogOpen(false)}
+              disabled={isSaving}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleSave}
+              disabled={isSaving}
+              className="bg-[#D79C60] hover:bg-[#c78d54]"
+            >
+              {isSaving ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                "Save"
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <AlertDialog
+        open={isDeleteDialogOpen}
+        onOpenChange={setIsDeleteDialogOpen}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Media</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete &quot;{selectedItem?.name}&quot;?
+              This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isSaving}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDelete}
+              disabled={isSaving}
+              className="bg-red-600 hover:bg-red-700"
+            >
+              {isSaving ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Deleting...
+                </>
+              ) : (
+                "Delete"
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </div>
+  );
+}
